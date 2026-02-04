@@ -1,0 +1,5 @@
+{
+  "name": "Snaglist",
+  "description": "The snag list app that actually gets used on site. A modern construction management tool.",
+  "requestFramePermissions": []
+}
