@@ -47,8 +47,8 @@ export const SnagCard: React.FC<SnagCardProps> = ({ snag, onClick }) => {
   return (
     <button
       onClick={onClick}
-      className={`w-full bg-white rounded-xl border p-4 text-left hover:shadow-md transition-all duration-200 group ${
-        overdue ? 'border-red-200 hover:border-red-300' : 'border-gray-200 hover:border-primary/30'
+      className={`w-full bg-white rounded-2xl border shadow-sm p-4 text-left hover:shadow-md transition-all duration-200 group ${
+        overdue ? 'border-red-200 hover:border-red-300' : 'border-gray-100 hover:border-primary/30'
       }`}
     >
       <div className="flex gap-4">

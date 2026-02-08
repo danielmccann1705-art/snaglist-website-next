@@ -2,7 +2,10 @@ import React, { useState, useMemo } from 'react';
 import { Search, Filter, X, AlertTriangle, Clock, Calendar, CheckCircle2, Download, Loader2, Map, List } from 'lucide-react';
 import { SnagCard } from '../components/SnagCard';
 import { FloorPlanView } from '../components/FloorPlanView';
+import { MagicLinkHeader } from '../components/MagicLinkHeader';
+import { MagicLinkFooter } from '../components/MagicLinkFooter';
 import { downloadPDF } from '../api/magicLink';
+import { APP_STORE_URL, APP_STORE_BADGE_URL, CTA_VALUE_PROPS } from '../constants';
 import type { MagicLinkInfo, Snag, SnagListData } from '../types';
 
 interface SnagListViewProps {
@@ -49,7 +52,6 @@ export const SnagListView: React.FC<SnagListViewProps> = ({
       const result = await downloadPDF(token);
       if (!result.success) {
         console.error('Failed to download PDF:', result.error);
-        // Could show a toast notification here
       }
     } finally {
       setIsDownloading(false);
@@ -70,6 +72,9 @@ export const SnagListView: React.FC<SnagListViewProps> = ({
   const openCount = snagListData?.openCount ?? snags.filter(s => s.status === 'open').length;
   const inProgressCount = snagListData?.inProgressCount ?? snags.filter(s => s.status === 'in_progress').length;
   const completedCount = snagListData?.completedCount ?? snags.filter(s => ['resolved', 'verified', 'closed'].includes(s.status)).length;
+
+  // Progress percentage
+  const progressPercentage = snags.length > 0 ? Math.round((completedCount / snags.length) * 100) : 0;
 
   // Helper to check if a date is overdue
   const isOverdue = (dueDate: string | undefined): boolean => {
@@ -127,7 +132,6 @@ export const SnagListView: React.FC<SnagListViewProps> = ({
           return statusOrder[a.status] - statusOrder[b.status];
         }
         case 'due_date': {
-          // Overdue first, then by due date, then no due date last
           const aOverdue = isOverdue(a.dueDate);
           const bOverdue = isOverdue(b.dueDate);
           if (aOverdue !== bOverdue) return aOverdue ? -1 : 1;
@@ -148,7 +152,6 @@ export const SnagListView: React.FC<SnagListViewProps> = ({
   const groupedSnags = useMemo((): SnagGroup[] => {
     const groups: SnagGroup[] = [];
 
-    // Only group open/in_progress snags by due date; others go to their own section
     const activeSnags = filteredSnags.filter(s => s.status === 'open' || s.status === 'in_progress');
     const completedSnags = filteredSnags.filter(s => ['resolved', 'verified', 'closed'].includes(s.status));
 
@@ -223,14 +226,17 @@ export const SnagListView: React.FC<SnagListViewProps> = ({
   const hasActiveFilters = searchQuery || statusFilter !== 'all' || sortBy !== 'due_date';
 
   const groupStyleClasses = {
-    danger: 'bg-red-50 text-red-700 border-red-200',
-    warning: 'bg-amber-50 text-amber-700 border-amber-200',
-    normal: 'bg-gray-50 text-gray-700 border-gray-200',
-    muted: 'bg-gray-50 text-gray-500 border-gray-200',
+    danger: 'bg-red-50 text-red-800 border-l-4 border-l-red-500',
+    warning: 'bg-amber-50 text-amber-800 border-l-4 border-l-amber-500',
+    normal: 'bg-gray-50 text-gray-700 border-l-4 border-l-gray-300',
+    muted: 'bg-gray-50 text-gray-500 border-l-4 border-l-gray-200',
   };
 
   return (
     <div className="min-h-screen flex flex-col bg-background-light">
+      {/* Branding bar — scrolls away */}
+      <MagicLinkHeader sticky={false} />
+
       {/* Header */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-4 py-4">
@@ -300,6 +306,20 @@ export const SnagListView: React.FC<SnagListViewProps> = ({
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
                 Complete: {completedCount}
               </span>
+            </div>
+          </div>
+
+          {/* Progress Bar */}
+          <div className="mb-4">
+            <div className="flex justify-between text-sm mb-1.5">
+              <span className="text-gray-600">{completedCount} of {snags.length} snags completed</span>
+              <span className="text-gray-500 font-medium">{progressPercentage}%</span>
+            </div>
+            <div className="h-2.5 bg-gray-200 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-green-500 rounded-full transition-all duration-500"
+                style={{ width: `${progressPercentage}%` }}
+              />
             </div>
           </div>
 
@@ -408,7 +428,7 @@ export const SnagListView: React.FC<SnagListViewProps> = ({
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 pb-6">
+      <main className="flex-1 pb-16 sm:pb-6">
         <div className="max-w-2xl mx-auto px-4 py-4">
           {/* Floor Plan View */}
           {showFloorPlan && hasFloorPlanData && (
@@ -431,65 +451,93 @@ export const SnagListView: React.FC<SnagListViewProps> = ({
           {/* Grouped Snag List */}
           {!showFloorPlan && filteredSnags.length > 0 ? (
             <div className="space-y-6">
-              {groupedSnags.map(group => (
-                <div key={group.key}>
-                  {/* Group Header */}
-                  <div className={`flex items-center gap-2 mb-3 px-3 py-2 rounded-lg border ${groupStyleClasses[group.style]}`}>
-                    {group.style === 'danger' && <AlertTriangle className="w-4 h-4" />}
-                    {group.style === 'warning' && <Clock className="w-4 h-4" />}
-                    {group.key === 'upcoming' && <Calendar className="w-4 h-4" />}
-                    {group.key === 'completed' && <CheckCircle2 className="w-4 h-4" />}
-                    <span className="text-xs font-semibold uppercase tracking-wider">
-                      {group.label}
-                    </span>
-                    <span className="text-xs opacity-70">({group.snags.length})</span>
+              {groupedSnags.map((group, groupIndex) => (
+                <React.Fragment key={group.key}>
+                  <div>
+                    {/* Group Header */}
+                    <div className={`flex items-center gap-2 mb-3 px-3 py-2 rounded-r-lg ${groupStyleClasses[group.style]}`}>
+                      {group.style === 'danger' && <AlertTriangle className="w-4 h-4" />}
+                      {group.style === 'warning' && <Clock className="w-4 h-4" />}
+                      {group.key === 'upcoming' && <Calendar className="w-4 h-4" />}
+                      {group.key === 'completed' && <CheckCircle2 className="w-4 h-4" />}
+                      <span className="text-xs font-semibold uppercase tracking-wider">
+                        {group.label}
+                      </span>
+                      <span className="text-xs opacity-70">({group.snags.length})</span>
+                    </div>
+
+                    {/* Group Snags */}
+                    <div className="space-y-3">
+                      {group.snags.map(snag => (
+                        <SnagCard
+                          key={snag.id}
+                          snag={snag}
+                          onClick={() => onSelectSnag(snag)}
+                        />
+                      ))}
+                    </div>
                   </div>
 
-                  {/* Group Snags */}
-                  <div className="space-y-3">
-                    {group.snags.map(snag => (
-                      <SnagCard
-                        key={snag.id}
-                        snag={snag}
-                        onClick={() => onSelectSnag(snag)}
-                      />
-                    ))}
-                  </div>
-                </div>
+                  {/* Inline CTA card after 3rd group */}
+                  {groupIndex === 2 && (
+                    <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl border border-orange-100 p-5 text-center">
+                      <p className="text-base font-semibold text-gray-900 mb-1">Managing your own projects?</p>
+                      <p className="text-sm text-gray-500 mb-3">
+                        {CTA_VALUE_PROPS.join(' \u00B7 ')}
+                      </p>
+                      <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer">
+                        <img
+                          src={APP_STORE_BADGE_URL}
+                          alt="Download on the App Store"
+                          className="h-10 mx-auto"
+                        />
+                      </a>
+                    </div>
+                  )}
+                </React.Fragment>
               ))}
             </div>
           ) : !showFloorPlan ? (
             <div className="text-center py-12">
-              <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                <Search className="w-8 h-8 text-gray-400" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-1">No snags found</h3>
-              <p className="text-gray-500 text-sm">
-                {hasActiveFilters
-                  ? 'Try adjusting your filters'
-                  : 'No snags have been shared with this link'}
-              </p>
-              {hasActiveFilters && (
-                <button
-                  onClick={clearFilters}
-                  className="mt-4 text-primary font-medium text-sm hover:underline"
-                >
-                  Clear filters
-                </button>
+              {hasActiveFilters ? (
+                <>
+                  <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
+                    <Search className="w-8 h-8 text-gray-400" />
+                  </div>
+                  <h3 className="font-semibold text-gray-900 mb-1">No snags found</h3>
+                  <p className="text-gray-500 text-sm">Try adjusting your filters</p>
+                  <button
+                    onClick={clearFilters}
+                    className="mt-4 text-primary font-medium text-sm hover:underline"
+                  >
+                    Clear filters
+                  </button>
+                </>
+              ) : (
+                <>
+                  <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
+                    <CheckCircle2 className="w-8 h-8 text-green-600" />
+                  </div>
+                  <h3 className="font-semibold text-gray-900 mb-1">All clear!</h3>
+                  <p className="text-gray-500 text-sm mb-4">No snags have been shared with this link</p>
+                  <p className="text-sm text-gray-600 mb-3">Want to create your own snag lists?</p>
+                  <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer">
+                    <img
+                      src={APP_STORE_BADGE_URL}
+                      alt="Download on the App Store"
+                      className="h-10 mx-auto"
+                    />
+                  </a>
+                </>
               )}
             </div>
           ) : null}
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="py-4 text-center text-sm text-gray-500 border-t border-gray-200 bg-white">
-        Powered by <a href="/" className="text-primary hover:underline font-medium">Snaglist</a>
-        <span className="mx-2">·</span>
-        <a href="https://snaglist.app" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-          Get your own free
-        </a>
-      </footer>
+      {/* Footers */}
+      <MagicLinkFooter variant="inline" />
+      <MagicLinkFooter variant="sticky" />
     </div>
   );
 };

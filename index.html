@@ -3,7 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Snaglist - The Snag List App</title>
+    <title>Snaglist — Professional Snag List Management</title>
+    <link rel="icon" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="apple-itunes-app" content="app-id=0000000000">
+    <meta name="description" content="Create snag lists, share with contractors, and track completions.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Snaglist — View Snag List">
+    <meta property="og:description" content="Review and complete snags assigned to you">
+    <meta property="og:image" content="/Snaglist_Logo.jpeg">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link href="https://fonts.gstatic.com" crossorigin />
@@ -30,6 +38,8 @@
               'float': 'float 6s ease-in-out infinite',
               'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
               'scale-in': 'scaleIn 0.5s ease-out forwards',
+              'bounce-in': 'bounceIn 0.6s ease-out forwards',
+              'check-draw': 'checkDraw 0.6s ease-out 0.3s forwards',
             },
             keyframes: {
               fadeInUp: {
@@ -55,6 +65,16 @@
               scaleIn: {
                  '0%': { opacity: '0', transform: 'scale(0.9)' },
                  '100%': { opacity: '1', transform: 'scale(1)' },
+              },
+              bounceIn: {
+                '0%': { opacity: '0', transform: 'scale(0.3)' },
+                '50%': { transform: 'scale(1.05)' },
+                '70%': { transform: 'scale(0.95)' },
+                '100%': { opacity: '1', transform: 'scale(1)' },
+              },
+              checkDraw: {
+                '0%': { strokeDashoffset: '50' },
+                '100%': { strokeDashoffset: '0' },
               }
             }
           },

@@ -5,6 +5,8 @@ import {
 } from 'lucide-react';
 import { StatusBadge, PriorityBadge } from '../components/StatusBadge';
 import { CompletionForm } from '../components/CompletionForm';
+import { MagicLinkHeader } from '../components/MagicLinkHeader';
+import { MagicLinkFooter } from '../components/MagicLinkFooter';
 import type { MagicLinkInfo, Snag, SnagListData } from '../types';
 
 interface SnagDetailViewProps {
@@ -105,25 +107,29 @@ export const SnagDetailView: React.FC<SnagDetailViewProps> = ({
   return (
     <div className="min-h-screen flex flex-col bg-background-light">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-2xl mx-auto px-4 py-3 flex items-center gap-3">
-          <button
-            onClick={onBack}
-            className="p-2 -ml-2 hover:bg-gray-100 rounded-lg transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5 text-gray-700" />
-          </button>
-          <div className="flex-1 min-w-0">
-            <h1 className="font-semibold text-gray-900 truncate">
+      <MagicLinkHeader
+        leftContent={
+          <div className="flex items-center gap-2">
+            <button
+              onClick={onBack}
+              className="p-2 -ml-2 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              <ArrowLeft className="w-5 h-5 text-gray-700" />
+            </button>
+          </div>
+        }
+        centerContent={
+          <div className="min-w-0">
+            <h1 className="font-semibold text-gray-900 truncate text-sm">
               #{snagIndex} - {snag.title}
             </h1>
             <p className="text-xs text-gray-500 truncate">{projectName}</p>
           </div>
-        </div>
-      </header>
+        }
+      />
 
       {/* Main Content */}
-      <main className="flex-1 pb-8">
+      <main className="flex-1 pb-16 sm:pb-8">
         <div className="max-w-2xl mx-auto">
           {/* Hero Photo Section */}
           {hasPhotos ? (
@@ -260,13 +266,16 @@ export const SnagDetailView: React.FC<SnagDetailViewProps> = ({
                     <button
                       key={photo.id}
                       onClick={() => setLightboxIndex(index)}
-                      className="aspect-square rounded-lg overflow-hidden bg-gray-100"
+                      className="relative aspect-square rounded-lg overflow-hidden bg-gray-100"
                     >
                       <img
                         src={photo.thumbnailUrl || photo.url}
                         alt={`Before ${index + 1}`}
                         className="w-full h-full object-cover hover:opacity-90 transition-opacity"
                       />
+                      <span className="absolute top-1.5 left-1.5 px-2 py-0.5 bg-black/60 text-white text-[10px] font-bold uppercase rounded">
+                        Before
+                      </span>
                     </button>
                   ))}
                 </div>
@@ -285,13 +294,16 @@ export const SnagDetailView: React.FC<SnagDetailViewProps> = ({
                     <button
                       key={photo.id}
                       onClick={() => setLightboxIndex(beforePhotos.length + index)}
-                      className="aspect-square rounded-lg overflow-hidden bg-gray-100"
+                      className="relative aspect-square rounded-lg overflow-hidden bg-gray-100"
                     >
                       <img
                         src={photo.thumbnailUrl || photo.url}
                         alt={`After ${index + 1}`}
                         className="w-full h-full object-cover hover:opacity-90 transition-opacity"
                       />
+                      <span className="absolute top-1.5 left-1.5 px-2 py-0.5 bg-green-600/80 text-white text-[10px] font-bold uppercase rounded">
+                        After
+                      </span>
                     </button>
                   ))}
                 </div>
@@ -331,6 +343,10 @@ export const SnagDetailView: React.FC<SnagDetailViewProps> = ({
           </div>
         </div>
       </main>
+
+      {/* Footers */}
+      <MagicLinkFooter variant="inline" />
+      <MagicLinkFooter variant="sticky" />
 
       {/* Lightbox */}
       {lightboxIndex !== null && (
@@ -372,9 +388,18 @@ export const SnagDetailView: React.FC<SnagDetailViewProps> = ({
             onClick={(e) => e.stopPropagation()}
           />
 
-          {/* Counter */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/70 text-sm">
-            {lightboxIndex + 1} / {allPhotos.length}
+          {/* Label + Counter */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1">
+            <span className={`px-2 py-0.5 rounded text-xs font-bold uppercase ${
+              lightboxIndex < beforePhotos.length
+                ? 'bg-black/60 text-white'
+                : 'bg-green-600/80 text-white'
+            }`}>
+              {lightboxIndex < beforePhotos.length ? 'Before' : 'After'}
+            </span>
+            <span className="text-white/70 text-sm">
+              {lightboxIndex + 1} / {allPhotos.length}
+            </span>
           </div>
         </div>
       )}

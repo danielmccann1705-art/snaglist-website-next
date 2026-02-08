@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Send, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { Send, AlertCircle, Loader2 } from 'lucide-react';
 import { PhotoUpload } from './PhotoUpload';
 import { uploadPhoto, submitCompletion } from '../api/magicLink';
+import { APP_STORE_URL, APP_STORE_BADGE_URL, POST_COMPLETION_CTA } from '../constants';
 import type { Snag, CompletionSubmission } from '../types';
 
 interface CompletionFormProps {
@@ -67,7 +68,7 @@ export const CompletionForm: React.FC<CompletionFormProps> = ({
         setSuccess(true);
         setTimeout(() => {
           onSuccess();
-        }, 2000);
+        }, 4000);
       } else {
         setError(result.message);
       }
@@ -81,13 +82,35 @@ export const CompletionForm: React.FC<CompletionFormProps> = ({
   if (success) {
     return (
       <div className="flex flex-col items-center justify-center py-12 px-4">
-        <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-4">
-          <CheckCircle2 className="w-8 h-8 text-green-600" />
+        {/* Animated checkmark */}
+        <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mb-4 animate-bounce-in">
+          <svg className="w-10 h-10 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <path
+              d="M5 13l4 4L19 7"
+              style={{ strokeDasharray: 50, strokeDashoffset: 50 }}
+              className="animate-check-draw"
+            />
+          </svg>
         </div>
-        <h3 className="text-xl font-bold text-gray-900 mb-2">Submitted!</h3>
-        <p className="text-gray-600 text-center max-w-xs">
+        <h3 className="text-xl font-bold text-gray-900 mb-2 animate-fade-in-up">Submitted!</h3>
+        <p className="text-gray-600 text-center max-w-xs" style={{ animation: 'fadeInUp 0.8s ease-out 0.2s forwards', opacity: 0 }}>
           Your completion has been submitted for review. The project manager will be notified.
         </p>
+
+        {/* Post-completion CTA */}
+        <div
+          className="mt-6 bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl border border-orange-100 p-5 text-center w-full max-w-xs"
+          style={{ animation: 'fadeInUp 0.8s ease-out 0.5s forwards', opacity: 0 }}
+        >
+          <p className="text-sm text-gray-700 mb-3">{POST_COMPLETION_CTA}</p>
+          <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer">
+            <img
+              src={APP_STORE_BADGE_URL}
+              alt="Download on the App Store"
+              className="h-10 mx-auto"
+            />
+          </a>
+        </div>
       </div>
     );
   }

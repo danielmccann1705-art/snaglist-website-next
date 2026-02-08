@@ -1,0 +1,12 @@
+export const APP_STORE_ID = '0000000000';
+export const APP_STORE_URL = 'https://apps.apple.com/app/snaglist/id0000000000';
+export const APP_STORE_BADGE_URL = 'https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg';
+export const WEBSITE_URL = 'https://snaglist.app';
+export const LOGO_PATH = '/Snaglist_Logo.jpeg';
+export const APP_NAME = 'Snaglist';
+export const APP_TAGLINE = 'Professional Snag List Management';
+export const CTA_VALUE_PROPS = ['Create snag lists', 'Share with contractors', 'Track completions'];
+export const CTA_HEADING = 'Managing your own projects?';
+export const CTA_SUBHEADING = 'Get Snaglist free';
+export const POST_COMPLETION_CTA = 'Want to manage your own projects? Download Snaglist \u2014 it\'s free';
+export const EMPTY_STATE_CTA = 'No snags to review. Want to create your own snag lists? Get Snaglist free';

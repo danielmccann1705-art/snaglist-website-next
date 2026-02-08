@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { ClipboardList, AlertTriangle, Loader2, Shield, Clock, Eye } from 'lucide-react';
+import { AlertTriangle, Loader2, Shield, Clock, Eye } from 'lucide-react';
 import { PinEntry } from '../components/PinEntry';
+import { MagicLinkHeader } from '../components/MagicLinkHeader';
+import { MagicLinkFooter } from '../components/MagicLinkFooter';
 import { validateMagicLink, verifyPin } from '../api/magicLink';
+import { LOGO_PATH, APP_NAME, APP_TAGLINE } from '../constants';
 import type { MagicLinkInfo, Snag } from '../types';
 
 interface MagicLinkLandingProps {
@@ -44,9 +47,6 @@ export const MagicLinkLanding: React.FC<MagicLinkLandingProps> = ({ token, onAut
   }, [token]);
 
   const handleContinue = async (linkInfo: MagicLinkInfo) => {
-    // For links without PIN, we still need to fetch snags
-    // The API will return snags directly on validation for non-PIN links
-    // For now, proceed with empty snags - they'll be loaded in the list view
     onAuthenticated(linkInfo, []);
   };
 
@@ -64,7 +64,6 @@ export const MagicLinkLanding: React.FC<MagicLinkLandingProps> = ({ token, onAut
         attemptsRemaining: result.attemptsRemaining,
       });
 
-      // Check for lockout
       if (result.attemptsRemaining === 0) {
         setState({
           stage: 'error',
@@ -78,9 +77,12 @@ export const MagicLinkLanding: React.FC<MagicLinkLandingProps> = ({ token, onAut
   if (state.stage === 'loading') {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-background-light p-4">
-        <div className="flex flex-col items-center">
-          <Loader2 className="w-10 h-10 text-primary animate-spin mb-4" />
-          <p className="text-gray-600">Validating link...</p>
+        <div className="flex flex-col items-center animate-fade-in-up">
+          <img src={LOGO_PATH} alt={APP_NAME} className="w-20 h-20 rounded-2xl shadow-lg animate-pulse-slow mb-4" />
+          <h1 className="text-xl font-bold text-gray-900 mb-1">{APP_NAME}</h1>
+          <p className="text-sm text-gray-500 mb-6">{APP_TAGLINE}</p>
+          <Loader2 className="w-6 h-6 text-primary animate-spin mb-2" />
+          <p className="text-sm text-gray-600">Validating link...</p>
         </div>
       </div>
     );
@@ -89,31 +91,29 @@ export const MagicLinkLanding: React.FC<MagicLinkLandingProps> = ({ token, onAut
   // Error state
   if (state.stage === 'error') {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-background-light p-4">
-        <div className="max-w-md w-full bg-white rounded-2xl shadow-lg p-8 text-center">
-          <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-6">
-            {state.isExpired ? (
-              <Clock className="w-8 h-8 text-red-600" />
-            ) : (
-              <AlertTriangle className="w-8 h-8 text-red-600" />
-            )}
-          </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            {state.isExpired ? 'Link Expired' : 'Invalid Link'}
-          </h2>
-          <p className="text-gray-600 mb-6">{state.message}</p>
-          <p className="text-sm text-gray-500">
-            Please contact the project manager for a new link.
-          </p>
-        </div>
+      <div className="min-h-screen flex flex-col bg-background-light">
+        <MagicLinkHeader showCTA={false} />
 
-        <a
-          href="/"
-          className="mt-8 flex items-center gap-2 text-gray-500 hover:text-primary transition-colors"
-        >
-          <ClipboardList className="w-5 h-5" />
-          <span className="font-medium">Snaglist</span>
-        </a>
+        <main className="flex-1 flex items-center justify-center p-4">
+          <div className="max-w-md w-full bg-white rounded-2xl shadow-lg p-8 text-center animate-scale-in">
+            <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-6">
+              {state.isExpired ? (
+                <Clock className="w-8 h-8 text-red-600" />
+              ) : (
+                <AlertTriangle className="w-8 h-8 text-red-600" />
+              )}
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              {state.isExpired ? 'Link Expired' : 'Invalid Link'}
+            </h2>
+            <p className="text-gray-600 mb-6">{state.message}</p>
+            <p className="text-sm text-gray-500">
+              Please contact the project manager for a new link.
+            </p>
+          </div>
+        </main>
+
+        <MagicLinkFooter variant="inline" />
       </div>
     );
   }
@@ -123,13 +123,7 @@ export const MagicLinkLanding: React.FC<MagicLinkLandingProps> = ({ token, onAut
 
   return (
     <div className="min-h-screen flex flex-col bg-background-light">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200 px-4 py-4">
-        <div className="max-w-lg mx-auto flex items-center gap-2">
-          <ClipboardList className="w-6 h-6 text-primary" />
-          <span className="font-bold text-lg">Snaglist</span>
-        </div>
-      </header>
+      <MagicLinkHeader />
 
       {/* Main Content */}
       <main className="flex-1 flex items-center justify-center p-4">
@@ -172,10 +166,7 @@ export const MagicLinkLanding: React.FC<MagicLinkLandingProps> = ({ token, onAut
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="py-4 text-center text-sm text-gray-500">
-        Powered by <a href="/" className="text-primary hover:underline">Snaglist</a>
-      </footer>
+      <MagicLinkFooter variant="inline" />
     </div>
   );
 };
