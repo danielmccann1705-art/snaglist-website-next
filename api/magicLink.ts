@@ -10,6 +10,13 @@ export const getQRCodeUrl = (linkId: string, size: number = 300): string => {
 // Store session token after PIN verification
 let sessionToken: string | null = null;
 
+// Store magic link token for query-param auth on endpoints like uploads
+let magicLinkToken: string | null = null;
+
+export function setMagicLinkToken(token: string) {
+  magicLinkToken = token;
+}
+
 export function setSessionToken(token: string) {
   sessionToken = token;
 }
@@ -278,7 +285,8 @@ export async function uploadPhoto(file: File): Promise<{
       headers['Authorization'] = `Bearer ${sessionToken}`;
     }
 
-    const response = await fetch(`${API_BASE}/api/v1/uploads/photo`, {
+    const tokenParam = magicLinkToken ? `?token=${magicLinkToken}` : '';
+    const response = await fetch(`${API_BASE}/api/v1/uploads/photo${tokenParam}`, {
       method: 'POST',
       headers,
       body: formData,

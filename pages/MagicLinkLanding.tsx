@@ -3,7 +3,7 @@ import { AlertTriangle, Loader2, Shield, Clock, Eye } from 'lucide-react';
 import { PinEntry } from '../components/PinEntry';
 import { MagicLinkHeader } from '../components/MagicLinkHeader';
 import { MagicLinkFooter } from '../components/MagicLinkFooter';
-import { validateMagicLink, verifyPin } from '../api/magicLink';
+import { validateMagicLink, verifyPin, setMagicLinkToken } from '../api/magicLink';
 import { LOGO_PATH, APP_NAME, APP_TAGLINE } from '../constants';
 import type { MagicLinkInfo, Snag } from '../types';
 
@@ -24,6 +24,7 @@ export const MagicLinkLanding: React.FC<MagicLinkLandingProps> = ({ token, onAut
   useEffect(() => {
     const validate = async () => {
       const result = await validateMagicLink(token);
+      setMagicLinkToken(token);
 
       if (!result.valid || !result.linkInfo) {
         setState({
