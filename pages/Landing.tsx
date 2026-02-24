@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle2, MessageSquare, Camera, Link, FileText, MapPin, Eye, Smartphone, Table, Hammer, Wifi, Battery, Signal } from 'lucide-react';
+import { CheckCircle2, MessageSquare, Camera, Link, FileText, MapPin, Eye, Smartphone, Table, Hammer } from 'lucide-react';
 import { WaitlistForm } from '../components/WaitlistForm';
 
 export const Landing: React.FC = () => {
@@ -31,101 +31,14 @@ export const Landing: React.FC = () => {
             {/* Phone Mockup */}
             <div className="w-full lg:w-1/2 flex justify-center lg:justify-end relative z-0 animate-fade-in-right opacity-0 [animation-fill-mode:forwards] delay-300">
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-orange-100/50 rounded-full blur-3xl -z-10 animate-pulse-slow"></div>
-              <div className="relative w-full max-w-[360px] aspect-[9/18] bg-[#181411] rounded-[3rem] border-[8px] border-[#181411] shadow-2xl overflow-hidden ring-1 ring-gray-900/5 animate-float hover:scale-[1.02] transition-transform duration-500">
-                {/* Notch */}
-                <div className="absolute top-0 w-full h-8 bg-[#181411] z-20 rounded-t-[2.5rem] flex justify-center">
-                  <div className="w-24 h-5 bg-black rounded-b-2xl"></div>
-                </div>
-
-                {/* App Screen */}
-                <div className="absolute inset-0 bg-[#f8f7f5] flex flex-col text-[#181411] text-xs pt-8">
-                  {/* Status Bar */}
-                  <div className="flex items-center justify-between px-5 py-1.5 bg-white">
-                    <span className="text-[10px] font-semibold">9:41</span>
-                    <div className="flex items-center gap-1">
-                      <Signal className="w-3 h-3" />
-                      <Wifi className="w-3 h-3" />
-                      <Battery className="w-3.5 h-3.5" />
-                    </div>
-                  </div>
-
-                  {/* Project Header */}
-                  <div className="bg-white px-4 py-3 border-b border-gray-100">
-                    <p className="font-bold text-sm leading-tight">Riverside Apartments</p>
-                    <p className="text-[10px] text-gray-400">Block A</p>
-                  </div>
-
-                  {/* Progress Bar */}
-                  <div className="px-4 py-2.5 bg-white border-b border-gray-100">
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[10px] font-medium text-gray-500">Progress</span>
-                      <span className="text-[10px] font-bold text-primary">8/12 snags</span>
-                    </div>
-                    <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-                      <div className="h-full bg-primary rounded-full" style={{ width: '65%' }}></div>
-                    </div>
-                  </div>
-
-                  {/* Snag List Items */}
-                  <div className="flex-1 overflow-hidden px-3 py-2 flex flex-col gap-1.5">
-                    {/* Snag 1 */}
-                    <div className="bg-white rounded-xl px-3 py-2.5 flex items-center gap-2.5 shadow-sm border border-gray-50">
-                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-200 to-green-100 shrink-0"></div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-[11px] font-semibold truncate">Kitchen splashback cracked</p>
-                        <p className="text-[9px] text-gray-400">Tiling</p>
-                      </div>
-                      <span className="text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-green-100 text-green-700 whitespace-nowrap">Resolved</span>
-                    </div>
-                    {/* Snag 2 */}
-                    <div className="bg-white rounded-xl px-3 py-2.5 flex items-center gap-2.5 shadow-sm border border-gray-50">
-                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-red-200 to-orange-100 shrink-0"></div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-[11px] font-semibold truncate">Paint scuff on hallway wall</p>
-                        <p className="text-[9px] text-gray-400">Painting</p>
-                      </div>
-                      <span className="text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-red-100 text-red-700 whitespace-nowrap">Open</span>
-                    </div>
-                    {/* Snag 3 */}
-                    <div className="bg-white rounded-xl px-3 py-2.5 flex items-center gap-2.5 shadow-sm border border-gray-50">
-                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-200 to-blue-100 shrink-0"></div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-[11px] font-semibold truncate">Bathroom extractor fan noisy</p>
-                        <p className="text-[9px] text-gray-400">Electrical</p>
-                      </div>
-                      <span className="text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700 whitespace-nowrap">In Progress</span>
-                    </div>
-                    {/* Snag 4 */}
-                    <div className="bg-white rounded-xl px-3 py-2.5 flex items-center gap-2.5 shadow-sm border border-gray-50">
-                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-200 to-yellow-100 shrink-0"></div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-[11px] font-semibold truncate">Door frame not flush</p>
-                        <p className="text-[9px] text-gray-400">Carpentry</p>
-                      </div>
-                      <span className="text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-green-100 text-green-700 whitespace-nowrap">Resolved</span>
-                    </div>
-                  </div>
-
-                  {/* Bottom Tab Bar */}
-                  <div className="bg-white border-t border-gray-100 px-2 py-2 flex justify-around items-center">
-                    <div className="flex flex-col items-center gap-0.5">
-                      <CheckCircle2 className="w-4 h-4 text-primary" />
-                      <span className="text-[8px] font-semibold text-primary">Snags</span>
-                    </div>
-                    <div className="flex flex-col items-center gap-0.5">
-                      <Camera className="w-4 h-4 text-gray-300" />
-                      <span className="text-[8px] text-gray-300">Photos</span>
-                    </div>
-                    <div className="flex flex-col items-center gap-0.5">
-                      <FileText className="w-4 h-4 text-gray-300" />
-                      <span className="text-[8px] text-gray-300">Reports</span>
-                    </div>
-                    <div className="flex flex-col items-center gap-0.5">
-                      <MapPin className="w-4 h-4 text-gray-300" />
-                      <span className="text-[8px] text-gray-300">More</span>
-                    </div>
-                  </div>
-                </div>
+              <div className="relative w-full max-w-[320px] bg-[#181411] rounded-[3rem] border-[10px] border-[#181411] shadow-2xl overflow-hidden ring-1 ring-gray-900/5 animate-float hover:scale-[1.02] transition-transform duration-500">
+                {/* Dynamic Island */}
+                <div className="absolute top-2 left-1/2 -translate-x-1/2 w-28 h-[26px] bg-black rounded-full z-20"></div>
+                <img
+                  src="/app-screenshot.jpeg"
+                  alt="Snaglist app showing a project with snag list, status filters, and contractor tabs"
+                  className="w-full h-auto block rounded-[2rem]"
+                />
               </div>
             </div>
           </div>
@@ -309,7 +222,7 @@ export const Landing: React.FC = () => {
           <h2 className="text-white text-2xl md:text-3xl font-black leading-tight tracking-[-0.033em] mb-3">
             Stop chasing subbies on WhatsApp.
           </h2>
-          <p className="text-white/80 text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-8">
+          <p className="text-white/90 text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-8">
             Capture snags in seconds, share via Magic Links, generate PDF reports in one tap. Join the waitlist for early access.
           </p>
           <div className="flex justify-center">
@@ -385,14 +298,14 @@ export const Landing: React.FC = () => {
           <h2 className="text-white text-3xl md:text-4xl font-black leading-tight tracking-[-0.033em] mb-4">
             Built in the back of a van. Ready for your site.
           </h2>
-          <p className="text-gray-400 text-lg leading-relaxed max-w-2xl mx-auto mb-8">
+          <p className="text-gray-300 text-lg leading-relaxed max-w-2xl mx-auto mb-8">
             Snaglist was designed by a site manager who spent 15 years chasing subbies on WhatsApp. No VC boardroom. No focus groups. Just a tool built to do the job — fast, simple, professional.
           </p>
           <div className="flex justify-center mb-4">
             <WaitlistForm variant="hero" darkMode />
           </div>
-          <p className="text-gray-500 text-sm mt-2">Launching soon. Be the first to know.</p>
-          <p className="text-gray-600 text-xs mt-1">iOS first. Android to follow.</p>
+          <p className="text-gray-400 text-sm mt-2">Launching soon. Be the first to know.</p>
+          <p className="text-gray-500 text-xs mt-1">iOS first. Android to follow.</p>
         </div>
       </section>
     </>
