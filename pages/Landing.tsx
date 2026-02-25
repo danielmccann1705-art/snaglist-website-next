@@ -6,7 +6,7 @@ export const Landing: React.FC = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative w-full bg-white dark:bg-background-dark py-12 md:py-20 lg:py-24 overflow-hidden">
+      <section className="relative w-full bg-white py-12 md:py-20 lg:py-24 overflow-hidden">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-10">
           <div className="flex flex-col gap-10 lg:flex-row items-center">
             <div className="flex flex-col gap-6 lg:w-1/2 text-left items-start z-10">
@@ -30,7 +30,6 @@ export const Landing: React.FC = () => {
 
             {/* Phone Mockup */}
             <div className="w-full lg:w-1/2 flex justify-center lg:justify-end relative z-0 animate-fade-in-right opacity-0 [animation-fill-mode:forwards] delay-300">
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-orange-100/50 rounded-full blur-3xl -z-10 animate-pulse-slow"></div>
               <div className="relative w-full max-w-[320px] bg-[#181411] rounded-[3rem] border-[10px] border-[#181411] shadow-2xl overflow-hidden ring-1 ring-gray-900/5 animate-float hover:scale-[1.02] transition-transform duration-500">
                 {/* Dynamic Island */}
                 <div className="absolute top-2 left-1/2 -translate-x-1/2 w-28 h-[26px] bg-black rounded-full z-20"></div>
