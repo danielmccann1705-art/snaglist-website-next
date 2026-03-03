@@ -56,7 +56,7 @@ export const CompletionForm: React.FC<CompletionFormProps> = ({
       // Submit completion
       const submission: CompletionSubmission = {
         contractorName: contractorName.trim(),
-        notes: notes.trim() || undefined,
+        notes: notes.trim() || null,
         photoUrls: photoUrls.length > 0 ? photoUrls : undefined,
       };
 

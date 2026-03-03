@@ -1,6 +1,6 @@
-export const APP_STORE_ID = '';
-export const APP_STORE_URL = '';
-export const APP_STORE_BADGE_URL = '';
+export const APP_STORE_ID = '6758858102';
+export const APP_STORE_URL = 'https://apps.apple.com/us/app/snaglist/id6758858102';
+export const APP_STORE_BADGE_URL = 'https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83';
 export const WEBSITE_URL = 'https://snaglist.app';
 export const LOGO_PATH = '/Snaglist_Logo.jpeg';
 export const APP_NAME = 'Snaglist';
