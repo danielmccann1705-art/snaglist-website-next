@@ -1,6 +1,6 @@
 import type { MagicLinkInfo, Snag, SnagListData, CompletionSubmission, CompletionResponse } from '../types';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'https://snaglist-backend.fly.dev';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://api.snaglist.dev';
 
 // MARK: - QR Code URL Helper
 export const getQRCodeUrl = (linkId: string, size: number = 300): string => {

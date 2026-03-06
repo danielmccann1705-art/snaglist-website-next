@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "details": [{
+      "appIDs": ["52ZZHYHM62.com.snaglist.app"],
+      "components": [{ "/": "/m/*" }]
+    }]
+  },
+  "appclips": {
+    "apps": ["52ZZHYHM62.com.snaglist.app.Clip"]
+  }
+}
