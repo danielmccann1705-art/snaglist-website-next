@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { Send, AlertCircle, Loader2 } from 'lucide-react';
-import { PhotoUpload } from './PhotoUpload';
-import { uploadPhoto, submitCompletion } from '../api/magicLink';
-import { APP_STORE_URL, APP_STORE_BADGE_URL, POST_COMPLETION_CTA } from '../constants';
-import type { Snag, CompletionSubmission } from '../types';
+import React, { useState } from "react";
+import { Send, AlertCircle, Loader2 } from "lucide-react";
+import { PhotoUpload } from "./PhotoUpload";
+import { uploadPhoto, submitCompletion } from "../api/magicLink";
+import { APP_STORE_URL, POST_COMPLETION_CTA } from "../constants";
+import { Pin } from "../app/components/Brand";
+import { track } from "../app/lib/analytics";
+import type { Snag, CompletionSubmission } from "../types";
 
 interface CompletionFormProps {
   snag: Snag;
@@ -18,8 +20,8 @@ export const CompletionForm: React.FC<CompletionFormProps> = ({
   onSuccess,
   onCancel,
 }) => {
-  const [contractorName, setContractorName] = useState('');
-  const [notes, setNotes] = useState('');
+  const [contractorName, setContractorName] = useState("");
+  const [notes, setNotes] = useState("");
   const [photos, setPhotos] = useState<File[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -31,7 +33,7 @@ export const CompletionForm: React.FC<CompletionFormProps> = ({
     setError(null);
 
     if (!contractorName.trim()) {
-      setError('Please enter your name');
+      setError("Please enter your name");
       return;
     }
 
@@ -46,7 +48,7 @@ export const CompletionForm: React.FC<CompletionFormProps> = ({
         if (result.success && result.url) {
           photoUrls.push(result.url);
         } else {
-          throw new Error(result.error || 'Failed to upload photo');
+          throw new Error(result.error || "Failed to upload photo");
         }
         setUploadProgress(Math.round(((i + 1) / photos.length) * 50));
       }
@@ -73,7 +75,9 @@ export const CompletionForm: React.FC<CompletionFormProps> = ({
         setError(result.message);
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unexpected error occurred');
+      setError(
+        err instanceof Error ? err.message : "An unexpected error occurred",
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -82,33 +86,28 @@ export const CompletionForm: React.FC<CompletionFormProps> = ({
   if (success) {
     return (
       <div className="flex flex-col items-center justify-center py-12 px-4">
-        {/* Animated checkmark */}
-        <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mb-4 animate-bounce-in">
-          <svg className="w-10 h-10 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-            <path
-              d="M5 13l4 4L19 7"
-              style={{ strokeDasharray: 50, strokeDashoffset: 50 }}
-              className="animate-check-draw"
-            />
-          </svg>
+        <div className="mb-4">
+          <Pin />
         </div>
-        <h3 className="text-xl font-bold text-gray-900 mb-2 animate-fade-in-up">Submitted!</h3>
-        <p className="text-gray-600 text-center max-w-xs" style={{ animation: 'fadeInUp 0.8s ease-out 0.2s forwards', opacity: 0 }}>
-          Your completion has been submitted for review. The project manager will be notified.
+        <h3 className="text-xl font-bold text-gray-900 mb-2">
+          Submitted for review
+        </h3>
+        <p className="text-gray-600 text-center max-w-xs">
+          Your completion has been submitted for review. The project manager
+          will be notified.
         </p>
 
         {/* Post-completion CTA */}
-        <div
-          className="mt-6 bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl border border-orange-100 p-5 text-center w-full max-w-xs"
-          style={{ animation: 'fadeInUp 0.8s ease-out 0.5s forwards', opacity: 0 }}
-        >
+        <div className="mt-6 bg-white  rounded-2xl border border-[#D9DCE1] p-5 text-center w-full max-w-xs">
           <p className="text-sm text-gray-700 mb-3">{POST_COMPLETION_CTA}</p>
-          <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer">
-            <img
-              src={APP_STORE_BADGE_URL}
-              alt="Download on the App Store"
-              className="h-10 mx-auto"
-            />
+          <a
+            className="button"
+            href={APP_STORE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => track("contractor_get_app_click", "completion")}
+          >
+            Get Snaglist
           </a>
         </div>
       </div>
@@ -128,14 +127,17 @@ export const CompletionForm: React.FC<CompletionFormProps> = ({
 
       {/* Contractor Name */}
       <div>
-        <label htmlFor="contractorName" className="block text-sm font-medium text-gray-700 mb-1">
+        <label
+          htmlFor="contractorName"
+          className="block text-sm font-medium text-gray-700 mb-1"
+        >
           Your Name <span className="text-red-500">*</span>
         </label>
         <input
           type="text"
           id="contractorName"
           value={contractorName}
-          onChange={e => setContractorName(e.target.value)}
+          onChange={(e) => setContractorName(e.target.value)}
           placeholder="Enter your name"
           className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
           disabled={isSubmitting}
@@ -145,13 +147,16 @@ export const CompletionForm: React.FC<CompletionFormProps> = ({
 
       {/* Notes */}
       <div>
-        <label htmlFor="notes" className="block text-sm font-medium text-gray-700 mb-1">
+        <label
+          htmlFor="notes"
+          className="block text-sm font-medium text-gray-700 mb-1"
+        >
           Notes <span className="text-gray-400 font-normal">(optional)</span>
         </label>
         <textarea
           id="notes"
           value={notes}
-          onChange={e => setNotes(e.target.value)}
+          onChange={(e) => setNotes(e.target.value)}
           placeholder="Describe the work completed, any issues encountered, etc."
           rows={3}
           className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
@@ -160,11 +165,7 @@ export const CompletionForm: React.FC<CompletionFormProps> = ({
       </div>
 
       {/* Photo Upload */}
-      <PhotoUpload
-        photos={photos}
-        onPhotosChange={setPhotos}
-        maxPhotos={5}
-      />
+      <PhotoUpload photos={photos} onPhotosChange={setPhotos} maxPhotos={5} />
 
       {/* Error Message */}
       {error && (
@@ -179,8 +180,11 @@ export const CompletionForm: React.FC<CompletionFormProps> = ({
         <div className="space-y-2">
           <div className="flex justify-between text-sm">
             <span className="text-gray-600">
-              {uploadProgress < 50 ? 'Uploading photos...' :
-               uploadProgress < 100 ? 'Submitting...' : 'Done!'}
+              {uploadProgress < 50
+                ? "Uploading photos..."
+                : uploadProgress < 100
+                  ? "Submitting..."
+                  : "Done!"}
             </span>
             <span className="text-gray-500">{uploadProgress}%</span>
           </div>
@@ -206,7 +210,7 @@ export const CompletionForm: React.FC<CompletionFormProps> = ({
         <button
           type="submit"
           disabled={isSubmitting || !contractorName.trim()}
-          className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-primary text-white font-medium hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-primary text-white font-medium hover:bg-[#1A1D23] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           {isSubmitting ? (
             <>

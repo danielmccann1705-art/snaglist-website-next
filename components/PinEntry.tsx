@@ -73,7 +73,7 @@ export const PinEntry: React.FC<PinEntryProps> = ({
 
   return (
     <div className="flex flex-col items-center">
-      <div className="w-16 h-16 rounded-full bg-orange-100 flex items-center justify-center mb-6">
+      <div className="w-16 h-16 rounded-full bg-[#F7F8FA] flex items-center justify-center mb-6">
         <Lock className="w-8 h-8 text-primary" />
       </div>
 
@@ -90,7 +90,7 @@ export const PinEntry: React.FC<PinEntryProps> = ({
         {pin.map((digit, index) => (
           <input
             key={index}
-            ref={el => inputRefs.current[index] = el}
+            ref={el => { inputRefs.current[index] = el; }}
             type="text"
             inputMode="numeric"
             maxLength={1}
@@ -119,7 +119,7 @@ export const PinEntry: React.FC<PinEntryProps> = ({
       )}
 
       {attemptsRemaining !== undefined && attemptsRemaining < 3 && (
-        <p className="text-sm text-amber-600 mb-4">
+        <p className="text-sm text-[#6B7280] mb-4">
           {attemptsRemaining} attempt{attemptsRemaining !== 1 ? 's' : ''} remaining
         </p>
       )}

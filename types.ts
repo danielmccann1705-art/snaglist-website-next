@@ -77,7 +77,7 @@ export interface SnagPhoto {
 
 export interface CompletionSubmission {
   contractorName: string;
-  notes?: string;
+  notes?: string | null;
   photoUrls?: string[];
 }
 

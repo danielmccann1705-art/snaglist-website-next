@@ -118,7 +118,7 @@ export const QRCodeDisplay: React.FC<QRCodeDisplayProps> = ({
           </button>
           <button
             onClick={handleShare}
-            className="flex items-center gap-2 px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-[#F7F8FA]0 text-white rounded-lg hover:bg-[#1A1D23] transition-colors"
           >
             <Share2 className="w-4 h-4" />
             <span>Share</span>

@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { X, ZoomIn, ZoomOut, Maximize2, AlertTriangle } from 'lucide-react';
+import { X, ZoomIn, ZoomOut, Maximize2, AlertCircle } from 'lucide-react';
 import type { Snag, FloorPlanInfo } from '../types';
 
 interface FloorPlanViewProps {
@@ -13,14 +13,14 @@ const statusColors: Record<string, { bg: string; border: string; text: string }>
   open: { bg: 'bg-red-500', border: 'border-red-600', text: 'text-white' },
   in_progress: { bg: 'bg-yellow-500', border: 'border-yellow-600', text: 'text-white' },
   resolved: { bg: 'bg-green-500', border: 'border-green-600', text: 'text-white' },
-  verified: { bg: 'bg-blue-500', border: 'border-blue-600', text: 'text-white' },
+  verified: { bg: 'bg-[#6B7280]', border: 'border-[#6B7280]', text: 'text-white' },
   closed: { bg: 'bg-gray-400', border: 'border-gray-500', text: 'text-white' },
 };
 
 // Priority indicator colors
 const priorityColors: Record<string, string> = {
   critical: 'ring-red-500 ring-2',
-  high: 'ring-orange-500 ring-2',
+  high: 'ring-[#D8321E] ring-2',
   medium: '',
   low: '',
 };
@@ -189,8 +189,8 @@ export const FloorPlanView: React.FC<FloorPlanViewProps> = ({
                 <div className="relative">
                   {/* Priority indicator for critical/high */}
                   {(snag.priority === 'critical' || snag.priority === 'high') && (
-                    <div className={`absolute -top-1 -right-1 w-3 h-3 ${snag.priority === 'critical' ? 'bg-red-500' : 'bg-orange-500'} rounded-full border border-white flex items-center justify-center z-10`}>
-                      <AlertTriangle className="w-2 h-2 text-white" />
+                    <div className={`absolute -top-1 -right-1 w-3 h-3 ${snag.priority === 'critical' ? 'bg-red-500' : 'bg-[#F7F8FA]0'} rounded-full border border-white flex items-center justify-center z-10`}>
+                      <AlertCircle className="w-2 h-2 text-white" />
                     </div>
                   )}
 

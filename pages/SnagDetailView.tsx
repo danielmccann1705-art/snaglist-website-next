@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  ArrowLeft, MapPin, Calendar, User, Clock, AlertTriangle,
+  ArrowLeft, MapPin, Calendar, User, Clock, AlertCircle,
   Image as ImageIcon, ChevronLeft, ChevronRight, X, CheckCircle2
 } from 'lucide-react';
 import { StatusBadge, PriorityBadge } from '../components/StatusBadge';
@@ -165,7 +165,7 @@ export const SnagDetailView: React.FC<SnagDetailViewProps> = ({
               <PriorityBadge priority={snag.priority} />
               {overdue && daysLate > 0 && (
                 <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-100 text-red-700 text-sm font-semibold">
-                  <AlertTriangle className="w-4 h-4" />
+                  <AlertCircle className="w-4 h-4" />
                   {daysLate} {daysLate === 1 ? 'DAY' : 'DAYS'} LATE
                 </span>
               )}

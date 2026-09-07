@@ -1,36 +1,12 @@
-import path from 'path';
-import { defineConfig, loadEnv } from 'vite';
-import react from '@vitejs/plugin-react';
-import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from "vite";
+import { reactRouter } from "@react-router/dev/vite";
+import tailwindcss from "@tailwindcss/vite";
+import { releaseIndexable } from "./scripts/routing.mjs";
 
-export default defineConfig(({ mode }) => {
-    const env = loadEnv(mode, '.', '');
-    return {
-      server: {
-        port: 3000,
-        host: '0.0.0.0',
-      },
-      plugins: [tailwindcss(), react()],
-      define: {
-        'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-        'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)
-      },
-      resolve: {
-        alias: {
-          '@': path.resolve(__dirname, '.'),
-        }
-      },
-      // Enable SPA fallback for magic link routes
-      appType: 'spa',
-      preview: {
-        port: 3000,
-      },
-      build: {
-        rollupOptions: {
-          input: {
-            main: path.resolve(__dirname, 'index.html'),
-          },
-        },
-      },
-    };
+export default defineConfig({
+  define: {
+    __PUBLIC_INDEXABLE__: JSON.stringify(releaseIndexable(process.env)),
+  },
+  plugins: [tailwindcss(), reactRouter()],
+  server: { host: "0.0.0.0", port: 5173 },
 });

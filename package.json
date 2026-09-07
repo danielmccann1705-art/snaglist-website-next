@@ -4,21 +4,33 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "react-router dev --host 0.0.0.0 --port 5173",
+    "build": "react-router build && node scripts/build-static.mjs",
+    "preview": "node scripts/preview.mjs",
+    "typecheck": "react-router typegen && tsc --noEmit",
+    "test": "node --test tests/*.test.mjs"
   },
   "dependencies": {
+    "@react-router/node": "7.18.3",
+    "isbot": "^5",
     "lucide-react": "^0.563.0",
     "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react-dom": "^19.2.4",
+    "react-router": "7.18.3"
   },
   "devDependencies": {
+    "@react-router/dev": "7.18.3",
     "@tailwindcss/vite": "^4.1.18",
     "@types/node": "^22.14.0",
-    "@vitejs/plugin-react": "^5.0.0",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.7",
+    "prettier": "3.9.6",
+    "qrcode": "1.5.4",
     "tailwindcss": "^4.1.18",
     "typescript": "~5.8.2",
     "vite": "^6.2.0"
+  },
+  "engines": {
+    "node": ">=22.18.0"
   }
 }

@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Search, Filter, X, AlertTriangle, Clock, Calendar, CheckCircle2, Download, Loader2, Map, List } from 'lucide-react';
+import { Search, Filter, X, AlertCircle, Clock, Calendar, CheckCircle2, Download, Loader2, Map, List } from 'lucide-react';
 import { SnagCard } from '../components/SnagCard';
 import { FloorPlanView } from '../components/FloorPlanView';
 import { MagicLinkHeader } from '../components/MagicLinkHeader';
@@ -227,7 +227,7 @@ export const SnagListView: React.FC<SnagListViewProps> = ({
 
   const groupStyleClasses = {
     danger: 'bg-red-50 text-red-800 border-l-4 border-l-red-500',
-    warning: 'bg-amber-50 text-amber-800 border-l-4 border-l-amber-500',
+    warning: 'bg-[#F7F8FA] text-[#1A1D23] border-l-4 border-l-[#D8321E]',
     normal: 'bg-gray-50 text-gray-700 border-l-4 border-l-gray-300',
     muted: 'bg-gray-50 text-gray-500 border-l-4 border-l-gray-200',
   };
@@ -456,7 +456,7 @@ export const SnagListView: React.FC<SnagListViewProps> = ({
                   <div>
                     {/* Group Header */}
                     <div className={`flex items-center gap-2 mb-3 px-3 py-2 rounded-r-lg ${groupStyleClasses[group.style]}`}>
-                      {group.style === 'danger' && <AlertTriangle className="w-4 h-4" />}
+                      {group.style === 'danger' && <AlertCircle className="w-4 h-4" />}
                       {group.style === 'warning' && <Clock className="w-4 h-4" />}
                       {group.key === 'upcoming' && <Calendar className="w-4 h-4" />}
                       {group.key === 'completed' && <CheckCircle2 className="w-4 h-4" />}
@@ -480,7 +480,7 @@ export const SnagListView: React.FC<SnagListViewProps> = ({
 
                   {/* Inline CTA card after 3rd group */}
                   {groupIndex === 2 && (
-                    <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl border border-orange-100 p-5 text-center">
+                    <div className="bg-white  rounded-2xl border border-[#D9DCE1] p-5 text-center">
                       <p className="text-base font-semibold text-gray-900 mb-1">Managing your own projects?</p>
                       <p className="text-sm text-gray-500 mb-3">
                         {CTA_VALUE_PROPS.join(' \u00B7 ')}

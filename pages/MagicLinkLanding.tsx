@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AlertTriangle, Loader2, Shield, Clock, Eye } from 'lucide-react';
+import { AlertCircle, Loader2, Shield, Clock, Eye } from 'lucide-react';
 import { PinEntry } from '../components/PinEntry';
 import { MagicLinkHeader } from '../components/MagicLinkHeader';
 import { MagicLinkFooter } from '../components/MagicLinkFooter';
@@ -101,7 +101,7 @@ export const MagicLinkLanding: React.FC<MagicLinkLandingProps> = ({ token, onAut
               {state.isExpired ? (
                 <Clock className="w-8 h-8 text-red-600" />
               ) : (
-                <AlertTriangle className="w-8 h-8 text-red-600" />
+                <AlertCircle className="w-8 h-8 text-red-600" />
               )}
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">

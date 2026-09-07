@@ -1,8 +1,344 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": "dist",
+  "installCommand": "npm ci --include=dev",
+  "outputDirectory": "build/client",
   "framework": null,
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+  "routes": [
+    {
+      "src": "/magic-links/?",
+      "status": 308,
+      "headers": {
+        "Location": "/contractor-link"
+      }
+    },
+    {
+      "src": "/m/[^/]+(?:/.*)?",
+      "dest": "/__spa-fallback.html",
+      "headers": {
+        "X-Robots-Tag": "noindex, nofollow",
+        "Cache-Control": "private, no-store",
+        "Referrer-Policy": "no-referrer"
+      }
+    },
+    {
+      "src": "/downloads/(.*)",
+      "headers": {
+        "X-Robots-Tag": "noindex",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "continue": true
+    },
+    {
+      "src": "/.well-known/apple-app-site-association",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "continue": true
+    },
+    {
+      "src": "/(.*)",
+      "headers": {
+        "Referrer-Policy": "no-referrer",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "continue": true
+    },
+    {
+      "src": "/features/",
+      "status": 308,
+      "headers": {
+        "Location": "/features"
+      }
+    },
+    {
+      "src": "/features",
+      "dest": "/features/index.html"
+    },
+    {
+      "src": "/contractor-link/",
+      "status": 308,
+      "headers": {
+        "Location": "/contractor-link"
+      }
+    },
+    {
+      "src": "/contractor-link",
+      "dest": "/contractor-link/index.html"
+    },
+    {
+      "src": "/floor-plans/",
+      "status": 308,
+      "headers": {
+        "Location": "/floor-plans"
+      }
+    },
+    {
+      "src": "/floor-plans",
+      "dest": "/floor-plans/index.html"
+    },
+    {
+      "src": "/pricing/",
+      "status": 308,
+      "headers": {
+        "Location": "/pricing"
+      }
+    },
+    {
+      "src": "/pricing",
+      "dest": "/pricing/index.html"
+    },
+    {
+      "src": "/snag-list-template/",
+      "status": 308,
+      "headers": {
+        "Location": "/snag-list-template"
+      }
+    },
+    {
+      "src": "/snag-list-template",
+      "dest": "/snag-list-template/index.html"
+    },
+    {
+      "src": "/vs-site-audit-pro/",
+      "status": 308,
+      "headers": {
+        "Location": "/vs-site-audit-pro"
+      }
+    },
+    {
+      "src": "/vs-site-audit-pro",
+      "dest": "/vs-site-audit-pro/index.html"
+    },
+    {
+      "src": "/vs-fieldwire/",
+      "status": 308,
+      "headers": {
+        "Location": "/vs-fieldwire"
+      }
+    },
+    {
+      "src": "/vs-fieldwire",
+      "dest": "/vs-fieldwire/index.html"
+    },
+    {
+      "src": "/comparison/",
+      "status": 308,
+      "headers": {
+        "Location": "/comparison"
+      }
+    },
+    {
+      "src": "/comparison",
+      "dest": "/comparison/index.html"
+    },
+    {
+      "src": "/about/",
+      "status": 308,
+      "headers": {
+        "Location": "/about"
+      }
+    },
+    {
+      "src": "/about",
+      "dest": "/about/index.html"
+    },
+    {
+      "src": "/support/",
+      "status": 308,
+      "headers": {
+        "Location": "/support"
+      }
+    },
+    {
+      "src": "/support",
+      "dest": "/support/index.html"
+    },
+    {
+      "src": "/privacy/",
+      "status": 308,
+      "headers": {
+        "Location": "/privacy"
+      }
+    },
+    {
+      "src": "/privacy",
+      "dest": "/privacy/index.html"
+    },
+    {
+      "src": "/terms/",
+      "status": 308,
+      "headers": {
+        "Location": "/terms"
+      }
+    },
+    {
+      "src": "/terms",
+      "dest": "/terms/index.html"
+    },
+    {
+      "src": "/snagging-app/",
+      "status": 308,
+      "headers": {
+        "Location": "/snagging-app"
+      }
+    },
+    {
+      "src": "/snagging-app",
+      "dest": "/snagging-app/index.html"
+    },
+    {
+      "src": "/punch-list-app/",
+      "status": 308,
+      "headers": {
+        "Location": "/punch-list-app"
+      }
+    },
+    {
+      "src": "/punch-list-app",
+      "dest": "/punch-list-app/index.html"
+    },
+    {
+      "src": "/snagging-app/site-managers/",
+      "status": 308,
+      "headers": {
+        "Location": "/snagging-app/site-managers"
+      }
+    },
+    {
+      "src": "/snagging-app/site-managers",
+      "dest": "/snagging-app/site-managers/index.html"
+    },
+    {
+      "src": "/snagging-app/clerk-of-works/",
+      "status": 308,
+      "headers": {
+        "Location": "/snagging-app/clerk-of-works"
+      }
+    },
+    {
+      "src": "/snagging-app/clerk-of-works",
+      "dest": "/snagging-app/clerk-of-works/index.html"
+    },
+    {
+      "src": "/snagging-app/project-managers/",
+      "status": 308,
+      "headers": {
+        "Location": "/snagging-app/project-managers"
+      }
+    },
+    {
+      "src": "/snagging-app/project-managers",
+      "dest": "/snagging-app/project-managers/index.html"
+    },
+    {
+      "src": "/snagging-app/quantity-surveyors/",
+      "status": 308,
+      "headers": {
+        "Location": "/snagging-app/quantity-surveyors"
+      }
+    },
+    {
+      "src": "/snagging-app/quantity-surveyors",
+      "dest": "/snagging-app/quantity-surveyors/index.html"
+    },
+    {
+      "src": "/snagging-app/subcontractors/",
+      "status": 308,
+      "headers": {
+        "Location": "/snagging-app/subcontractors"
+      }
+    },
+    {
+      "src": "/snagging-app/subcontractors",
+      "dest": "/snagging-app/subcontractors/index.html"
+    },
+    {
+      "src": "/snagging-app/property-developers/",
+      "status": 308,
+      "headers": {
+        "Location": "/snagging-app/property-developers"
+      }
+    },
+    {
+      "src": "/snagging-app/property-developers",
+      "dest": "/snagging-app/property-developers/index.html"
+    },
+    {
+      "src": "/punch-list-app/general-contractors/",
+      "status": 308,
+      "headers": {
+        "Location": "/punch-list-app/general-contractors"
+      }
+    },
+    {
+      "src": "/punch-list-app/general-contractors",
+      "dest": "/punch-list-app/general-contractors/index.html"
+    },
+    {
+      "src": "/punch-list-app/subcontractors/",
+      "status": 308,
+      "headers": {
+        "Location": "/punch-list-app/subcontractors"
+      }
+    },
+    {
+      "src": "/punch-list-app/subcontractors",
+      "dest": "/punch-list-app/subcontractors/index.html"
+    },
+    {
+      "src": "/punch-list-app/superintendents/",
+      "status": 308,
+      "headers": {
+        "Location": "/punch-list-app/superintendents"
+      }
+    },
+    {
+      "src": "/punch-list-app/superintendents",
+      "dest": "/punch-list-app/superintendents/index.html"
+    },
+    {
+      "src": "/punch-list-app/project-managers/",
+      "status": 308,
+      "headers": {
+        "Location": "/punch-list-app/project-managers"
+      }
+    },
+    {
+      "src": "/punch-list-app/project-managers",
+      "dest": "/punch-list-app/project-managers/index.html"
+    },
+    {
+      "src": "/punch-list-app/construction-managers/",
+      "status": 308,
+      "headers": {
+        "Location": "/punch-list-app/construction-managers"
+      }
+    },
+    {
+      "src": "/punch-list-app/construction-managers",
+      "dest": "/punch-list-app/construction-managers/index.html"
+    },
+    {
+      "src": "/punch-list-app/architects/",
+      "status": 308,
+      "headers": {
+        "Location": "/punch-list-app/architects"
+      }
+    },
+    {
+      "src": "/punch-list-app/architects",
+      "dest": "/punch-list-app/architects/index.html"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/.*",
+      "dest": "/404.html",
+      "status": 404,
+      "headers": {
+        "X-Robots-Tag": "noindex"
+      }
+    }
   ]
 }

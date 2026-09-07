@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Calendar, ChevronRight, Image, AlertTriangle } from 'lucide-react';
+import { MapPin, Calendar, ChevronRight, Image, AlertCircle } from 'lucide-react';
 import { StatusBadge, PriorityBadge } from './StatusBadge';
 import type { Snag } from '../types';
 
@@ -104,7 +104,7 @@ export const SnagCard: React.FC<SnagCardProps> = ({ snag, onClick }) => {
           {/* Overdue badge */}
           {overdue && daysLate > 0 && (
             <div className="mt-2 inline-flex items-center gap-1 px-2 py-1 rounded-md bg-red-100 text-red-700 text-xs font-semibold">
-              <AlertTriangle className="w-3.5 h-3.5" />
+              <AlertCircle className="w-3.5 h-3.5" />
               {daysLate} {daysLate === 1 ? 'DAY' : 'DAYS'} LATE
             </div>
           )}

@@ -21,9 +21,9 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, size = 'md' })
     },
     resolved: {
       label: 'Resolved',
-      bg: 'bg-blue-100',
-      text: 'text-blue-700',
-      dot: 'bg-blue-500',
+      bg: 'bg-[#F7F8FA]',
+      text: 'text-[#1A1D23]',
+      dot: 'bg-[#6B7280]',
     },
     verified: {
       label: 'Verified',
@@ -64,8 +64,8 @@ export const PriorityBadge: React.FC<PriorityBadgeProps> = ({ priority, size = '
     },
     medium: {
       label: 'Medium',
-      bg: 'bg-blue-100',
-      text: 'text-blue-700',
+      bg: 'bg-[#F7F8FA]',
+      text: 'text-[#1A1D23]',
     },
     high: {
       label: 'High',
