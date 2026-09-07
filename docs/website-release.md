@@ -2,6 +2,12 @@
 
 Prepared 7 September 2026. Review branch: `codex/website-brand-seo-v2`.
 
+## Current review status
+
+Implementation is committed locally. Upload through the connected GitHub integration returned HTTP 403, `Resource not accessible by integration`; the terminal has no authenticated GitHub write access. No remote branch, pull request or hosted preview has been created, and production is unchanged.
+
+Type checking, the production build and all 10 automated checks passed. Local HTTP checks confirmed public 200 responses, permanent redirects, private fallback headers, real 404 responses and PDF delivery. The generated wordmark, social card and template pages were visually inspected. Browser inspection of the website itself remains outstanding because the cloud browser blocked the workspace preview address. This is not a completed mobile/accessibility or live contractor integration sign-off.
+
 ## Implemented
 
 - New v2 wordmark, icon, local Plex fonts and brand tokens.
