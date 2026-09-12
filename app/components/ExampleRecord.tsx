@@ -11,13 +11,13 @@ const stages = [
   {
     label: "Share",
     title: "Give the contractor the record",
-    copy: "The assigned snag opens from a contractor link. The location and description stay with the job.",
+    copy: "In this example, the contractor receives the snag’s location and description through a Contractor link.",
     status: "Open",
   },
   {
     label: "Review",
     title: "Check the work that comes back",
-    copy: "The contractor submits a completion photo. The site manager reviews it against the original snag.",
+    copy: "In this example, a completion photo is submitted for review. It does not confirm that the manager has accepted the work.",
     status: "Submitted for review",
   },
 ];
@@ -84,7 +84,7 @@ export function ExampleRecord({
         </div>
       )}
       <figcaption>
-        Illustrative snag record · fictional project · not an app screenshot
+        Fictional workflow illustration · not an app screenshot or a live Contractor link
       </figcaption>
     </figure>
   );

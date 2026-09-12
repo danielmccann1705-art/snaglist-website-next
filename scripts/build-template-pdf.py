@@ -22,7 +22,7 @@ def header(c,title,sub):
  c.setStrokeColor(marker);c.setLineWidth(2);c.line(40,height-100,width-40,height-100)
 def footer(c,page):
  c.setStrokeColor(rule);c.setLineWidth(.6);c.line(40,54,width-40,54)
- c.setFillColor(grey);c.setFont('Plex',10);c.drawString(40,36,'Snaglist  |  snaglist.dev/snag-list-template');c.drawRightString(width-40,36,str(page))
+ c.setFillColor(grey);c.setFont('Plex',10);c.drawString(40,36,'Snaglist  |  usesnaglist.com/snag-list-template');c.drawRightString(width-40,36,str(page))
 def label(c,title,x,y,w=240,value=''):
  c.setFillColor(grey);c.setFont('Plex',9);c.drawString(x,y,title)
  c.setFillColor(ink);c.setFont('Plex',11)

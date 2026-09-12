@@ -73,6 +73,18 @@ export function Header({ path }: { path: string }) {
     </header>
   );
 }
+export function ServiceNotice() {
+  return (
+    <aside className="wrap service-notice" aria-labelledby="service-notice-title">
+      <h2 id="service-notice-title">Online services are temporarily unavailable</h2>
+      <p>
+        Contractor links and online account features may not work at the moment.
+        Keep your existing app data and saved photos; please do not reinstall the
+        app to troubleshoot. <a href="/support#service-help">Read the service update</a>.
+      </p>
+    </aside>
+  );
+}
 export function Footer() {
   return (
     <footer className="site-footer">
@@ -123,7 +135,7 @@ export function FinalCTA() {
             <br />
             on your next walk.
           </h2>
-          <p>Snaglist for iPhone. Contractor links for the browser.</p>
+          <p>Snaglist for iPhone. Free to download, with optional Pro subscriptions.</p>
         </div>
         <StoreLink placement="final" />
       </div>

@@ -1,12 +1,9 @@
-export const ORIGIN = "https://snaglist.dev";
+export const ORIGIN = "https://usesnaglist.com";
 export const APP_STORE = "https://apps.apple.com/gb/app/snaglist/id6758858102";
-export const SUPPORT = "Snaglistapp@gmail.com";
+export const SUPPORT = "support@usesnaglist.com";
 export const OFFER = {
   monthly: "£14.99",
   annual: "£119.99",
-  projects: 1,
-  snags: 20,
-  links: 5,
 };
 export type PageSpec = {
   title: string;
@@ -21,21 +18,21 @@ export const pages: Record<string, PageSpec> = {
   "/": {
     title: "Snagging app for site managers and builders | Snaglist",
     description:
-      "Log snags with photos and floor-plan pins. Send a contractor link for browser updates and completion photos. Download Snaglist for iPhone.",
-    heading: "Snagging app for site managers and small builders",
+      "Keep photos, descriptions and locations in a practical snag record. Download Snaglist for iPhone and check the latest online-service update.",
+    heading: "Snagging app for site managers and builders",
     kind: "home",
   },
   "/features": {
     title: "How Snaglist works: photos, plans and reports",
     description:
-      "Follow a snag from the site walk to the handover record. Capture photos, locate it on a plan, share with a contractor and review completion.",
+      "Record site observations with photos and locations, then prepare a handover report. Read how Contractor links work and the current service update.",
     heading: "From the site walk to the handover record",
     kind: "features",
   },
   "/contractor-link": {
-    title: "Send a snag list by contractor link | Snaglist",
+    title: "Contractor links: guide and service update | Snaglist",
     description:
-      "Share assigned snags with a contractor. They open a browser link and submit completion photos without installing an app or creating an account.",
+      "Learn about no-account Contractor links and completion evidence. Online sharing is temporarily unavailable; find help and keep your existing records.",
     heading: "The list is a link. The next step is clear.",
     kind: "contractor",
   },
@@ -49,8 +46,8 @@ export const pages: Record<string, PageSpec> = {
   "/pricing": {
     title: "Snaglist pricing: Free and Pro for iPhone",
     description:
-      "Start with Snaglist Free. Pro is £14.99 a month or £119.99 billed annually. Compare project, snag and contractor-link allowances.",
-    heading: "Start with one job. Step up when you need to.",
+      "Snaglist is free to download. UK Pro prices are £14.99 monthly or £119.99 annually. Check the App Store and in-app purchase screen for current terms.",
+    heading: "Start free. Check Pro when you need more.",
     kind: "pricing",
   },
   "/snag-list-template": {
@@ -93,7 +90,7 @@ export const pages: Record<string, PageSpec> = {
   "/support": {
     title: "Snaglist help: contractor links, reports and subscriptions",
     description:
-      "Get help with Snaglist installation, contractor links, completion photos, reports and subscriptions. Contact the founder with a product question.",
+      "Check the online-service interruption and get help with Snaglist, Contractor links, saved records, reports and Apple subscriptions.",
     heading: "What do you need help with?",
     kind: "support",
   },
@@ -253,7 +250,7 @@ const rolePages: [string, string, string, string[]][] = [
 for (const [path, role, intro, notes] of rolePages)
   pages["/" + path] = {
     title: `${path.startsWith("punch") ? "Punch lists" : "Snag lists"} for ${role} | Snaglist`,
-    description: `${intro} Use photos, locations and contractor updates to keep a practical snag record.`,
+    description: `${intro} Keep photos, locations and follow-up notes in a practical snag record.`,
     heading: `${path.startsWith("punch") ? "Punch lists" : "Snag lists"} for ${role}`,
     kind: "role",
     role,

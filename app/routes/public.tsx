@@ -7,7 +7,7 @@ import {
   APP_STORE,
   type PageSpec,
 } from "../content/pages";
-import { Header, Footer, StoreLink, FinalCTA, FAQ } from "../components/Site";
+import { Header, Footer, StoreLink, FinalCTA, FAQ, ServiceNotice } from "../components/Site";
 import { ExampleRecord } from "../components/ExampleRecord";
 import { Pin } from "../components/Brand";
 import { track } from "../lib/analytics";
@@ -59,19 +59,19 @@ export function meta({ location }: { location: { pathname: string } }) {
 const commonFAQ: [string, string][] = [
   [
     "Does the contractor need Snaglist?",
-    "No. A contractor opens the assigned list in their browser. They do not need to install Snaglist or create an account. If the sender has protected the link with a PIN, they will need that PIN.",
+    "Contractor links are designed for browser access without an app or account. Online sharing is temporarily unavailable. Keep the link and ask the sender to agree another way to exchange the work details and photos for now.",
   ],
   [
     "Which devices can I use?",
-    "The Snaglist app is available on the App Store for iPhone and iPad, requiring iOS or iPadOS 17 or later. Contractors can use their browser to open the link sent to them.",
+    "Snaglist is available on the App Store for iPhone and iPad. Check the listing for compatibility with your device. Online Contractor link access is currently interrupted.",
   ],
   [
     "Is a submitted photo the same as an approved snag?",
-    "No. A completion submission tells the site manager that the contractor has reported the work ready. The site manager still needs to review the evidence and approve it or ask for changes.",
+    "No. A completion photo reports that work is ready to check. The responsible manager still needs to review it and record whether the work is accepted or needs further attention. During the service interruption, confirm that decision directly with the sender.",
   ],
   [
     "Can I start free?",
-    `Yes. The Free plan includes ${OFFER.projects} project, ${OFFER.snags} snags and ${OFFER.links} contractor links a month. Pro is ${OFFER.monthly} a month or ${OFFER.annual} billed annually.`,
+    `Yes. Snaglist is free to download, with optional Pro subscriptions. UK Pro prices are ${OFFER.monthly} monthly or ${OFFER.annual} annually. Check the current allowances and purchase terms in your installed app before subscribing.`,
   ],
 ];
 const steps = [
@@ -85,11 +85,11 @@ const steps = [
   ],
   [
     "Share with the contractor",
-    "Send the assigned snags through a contractor link. The recipient opens the list in a browser.",
+    "Contractor links provide a browser handoff. Online sharing is currently interrupted; agree an alternative way to exchange the record with the contractor.",
   ],
   [
     "Review the completion",
-    "Check the contractor’s completion photo against the original snag. Approve the work or ask for changes.",
+    "Check any completion photo against the original snag. Record the manager’s decision separately from the contractor’s report that work is ready.",
   ],
   [
     "Hand over the record",
@@ -116,12 +116,12 @@ function Plans() {
     <div className="price-grid">
       <article className="price-card">
         <p className="eyebrow">Free</p>
-        <h2>One job to start</h2>
+        <h2>Start your snag record</h2>
         <p className="price">£0</p>
         <ul>
-          <li>{OFFER.projects} project</li>
-          <li>{OFFER.snags} snags</li>
-          <li>{OFFER.links} contractor links a month</li>
+          <li>Free app download</li>
+          <li>Check current Free allowances in the app</li>
+          <li>Choose whether to subscribe to Pro</li>
         </ul>
         <StoreLink
           placement="free-plan"
@@ -140,9 +140,9 @@ function Plans() {
           Or <strong>{OFFER.annual} billed annually</strong>
         </p>
         <ul>
-          <li>Unlimited projects</li>
-          <li>Unlimited snags</li>
-          <li>Unlimited contractor links</li>
+          <li>Monthly or annual subscription</li>
+          <li>Purchased and managed through Apple</li>
+          <li>Check included features and limits before subscribing</li>
         </ul>
         <StoreLink placement="pro-plan" label="Get Snaglist" />
       </article>
@@ -205,17 +205,17 @@ function Home({ page }: { page: PageSpec }) {
               </span>
             </p>
             <p className="intro-copy">
-              Photos. Floor-plan pins. A contractor link that opens in the
-              browser. Keep the snag and the response together.
+              Keep the photo, description and location together. Take a clear
+              snag record from the site walk to the handover discussion.
             </p>
             <div className="actions">
               <StoreLink placement="hero" />
               <a className="text-link" href="/contractor-link">
-                See the contractor link <span aria-hidden="true">→</span>
+                Read about Contractor links <span aria-hidden="true">→</span>
               </a>
             </div>
             <p className="caption">
-              Start free: 1 project · 20 snags · 5 contractor links a month
+              Free to download · Optional Pro subscriptions
             </p>
             <details className="desktop-qr">
               <summary>Open on your iPhone</summary>
@@ -238,17 +238,17 @@ function Home({ page }: { page: PageSpec }) {
           <div>
             <p className="eyebrow">The contractor link</p>
             <h2>
-              “Send me the list.”
+              A clear list.
               <br />
-              Now it is one link.
+              A clear handoff.
             </h2>
           </div>
           <div>
             <p className="large-copy">
-              Your contractor opens the assigned snags, checks the location and
-              sends a completion photo. You review what comes back.
+              Contractor links are designed to keep the work details and the
+              response together, without another app for the recipient.
             </p>
-            <p>No app or account needed for the contractor.</p>
+            <p>Online sharing is temporarily unavailable. Read the service update before planning a handoff.</p>
             <a className="text-link" href="/contractor-link">
               See how the handoff works <span aria-hidden="true">→</span>
             </a>
@@ -361,6 +361,7 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
           <Plans />
           <div className="prose billing">
             <h2>Choose how you pay for Pro</h2>
+            <p>Online services are temporarily unavailable. A Pro subscription does not restore access during the interruption.</p>
             <p>
               Monthly: <strong>{OFFER.monthly} each month</strong>. Annual:{" "}
               <strong>{OFFER.annual} billed once a year</strong>. UK App Store
@@ -391,9 +392,9 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
       <>
         <Intro page={page}>
           <p>
-            A contractor link opens the assigned snag list in a browser. The
-            contractor can view the snag and upload a completion photo without
-            installing Snaglist or creating an account.
+            Contractor links are designed to share a snag list in the browser
+            without a recipient account. Online sharing is temporarily unavailable.
+            The fictional example below explains the handoff; it is not a live link.
           </p>
           <div className="actions">
             <StoreLink placement="contractor-intro" />
@@ -403,7 +404,7 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
         <section id="handoff" className="section wrap split">
           <div>
             <p className="eyebrow">From the list to the response</p>
-            <h2>Make the next action clear.</h2>
+            <h2>A fictional handoff, step by step.</h2>
             <ol className="plain-steps">
               <li>
                 The site manager captures the snag and shares the contractor
@@ -433,9 +434,10 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
           <div className="wrap prose">
             <h2>Give access to the right people</h2>
             <p>
-              A link’s permissions control whether its recipient can view or
-              update the list. Keep the link with the intended contractor. If it
-              expires or no longer opens, ask the sender for a new one.
+              Keep a Contractor link with its intended recipient and share any
+              PIN separately. An expired or revoked link may stop opening.
+              During the current interruption, a new link may also fail; agree an
+              alternative handoff and keep the original photos and work notes.
             </p>
             <a href="/support">Help with a contractor link →</a>
           </div>
@@ -675,9 +677,10 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
           </p>
           <h2>A site record you can follow</h2>
           <p>
-            Snaglist brings capture, contractor handoff, completion evidence and
-            PDF reports into the same workflow. The contractor link removes an
-            installation step for the recipient.
+            Snaglist is built around a practical record: a clear observation,
+            its location and the evidence needed for a handover discussion.
+            Contractor links are designed to remove an installation step for
+            the recipient; online sharing is currently interrupted.
           </p>
           <h2>Tell Daniel what happens on your job</h2>
           <p>
@@ -701,24 +704,39 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
           </p>
         </Intro>
         <section className="wrap section compact-top">
+          <div id="service-help" className="prose">
+            <h2>Current online-service interruption</h2>
+            <p>
+              Online sharing and account features are temporarily unavailable.
+              We do not have a confirmed restoration time to share. Please keep
+              the app installed and retain your saved photos, reports and work notes.
+              Reinstalling the app can remove records stored only on your device.
+            </p>
+            <p>
+              Agree another way to exchange work instructions and evidence with
+              your contractor for now. If you need access to an existing record
+              or help with your account, email <a href={`mailto:${SUPPORT}`}>{SUPPORT}</a>.
+              Do not send passwords, PINs or private links in the first message.
+            </p>
+          </div>
           <FAQ
             items={[
               [
                 "My contractor link will not open. What should I do?",
-                "Check that you opened the complete link sent by the site manager. A link may have expired or been revoked. Ask the sender to check it and send a new link if needed.",
+                "There is a current online-service interruption, so even a valid link may not open. Keep the original link and ask the sender to agree an alternative handoff. Creating a new link may not resolve this. Outside an interruption, also check whether the link has expired or been revoked.",
               ],
               [
                 "The link asks for a PIN.",
-                "Ask the person who sent the contractor link for its PIN. This protects the shared job and does not require a Snaglist account.",
+                "Ask the person who sent the Contractor link for its PIN. Keep the PIN separate from the link. The recipient does not need a Snaglist account, but access is currently interrupted.",
               ],
               [
                 "I cannot submit a completion.",
-                "Check that the link permits updates and that your name is entered. If a photo upload fails, keep the photo, check your connection and try again. Contact the sender if the link only allows viewing.",
+                "Keep the original photo and notes. Completion uploads may fail during the current online-service interruption. Agree an alternative with the sender and confirm they received the evidence; do not treat a failed upload as a completed submission.",
               ],
               ...commonFAQ.slice(1, 3),
               [
                 "How do I report an app problem?",
-                "Email the app version, device model and the steps that caused the problem. Remove customer names, addresses and private link tokens from screenshots unless they are necessary for the support request.",
+                "Email the app version, device model and the steps that caused the problem. Remove customer details, passwords, PINs and private link tokens from screenshots. We will ask for any additional information needed to investigate.",
               ],
             ]}
           />
@@ -782,12 +800,12 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
                   ],
                   [
                     "Contractor access",
-                    "Browser link; no recipient app or account",
+                    "No-account browser handoff; online service currently unavailable",
                     "What does the recipient need to install, register for or pay for?",
                   ],
                   [
                     "Completion evidence",
-                    "Contractor submission followed by manager review",
+                    "Keep reported completion separate from manager acceptance; online flow currently unavailable",
                     "How do photos and review decisions get back to the manager?",
                   ],
                   [
@@ -802,7 +820,7 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
                   ],
                   [
                     "Device",
-                    "iPhone and iPad app; contractor browser access",
+                    "iPhone and iPad app; browser sharing currently interrupted",
                     "Check your device and the contractor’s device.",
                   ],
                 ].map((row) => (
@@ -828,7 +846,7 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
               provider if the current edition or an add-on supports it.
             </p>
             <p>
-              Snaglist product and price reference checked 7 September 2026:{" "}
+              UK Snaglist listing and Pro prices checked 12 September 2026:{" "}
               <a href={APP_STORE}>UK App Store listing</a>.{" "}
               {page.role === "Fieldwire" ? (
                 <a href="https://www.fieldwire.com/" rel="noreferrer">
@@ -839,8 +857,8 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
                   Site Audit Pro’s official website
                 </a>
               )}{" "}
-              gives the provider’s own product information. Competitor
-              capability and price verification remains open.
+              gives the provider’s own product information. Check current features
+              and prices directly before choosing.
             </p>
             <p>
               <a href={`mailto:${SUPPORT}`}>
@@ -935,8 +953,9 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
         <h2>Check the handoff</h2>
         <p>
           A list is useful when the person receiving it can identify the work
-          and respond. Snaglist’s contractor link keeps that response with the
-          assigned snag.
+          and respond. Contractor links are designed for that handoff, but
+          online sharing is currently interrupted. Agree another way to share
+          the record and keep any returned evidence for review.
         </p>
         <div className="actions">
           <a href="/contractor-link">Follow the contractor link →</a>
@@ -960,6 +979,7 @@ export default function PublicPage() {
         Skip to content
       </a>
       <Header path={path} />
+      <ServiceNotice />
       {path !== "/" && (
         <nav aria-label="Breadcrumb" className="wrap breadcrumbs">
           <a href="/">Snaglist</a>

@@ -5,7 +5,7 @@ export const Terms: React.FC = () => {
   return (
     <div className="bg-white min-h-screen">
       {/* Branded header bar — visible when opened standalone from the app */}
-      <div className="bg-background-light border-b border-gray-100 px-5 py-4 flex items-center gap-2">
+      <div className="policy-header bg-background-light border-b border-gray-100 px-5 py-4 flex items-center gap-2">
         <Wordmark />
 
         <span className="text-gray-300 mx-1">|</span>
@@ -14,7 +14,7 @@ export const Terms: React.FC = () => {
 
       <div className="max-w-2xl mx-auto px-5 sm:px-8 py-10 md:py-16">
         <h1 className="text-3xl md:text-4xl font-black tracking-[-0.033em] text-[#1A1D23] mb-1">Terms of Service</h1>
-        <p className="text-gray-400 text-sm mb-10">Last updated: 11 February 2025</p>
+        <p className="text-gray-400 text-sm mb-10">Last updated: 12 September 2026</p>
 
         <div className="space-y-10 text-[#6B7280] text-[15px] md:text-base leading-[1.75]">
           <section>
@@ -28,9 +28,11 @@ export const Terms: React.FC = () => {
           <section>
             <h2 className="text-lg font-bold text-[#1A1D23] mb-2">2. Description of Service</h2>
             <p>
-              Snaglist is a construction snagging and punch list management platform that allows users to capture,
-              track, and manage construction defects ("snags"). Features include photo documentation, floor plan
-              annotations, contractor link sharing with contractors, PDF report generation, and project management tools.
+              Snaglist is an app for recording construction defects ("snags") with descriptions,
+              photos and locations, and preparing a project record. Available features depend on
+              your installed app version and plan. Online sharing requires the online service to
+              be available. Website illustrations describe fictional examples; they are not screenshots
+              or evidence that an unreleased feature is available.
             </p>
           </section>
 
@@ -59,15 +61,15 @@ export const Terms: React.FC = () => {
           </section>
 
           <section>
-            <h2 className="text-lg font-bold text-[#1A1D23] mb-2">5. contractor links & Sharing</h2>
+            <h2 className="text-lg font-bold text-[#1A1D23] mb-2">5. Contractor Links & Sharing</h2>
             <p>
               When you create a contractor link to share snag data with contractors or other parties:
             </p>
             <ul className="list-disc pl-5 space-y-1.5 mt-2">
-              <li>You are responsible for choosing the appropriate access level (view, update, or full)</li>
+              <li>You are responsible for selecting the work and intended recipients to share with</li>
               <li>You are responsible for managing link expiry and PIN protection settings</li>
-              <li>Recipients of contractor links can access the shared snag data without creating an account</li>
-              <li>You can revoke a contractor link at any time</li>
+              <li>When the service is available, Contractor link recipients do not need to create an account to access the shared record</li>
+              <li>Where link controls are available, use them to request revocation or expiry changes. A request is not confirmed until the service has processed it; downloaded copies may remain with recipients.</li>
             </ul>
           </section>
 
@@ -90,7 +92,7 @@ export const Terms: React.FC = () => {
               Snaglist offers free and paid subscription tiers. For paid subscriptions:
             </p>
             <ul className="list-disc pl-5 space-y-1.5 mt-2">
-              <li>Billing is managed through the Apple App Store or our website</li>
+              <li>Subscriptions offered in the iOS app are purchased and managed through the Apple App Store; this website has no subscription checkout</li>
               <li>Subscriptions renew automatically unless cancelled before the renewal date</li>
               <li>Refunds are subject to the applicable app store's refund policy</li>
               <li>We may change pricing with 30 days' notice</li>
@@ -132,9 +134,11 @@ export const Terms: React.FC = () => {
           <section>
             <h2 className="text-lg font-bold text-[#1A1D23] mb-2">11. Termination</h2>
             <p>
-              You may delete your account at any time. We may suspend or terminate your account if you
-              violate these Terms. Upon termination, your right to use the Service ceases immediately.
-              We will retain your data for 30 days after account deletion, after which it will be permanently removed.
+              You may request account deletion using available account controls or by contacting support.
+              If online controls are unavailable, email support@usesnaglist.com. We may suspend or terminate
+              your account if you violate these Terms. Upon termination, your right to use the Service
+              ceases immediately. Data requests are handled as described in the Privacy Policy;
+              deleting an account does not cancel an Apple subscription or remove copies already sent to recipients.
             </p>
           </section>
 
@@ -161,12 +165,12 @@ export const Terms: React.FC = () => {
             <p>
               If you have questions about these Terms, contact us at:
             </p>
-            <a href="mailto:Snaglistapp@gmail.com" className="text-primary hover:underline font-medium inline-block mt-1 py-2">Snaglistapp@gmail.com</a>
+            <a href="mailto:support@usesnaglist.com" className="text-primary hover:underline font-medium inline-block mt-1 py-2">support@usesnaglist.com</a>
           </section>
         </div>
 
         <div className="border-t border-gray-100 mt-12 pt-6 text-center text-xs text-gray-400">
-          &copy; 2025 Snaglist. All rights reserved.
+          &copy; 2026 Snaglist. All rights reserved.
         </div>
       </div>
     </div>

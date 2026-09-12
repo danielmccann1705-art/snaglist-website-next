@@ -107,6 +107,23 @@ textarea:focus-visible {
 .marketing p + p {
   margin-top: 16px;
 }
+.service-notice {
+  margin-top: 8px;
+  padding: 16px 20px;
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--marker);
+  background: var(--raised);
+}
+.marketing .service-notice h2 {
+  font-size: 17px;
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+.service-notice p {
+  max-width: 95ch;
+  font-size: 15px;
+  line-height: 1.5;
+}
 .marketing p a,
 .prose a,
 .faq a {
@@ -721,6 +738,22 @@ tbody td {
 .legal .wordmark {
   width: 110px;
   height: 36px;
+}
+.marketing .legal .policy-header {
+  display: none;
+}
+.marketing .legal h1 + p {
+  margin: 8px 0 32px;
+  color: var(--grey);
+  font-size: 15px;
+}
+.marketing .legal h2 {
+  font-size: 23px;
+  margin-bottom: 16px;
+}
+.marketing .legal h3 {
+  font-size: 17px;
+  margin-top: 24px;
 }
 .legal h1 {
   font-size: 40px;

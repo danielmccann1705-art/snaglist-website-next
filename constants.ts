@@ -1,11 +1,11 @@
 export const APP_STORE_ID = '6758858102';
 export const APP_STORE_URL = 'https://apps.apple.com/gb/app/snaglist/id6758858102';
 export const APP_STORE_BADGE_URL = 'https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83';
-export const WEBSITE_URL = 'https://snaglist.dev';
+export const WEBSITE_URL = 'https://usesnaglist.com';
 export const LOGO_PATH = '/brand/icon.svg';
 export const APP_NAME = 'Snaglist';
 export const APP_TAGLINE = 'Walk the job. Mark the snags. Hand over the record.';
-export const CTA_VALUE_PROPS = ['Create snag lists', 'Share with contractors', 'Track completions'];
+export const CTA_VALUE_PROPS = ['Create snag lists', 'Record photos and locations', 'Prepare a handover record'];
 export const CTA_HEADING = 'Running your own jobs?';
 export const CTA_SUBHEADING = 'Get Snaglist.';
 export const POST_COMPLETION_CTA = 'Running your own jobs? Get Snaglist.';

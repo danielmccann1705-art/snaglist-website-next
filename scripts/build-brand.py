@@ -37,6 +37,6 @@ icon=f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width
 social='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630"><rect width="1200" height="630" fill="#1A1D23"/>'
 social+=f'<g transform="translate(64 45) scale(.3)">{word.replace("#1A1D23","#F7F8FA")}{mark}</g>'
 for txt,y,col in [('Walk the job.',244,'#F7F8FA'),('Mark the snags.',336,'#F7F8FA'),('Hand over the record.',428,'#F7F8FA')]:social+=text_paths(txt,76,64,y,col)[0]
-social+=text_paths('snaglist.dev',23,64,560,'#F7F8FA')[0]+'</svg>'
+social+=text_paths('usesnaglist.com',23,64,560,'#F7F8FA')[0]+'</svg>'
 (out/'social.svg').write_text(social)
 print('Built outlined wordmarks, icon, social SVG and local fonts.')

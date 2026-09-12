@@ -1,5 +1,7 @@
 # Website release notes and checks
 
+Historical 7 September checkpoint. The recovered Cloudflare release work and current limitations are documented in [12 September release notes](website-release-2026-09-12.md).
+
 Prepared 7 September 2026. Review branch: `codex/website-brand-seo-v2`.
 
 ## Current review status

@@ -19,7 +19,7 @@ The preview serves the built files on port 5173, with explicit redirects and 404
 
 ## Deployment
 
-The repository has an existing Vercel integration. `vercel.json` defines the proposed static routing; verify that the production domain still uses this project before releasing. This branch does not change production DNS, merge itself or add hosting services.
+Production is Cloudflare Worker `snaglist-website-next`, bound to `usesnaglist.com` and the existing legacy website domains. `wrangler.jsonc` and `worker.mjs` define the deployment. The Vercel configuration is retained as historical compatibility material; it is not the live host. See `docs/website-release-2026-09-12.md` for the restored source, checks and rollback process.
 
 - Builds default to **noindex**. Set `INDEX_PUBLIC_SITE=true` on the production environment only when the release checks in `docs/website-release.md` have been completed. Vercel preview builds stay noindex even if that flag is set.
 - Run a full `npm run build` when changing the indexing flag; do not reuse an earlier preview output.
@@ -28,6 +28,8 @@ The repository has an existing Vercel integration. `vercel.json` defines the pro
 - `/m/:token` uses the neutral SPA fallback with noindex, no-referrer and private/no-store headers. It is not pre-rendered or included in the sitemap.
 - The existing Apple association file is preserved byte for byte.
 - `VITE_API_URL` remains the existing contractor API origin override. Do not use customer links as preview fixtures or allow arbitrary preview origins in backend CORS.
+
+For local Cloudflare routing verification, build first, run `wrangler dev --local --port 5188`, then `node scripts/check-cloudflare-http.mjs http://127.0.0.1:5188`. Restart Wrangler after rebuilding static assets if its directory watcher is unavailable. This checks website routing and asset delivery; it does not verify the production contractor backend.
 
 ## Content, brand and downloads
 

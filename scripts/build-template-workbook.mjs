@@ -207,7 +207,7 @@ const notes = [
     "Print or share",
     "Use the accompanying PDF for a writing sheet. Share project records only with intended recipients.",
   ],
-  ["Get Snaglist", "https://snaglist.dev/snag-list-template"],
+  ["Get Snaglist", "https://usesnaglist.com/snag-list-template"],
 ];
 notes.forEach(([label, copy], i) => {
   const row = i + 4;
