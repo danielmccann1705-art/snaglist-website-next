@@ -24,6 +24,13 @@ export const Privacy: React.FC = () => {
               This Privacy Policy explains how we collect, use, and protect your personal information when
               you use our website (usesnaglist.com), mobile application, and related services (collectively, the "Service").
             </p>
+            <p className="mt-3">
+              The currently released app works offline and has no online project or account services.
+              Online services, including account sync, Contractor links and the manager portal, are
+              planned for v2.0. References to those features below describe their intended use when
+              released; they do not mean that your current app uploads your project records.
+              Website visits, support email and App Store subscriptions are separate from project sync.
+            </p>
           </section>
 
           <section>
@@ -31,10 +38,10 @@ export const Privacy: React.FC = () => {
 
             <h3 className="text-[15px] font-bold text-[#1A1D23] mb-1.5 mt-4">Information you provide</h3>
             <ul className="list-disc pl-5 space-y-1.5">
-              <li>Account details: the name, email address and sign-in identifier provided through the sign-in options available in your app</li>
-              <li>Profile information: company name, job role</li>
-              <li>Project data: project names, addresses, snag descriptions, photos, floor plans</li>
+              <li>Project data held on your device: project names, addresses, snag descriptions, photos and floor plans</li>
               <li>Communications: support requests, feedback</li>
+              <li>Planned v2.0 account information: name, email address, sign-in identifier and any company/profile details you provide when using the online service</li>
+              <li>Planned v2.0 shared project data: records and evidence you choose to make available through the online service</li>
             </ul>
 
             <h3 className="text-[15px] font-bold text-[#1A1D23] mb-1.5 mt-5">Information collected automatically</h3>
@@ -44,11 +51,12 @@ export const Privacy: React.FC = () => {
               <li>IP address and browser request information processed when you connect to the website or online services</li>
             </ul>
 
-            <h3 className="text-[15px] font-bold text-[#1A1D23] mb-1.5 mt-5">Information from contractor links</h3>
+            <h3 className="text-[15px] font-bold text-[#1A1D23] mb-1.5 mt-5">Planned v2.0 Contractor links</h3>
             <p>
-              When a contractor accesses a shared contractor link, we collect their name (if provided),
-              completion notes, uploaded photos, and basic device/browser information. Contractors
-              do not need to create an account.
+              Contractor links are not available in the current app. The planned flow allows recipients
+              to provide a name, completion notes and photos without creating an account, with basic
+              device/browser information processed to operate the service. We will update this notice
+              with the verified online data handling before launch.
             </p>
           </section>
 
@@ -69,7 +77,7 @@ export const Privacy: React.FC = () => {
             <p>We do not sell your personal information. We may share data with:</p>
             <ul className="list-disc pl-5 space-y-1.5 mt-2">
               <li><strong>Service providers:</strong> providers used to deliver the website, operate available online features, handle support email and manage app subscriptions. Cloudflare delivers the website; Google Workspace handles support email; Apple handles App Store purchases and payments.</li>
-              <li><strong>Project collaborators:</strong> when you share a contractor link, the recipient can see the snag data you've chosen to share</li>
+              <li><strong>Recipients:</strong> when you send an exported report or photo, its recipient receives that copy. Scoped online project sharing is planned for v2.0.</li>
               <li><strong>Legal requirements:</strong> if required by law, regulation, or legal process</li>
             </ul>
           </section>
@@ -77,9 +85,9 @@ export const Privacy: React.FC = () => {
           <section>
             <h2 className="text-lg font-bold text-[#1A1D23] mb-2">5. Data Storage & Security</h2>
             <p>
-              The app stores project records and files on your device. Online features may also send
-              account details, shared records and uploaded evidence to the service. Do not assume that
-              everything on your device has an online backup or will appear on another device.
+              The current app stores project records and files on your device and does not provide
+              online project sync. Those records do not automatically appear in a browser or on another
+              device. Online account and project storage are planned for v2.0.
               Keep copies of important records before changing devices or removing the app.
             </p>
           </section>
@@ -88,9 +96,10 @@ export const Privacy: React.FC = () => {
             <h2 className="text-lg font-bold text-[#1A1D23] mb-2">6. Data Retention</h2>
             <p>
               Retention depends on the information and the service involved: device records remain
-              in the app’s local storage; online account, sharing and support records are handled
-              according to the purpose for which they were supplied and any applicable legal requirements.
-              Contact us to request deletion or to ask what records we can access for your account.
+              in the app’s local storage; support correspondence is handled according to the purpose
+              for which it was supplied and any applicable legal requirements. Contact us to request
+              deletion of information we hold or to ask what records we can access. Online account and
+              sharing retention will be described before those v2.0 services launch.
             </p>
             <p className="mt-2">
               Removing the app may remove device-only records. Cancelling an Apple subscription
@@ -125,8 +134,9 @@ export const Privacy: React.FC = () => {
             <p>
               The public website does not require an account or a waitlist sign-up. Its app-download,
               template and illustration controls do not install an advertising or analytics SDK.
-              Hosting services process requests to deliver and protect the site. Available account
-              and Contractor link services may use session information to maintain access.
+              Hosting services process requests to deliver and protect the site. Planned v2.0 account
+              and Contractor link services will need session information to maintain access; those
+              services are not part of the current app.
               Your browser settings let you inspect and manage stored site data.
             </p>
           </section>

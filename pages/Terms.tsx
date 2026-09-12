@@ -30,14 +30,16 @@ export const Terms: React.FC = () => {
             <p>
               Snaglist is an app for recording construction defects ("snags") with descriptions,
               photos and locations, and preparing a project record. Available features depend on
-              your installed app version and plan. Online sharing requires the online service to
-              be available. Website illustrations describe fictional examples; they are not screenshots
-              or evidence that an unreleased feature is available.
+              your installed app version and plan. The current app works offline and has no online
+              project or account services. Account sync, Contractor links and the manager portal are
+              planned for v2.0, with no confirmed launch date. Website illustrations of those flows
+              show fictional examples of planned features, not currently available online services.
             </p>
           </section>
 
           <section>
             <h2 className="text-lg font-bold text-[#1A1D23] mb-2">3. Accounts</h2>
+            <p className="mb-2">Online accounts are planned for v2.0. The following responsibilities apply when you use a released account service:</p>
             <ul className="list-disc pl-5 space-y-1.5">
               <li>You must provide accurate and complete information when creating an account</li>
               <li>You are responsible for maintaining the security of your account credentials</li>
@@ -63,12 +65,13 @@ export const Terms: React.FC = () => {
           <section>
             <h2 className="text-lg font-bold text-[#1A1D23] mb-2">5. Contractor Links & Sharing</h2>
             <p>
-              When you create a contractor link to share snag data with contractors or other parties:
+              Contractor links are planned for v2.0 and are not available in the current app.
+              When released, the following responsibilities apply when sharing snag data:
             </p>
             <ul className="list-disc pl-5 space-y-1.5 mt-2">
               <li>You are responsible for selecting the work and intended recipients to share with</li>
               <li>You are responsible for managing link expiry and PIN protection settings</li>
-              <li>When the service is available, Contractor link recipients do not need to create an account to access the shared record</li>
+              <li>The planned Contractor link experience lets recipients access the selected record without creating an account</li>
               <li>Where link controls are available, use them to request revocation or expiry changes. A request is not confirmed until the service has processed it; downloaded copies may remain with recipients.</li>
             </ul>
           </section>
@@ -91,6 +94,7 @@ export const Terms: React.FC = () => {
             <p>
               Snaglist offers free and paid subscription tiers. For paid subscriptions:
             </p>
+            <p className="mt-2">Purchasing Pro today does not unlock planned v2.0 online services. Review the available features and terms in the app before purchasing.</p>
             <ul className="list-disc pl-5 space-y-1.5 mt-2">
               <li>Subscriptions offered in the iOS app are purchased and managed through the Apple App Store; this website has no subscription checkout</li>
               <li>Subscriptions renew automatically unless cancelled before the renewal date</li>

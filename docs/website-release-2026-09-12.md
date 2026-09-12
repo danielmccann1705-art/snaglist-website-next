@@ -2,6 +2,10 @@
 
 This release restores the approved website redesign from the Snaglist Google Drive knowledge bank onto the existing website service. It does not release app 2.0, the manager portal, team subscriptions or a replacement backend.
 
+## Same-day product scope correction
+
+Dan confirmed after the initial website release that the currently released iOS app has no online services. The initial temporary-interruption wording was based on an incorrect inference from historical backend infrastructure. It is superseded by explicit current-offline / planned-v2.0 copy across the site, examples, support, pricing and policy scope. Online services and the manager portal launch together with v2.0; no launch date is promised. Pro does not unlock these unreleased features today. This correction does not enable a backend, change billing or publish the portal.
+
 ## Source and authority
 
 - Original website checkout: `snaglist_website`, clean `main` at `acdcdc26d12d3926e0a94d4abb5f7cdb487e66ce`.
@@ -16,7 +20,7 @@ This release restores the approved website redesign from the Snaglist Google Dri
 - Restored 27 pre-rendered public pages, mobile navigation, the illustrative construction record and ungated Excel/PDF downloads.
 - Applied `usesnaglist.com`, `support@usesnaglist.com`, canonical metadata, sitemap and social/download branding.
 - Removed unverified numeric Free allowances, unlimited Pro claims and trial promises. UK App Store prices were checked on 12 September: £14.99 monthly and £119.99 annually. Purchase-screen terms control.
-- Added clear temporary online-service availability and device-record preservation guidance. A paid subscription is not presented as a solution to the interruption.
+- Initial temporary-interruption guidance was incorrect and is superseded by the same-day release-boundary correction above. Preserve device-record guidance and distinguish the available offline app from planned v2.0 online functionality.
 - Retained labelled fictional illustrations; these are not screenshots of released app 2.0 or proof of a working online journey.
 - Corrected obsolete privacy operational claims. Controller/legal address, complete lawful bases, processors/transfers and retention/erasure schedule still need a separate factual/legal review; this release is not legal certification.
 - Added explicit Cloudflare routing instead of a global SPA fallback. Existing API client and Apple association file remain unchanged.
@@ -51,4 +55,4 @@ Existing service: `snaglist-website-next` in the existing Cloudflare account. Be
 4. Deploy that exact version at 100%; read back the active deployment and domain binding. Verify safe provider settings. Do not infer live browser success from an API deployment receipt.
 5. If website behaviour regresses, create a deployment assigning 100% to `95b27eb4-c4c3-447f-993e-96cef18a83c0`. Do not delete versions, edit DNS, rotate contractor tokens, force-push or change backend records as part of rollback.
 
-Do not enable new analytics transports, live portal links or new subscription products during this website restoration. Replace service-interruption guidance and illustrations only after the relevant real release is independently verified.
+Do not enable new analytics transports, live portal links or new subscription products during this website restoration. Replace planned-v2.0 labels only after the relevant real release is independently verified. Do not reintroduce an outage notice for functionality that has not shipped.
