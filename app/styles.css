@@ -107,22 +107,59 @@ textarea:focus-visible {
 .marketing p + p {
   margin-top: 16px;
 }
-.service-notice {
-  margin-top: 8px;
-  padding: 16px 20px;
-  border: 1px solid var(--rule);
-  border-left: 3px solid var(--marker);
+/* Screenshot slot: a visibly marked placeholder for a real 2.0 capture. It must
+   never look like a product screen. See app/content/screenshot-slots.ts. */
+.screenshot-slot {
+  width: 100%;
+  border: 2px dashed var(--marker);
   background: var(--raised);
-}
-.marketing .service-notice h2 {
-  font-size: 17px;
-  line-height: 1.4;
-  margin-bottom: 4px;
-}
-.service-notice p {
-  max-width: 95ch;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
   font-size: 15px;
   line-height: 1.5;
+}
+.marketing .screenshot-slot {
+  margin-inline: auto;
+}
+.screenshot-slot.phone {
+  max-width: 340px;
+  aspect-ratio: 9 / 19.5;
+}
+.screenshot-slot.document {
+  max-width: 460px;
+  aspect-ratio: 1 / 1.414;
+}
+.marketing .screenshot-slot p + p {
+  margin-top: 0;
+}
+.screenshot-slot-flag {
+  color: var(--marker);
+  font-weight: 700;
+}
+.screenshot-slot-device {
+  font-weight: 500;
+}
+.screenshot-slot figcaption {
+  font-size: 13px;
+  color: var(--grey);
+}
+.hero-shot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.shot-line {
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+}
+.slot-row {
+  margin-top: 48px;
 }
 .marketing p a,
 .prose a,

@@ -52,7 +52,7 @@ export default function App() {
 export function HydrateFallback() {
   return (
     <main className="loading-page">
-      <p>Opening your contractor link…</p>
+      <p>Opening your Contractor link…</p>
     </main>
   );
 }

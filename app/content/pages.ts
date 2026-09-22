@@ -5,6 +5,13 @@ export const OFFER = {
   monthly: "£14.99",
   annual: "£119.99",
 };
+// The Free allowance as Dan approved it for the public site (Drive offer). Show all
+// three together wherever pricing is explained.
+export const FREE_LIMITS = "one project, 20 snags and five Contractor links a month";
+// Dan's approved company statement (decision A5). The only company pricing statement
+// the site may carry: no company price appears anywhere.
+export const COMPANY_PLANS =
+  "Company membership is free at launch. Paid company plans are coming soon. Snaglist Pro remains a separate subscription.";
 export type PageSpec = {
   title: string;
   description: string;
@@ -18,22 +25,22 @@ export const pages: Record<string, PageSpec> = {
   "/": {
     title: "Snagging app for site managers and builders | Snaglist",
     description:
-      "Record snags, photos and locations offline on iPhone. Contractor links, account sync and the manager portal are planned for Snaglist v2.0.",
+      "Walk the plot, mark the snags and send a Contractor link. The trade opens it in a browser with no account or app and sends the completion photo.",
     heading: "Snagging app for site managers and builders",
     kind: "home",
   },
   "/features": {
-    title: "How Snaglist works: photos, plans and reports",
+    title: "How Snaglist works: snags, Contractor links and reports",
     description:
-      "Capture snags, photos and locations offline, then prepare a PDF record. See the current app workflow and the online features planned for v2.0.",
+      "Capture each snag with a photo and location, send the trade a Contractor link, review their completion photo and export the handover record.",
     heading: "From the site walk to the handover record",
     kind: "features",
   },
   "/contractor-link": {
-    title: "Contractor links planned for v2.0 | Snaglist",
+    title: "Contractor link: trades open it with no account | Snaglist",
     description:
-      "Preview the no-account Contractor links and completion review planned for Snaglist v2.0. The current app works offline and does not offer online sharing.",
-    heading: "Contractor links are coming with v2.0",
+      "Send a Contractor link for the snags you choose. The trade opens it in a browser, with no account or app, and sends a completion photo for your review.",
+    heading: "Send the snags. Get the fix back.",
     kind: "contractor",
   },
   "/floor-plans": {
@@ -46,7 +53,7 @@ export const pages: Record<string, PageSpec> = {
   "/pricing": {
     title: "Snaglist pricing: Free and Pro for iPhone",
     description:
-      "Snaglist Pro is £14.99 monthly or £119.99 annually in the UK. The current app works offline; Pro does not unlock the online features planned for v2.0.",
+      "Snaglist Free covers one project, 20 snags and five Contractor links a month. Snaglist Pro is £14.99 a month or £119.99 a year in the UK.",
     heading: "Start free. Check Pro when you need more.",
     kind: "pricing",
   },
@@ -60,7 +67,7 @@ export const pages: Record<string, PageSpec> = {
   "/vs-site-audit-pro": {
     title: "Snaglist vs Site Audit Pro: workflow comparison",
     description:
-      "Compare Snaglist’s current offline capture and reports with your Site Audit Pro workflow. Online Contractor links are planned for Snaglist v2.0.",
+      "Compare your Site Audit Pro workflow with Snaglist, where the trade opens a Contractor link with no account and sends the completion photo for review.",
     heading: "Snaglist and Site Audit Pro: which fits your workflow?",
     kind: "comparison",
     role: "Site Audit Pro",
@@ -68,7 +75,7 @@ export const pages: Record<string, PageSpec> = {
   "/vs-fieldwire": {
     title: "Snaglist and Fieldwire: choosing a snagging workflow",
     description:
-      "Compare Snaglist’s offline snag records with your site management needs. Contractor access and online review are planned for Snaglist v2.0.",
+      "Compare Snaglist’s snag records and no-account Contractor links with your site management needs, and check Fieldwire’s own features directly.",
     heading: "Choose the workflow your job needs",
     kind: "comparison",
     role: "Fieldwire",
@@ -76,42 +83,42 @@ export const pages: Record<string, PageSpec> = {
   "/comparison": {
     title: "Choosing a snagging app | Snaglist",
     description:
-      "Check the capture, location and PDF record you need today. Distinguish Snaglist’s offline app from online collaboration planned for v2.0.",
+      "Check the capture, location, contractor handoff and review your job needs before you choose a snagging app, with a checklist for each step.",
     heading: "Start with the handoff you need",
     kind: "comparison-hub",
   },
   "/about": {
     title: "About Snaglist: built from site experience",
     description:
-      "Why Daniel McCann built Snaglist after ten years in site management and quantity surveying. Offline snag records today, with online collaboration planned for v2.0.",
+      "Why Daniel McCann built Snaglist after ten years in site management and quantity surveying: a snag list that reaches the trade and comes back with the fix.",
     heading: "Built by someone who has walked the job",
     kind: "about",
   },
   "/support": {
-    title: "Snaglist help: offline app and v2.0 plans",
+    title: "Snaglist help and support",
     description:
-      "Get help with the current offline Snaglist app, saved records, reports and Apple subscriptions. Read about online services planned for v2.0.",
+      "Help with Contractor links, reviewing completion photos, older work from an earlier version, deleting your account, reports and Apple subscriptions.",
     heading: "What do you need help with?",
     kind: "support",
   },
   "/privacy": {
     title: "Snaglist privacy policy",
     description:
-      "Privacy information for Snaglist’s offline app and website, and the online features planned for v2.0. Find out how to contact us about your data.",
+      "How Snaglist handles personal data in the app, in Contractor links and on this website, and how to contact us about your data.",
     heading: "Privacy policy",
     kind: "privacy",
   },
   "/terms": {
     title: "Snaglist terms of service",
     description:
-      "Read the terms for Snaglist’s current offline app and Apple subscriptions, with online services planned for v2.0 clearly distinguished.",
+      "The terms for using Snaglist, including Contractor links, company membership and Snaglist Pro subscriptions bought through Apple.",
     heading: "Terms of service",
     kind: "terms",
   },
   "/snagging-app": {
     title: "Snagging workflows for construction roles | Snaglist",
     description:
-      "Explore offline snag records for different construction roles. Contractor links and shared online review are planned for Snaglist v2.0.",
+      "Snag records for each role on a construction job, with Contractor links the trade opens in a browser and completion photos you review.",
     heading: "A clear record for everyone involved in the job",
     kind: "roles",
     role: "snagging-app",
@@ -119,7 +126,7 @@ export const pages: Record<string, PageSpec> = {
   "/punch-list-app": {
     title: "Punch lists and snag lists explained | Snaglist",
     description:
-      "A punch list records work needing attention before handover. Use Snaglist for offline capture; online contractor updates are planned for v2.0.",
+      "A punch list records work needing attention before handover. Snaglist sends it to the trade as a Contractor link and keeps their completion photo for review.",
     heading: "A punch list, from capture to completion",
     kind: "roles",
     role: "punch-list-app",
@@ -132,7 +139,7 @@ const rolePages: [string, string, string, string[]][] = [
     "Keep a practical snag record from the site walk to handover.",
     [
       "Record the room and a precise location while you are there.",
-      "Use an exported report to discuss the relevant snags with the contractor.",
+      "Send each contractor a Contractor link for the snags that are theirs.",
       "Review completion evidence before accepting the work.",
     ],
   ],
@@ -153,7 +160,7 @@ const rolePages: [string, string, string, string[]][] = [
     [
       "Group the record by the actual project.",
       "Assign responsibility and a due date to each item.",
-      "Separate reported completion from work that has been reviewed.",
+      "Keep work awaiting review separate from work a manager has accepted.",
     ],
   ],
   [
@@ -169,11 +176,11 @@ const rolePages: [string, string, string, string[]][] = [
   [
     "snagging-app/subcontractors",
     "subcontractors",
-    "No-account Contractor links for subcontractors are planned for v2.0.",
+    "Open your assigned snags in a browser, with no account and no app.",
     [
-      "With v2.0, the planned Contractor link will let you open assigned work in a browser.",
+      "Open the Contractor link the site manager sends you. If it has a PIN, they give you that separately.",
       "Check the location, description and photographs before starting.",
-      "Online completion-photo submission is planned for v2.0; it is not available today.",
+      "Add a completion photo and a note when the work is done. The site manager reviews it before the snag is closed.",
     ],
   ],
   [
@@ -192,18 +199,18 @@ const rolePages: [string, string, string, string[]][] = [
     "Make the remaining work understandable to each trade.",
     [
       "Give each item one clear description.",
-      "Contractor links for sharing assigned work are planned for v2.0.",
-      "The planned online review will keep submitted evidence separate from accepted closure.",
+      "Send each trade a Contractor link for its own items.",
+      "Keep a trade’s submitted evidence separate from the closure a manager accepts.",
     ],
   ],
   [
     "punch-list-app/subcontractors",
     "subcontractors",
-    "A browser handoff for your punch list is planned for v2.0.",
+    "Open your punch list in a browser, with no account and no app.",
     [
-      "With v2.0, open the assigned list through the planned Contractor link.",
-      "The planned browser view will show the items the site manager has assigned to you.",
-      "Completion-photo submission for manager review is planned for v2.0.",
+      "Open the Contractor link the site manager sends you.",
+      "The page shows only the items the site manager has chosen for you.",
+      "Send a completion photo when the work is done. It waits for the manager’s review; it does not close the item by itself.",
     ],
   ],
   [
@@ -229,11 +236,11 @@ const rolePages: [string, string, string, string[]][] = [
   [
     "punch-list-app/construction-managers",
     "construction managers",
-    "Record observations offline; shared responses are planned for v2.0.",
+    "Record observations on site and get the trade’s response back in the same record.",
     [
       "Record what needs attention at the point of inspection.",
-      "Contractor links for sending selected work are planned for v2.0.",
-      "Shared online review with the project team is planned for v2.0.",
+      "Send the selected work to the trade as a Contractor link.",
+      "Accept the work only when the returned evidence shows it is done.",
     ],
   ],
   [
@@ -250,7 +257,10 @@ const rolePages: [string, string, string, string[]][] = [
 for (const [path, role, intro, notes] of rolePages)
   pages["/" + path] = {
     title: `${path.startsWith("punch") ? "Punch lists" : "Snag lists"} for ${role} | Snaglist`,
-    description: `${intro} Current Snaglist works offline; online collaboration is planned for v2.0.`,
+    description:
+      role === "subcontractors"
+        ? `${intro} The site manager reviews your completion photo before the item closes.`
+        : `${intro} Send the trade a Contractor link; they open it with no account.`,
     heading: `${path.startsWith("punch") ? "Punch lists" : "Snag lists"} for ${role}`,
     kind: "role",
     role,

@@ -73,25 +73,6 @@ export function Header({ path }: { path: string }) {
     </header>
   );
 }
-export function ServiceNotice() {
-  return (
-    <aside
-      className="wrap service-notice"
-      aria-labelledby="service-notice-title"
-    >
-      <h2 id="service-notice-title">Online services are coming with v2.0</h2>
-      <p>
-        The current Snaglist app works offline. Contractor links, account sync
-        and the manager portal are planned for v2.0 and are not available today.
-        Buying Pro does not unlock these upcoming features.{" "}
-        <a href="/support#service-help">
-          Read about the current app and v2.0 plans
-        </a>
-        .
-      </p>
-    </aside>
-  );
-}
 export function Footer() {
   return (
     <footer className="site-footer">
@@ -143,8 +124,8 @@ export function FinalCTA() {
             on your next walk.
           </h2>
           <p>
-            Offline snagging for iPhone. Free to download, with optional Pro
-            subscriptions.
+            Snag lists for iPhone, with Contractor links your trades open in a
+            browser. Free to download, with optional Pro subscriptions.
           </p>
         </div>
         <StoreLink placement="final" />

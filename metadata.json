@@ -1,5 +1,5 @@
 {
   "name": "Snaglist",
-  "description": "The snag list app that actually gets used on site. A modern construction management tool.",
+  "description": "Snag lists for UK site managers. Mark the snags, send a Contractor link, and the trade sends the completion photo back.",
   "requestFramePermissions": []
 }

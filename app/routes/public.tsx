@@ -5,6 +5,8 @@ import {
   OFFER,
   SUPPORT,
   APP_STORE,
+  FREE_LIMITS,
+  COMPANY_PLANS,
   type PageSpec,
 } from "../content/pages";
 import {
@@ -13,9 +15,8 @@ import {
   StoreLink,
   FinalCTA,
   FAQ,
-  ServiceNotice,
 } from "../components/Site";
-import { ExampleRecord } from "../components/ExampleRecord";
+import { ScreenshotSlot } from "../components/ScreenshotSlot";
 import { Pin } from "../components/Brand";
 import { track } from "../lib/analytics";
 import { Privacy } from "../../pages/Privacy";
@@ -65,24 +66,24 @@ export function meta({ location }: { location: { pathname: string } }) {
 }
 const commonFAQ: [string, string][] = [
   [
-    "Will contractors need an app or account in v2.0?",
-    "The planned v2.0 Contractor links will let recipients open assigned work in a browser without installing an app or creating an account. Contractor links are not part of the current offline app.",
+    "Do contractors need an app or an account?",
+    "No. The trade opens the Contractor link in a web browser on their phone or computer. They do not install an app or create an account, and they never pay. If you set a PIN, give it to them separately.",
   ],
   [
     "Which devices can I use?",
-    "The current offline Snaglist app is available on the App Store for iPhone and iPad. Check the listing for device compatibility. A browser companion for managers is planned for v2.0.",
+    "Snaglist is on the App Store for iPhone and iPad. Check the listing for device compatibility. The trades you send Contractor links to only need a web browser.",
   ],
   [
-    "How will submission and approval differ in v2.0?",
-    "In the planned online workflow, a contractor’s completion photo will submit the work for review. The manager will then accept it or request changes. Submission will not close the snag automatically. Online submissions and manager review are not available in the current app.",
+    "What is the difference between submitted and accepted?",
+    "When the trade sends a completion photo, the work is submitted and waits for your review. You then accept the work or send it back. The snag closes only when a manager accepts it; a submission never closes it by itself.",
   ],
   [
     "Can I start free?",
-    `Yes. Snaglist is free to download, with optional Pro subscriptions. UK Pro prices are ${OFFER.monthly} monthly or ${OFFER.annual} annually. Check the current allowances and purchase terms in your installed app. Buying Pro today does not unlock the online features planned for v2.0.`,
+    `Yes. Snaglist Free covers ${FREE_LIMITS}. Snaglist Pro is ${OFFER.monthly} a month or ${OFFER.annual} a year in the UK, bought and managed through Apple.`,
   ],
   [
-    "Will my projects sync with the manager portal?",
-    "Account sync and a browser manager portal are planned for v2.0. Projects in the current app are stored on your device; they do not sync with a portal or another device. No v2.0 release date has been announced.",
+    "Do I need an account?",
+    "Not to record snags: you can walk the job and build the record on your iPhone without one. Sign in when you want to send Contractor links or work with colleagues in a company. Projects you share are kept in your Snaglist account and can be downloaded on another signed-in device.",
   ],
 ];
 const steps = [
@@ -95,16 +96,16 @@ const steps = [
     "Use a floor-plan pin to show where the issue is. A room name and precise location help the next person find it.",
   ],
   [
-    "Coming with v2.0: Contractor links",
-    "The planned browser handoff will let contractors open assigned work without an account. The current app works offline and does not send Contractor links.",
+    "Send a Contractor link",
+    "Choose the snags and the contractor. The trade opens the link in a browser, with no account and no app, and sees the photo, location and description.",
   ],
   [
-    "Coming with v2.0: online review",
-    "Contractors will be able to submit evidence for manager review in the planned v2.0 workflow. Submitted, awaiting review and accepted closure will remain distinct.",
+    "Review the completion photo",
+    "The trade’s completion photo is a submission. It waits under Awaiting review until a manager accepts the work or sends it back. Only acceptance closes the snag.",
   ],
   [
     "Hand over the record",
-    "Export a PDF record of the job. Use it to discuss outstanding items and document the handover.",
+    "Export a PDF report of the job, with each snag’s photos, location and status, and completion photos beside the original.",
   ],
 ];
 function Process() {
@@ -130,9 +131,10 @@ function Plans() {
         <h2>Start your snag record</h2>
         <p className="price">£0</p>
         <ul>
-          <li>Free app download</li>
-          <li>Check current Free allowances in the app</li>
-          <li>Choose whether to subscribe to Pro</li>
+          <li>One project</li>
+          <li>20 snags</li>
+          <li>Five Contractor links a month</li>
+          <li>Trades open your links free, with no account</li>
         </ul>
         <StoreLink
           placement="free-plan"
@@ -151,10 +153,12 @@ function Plans() {
           Or <strong>{OFFER.annual} billed annually</strong>
         </p>
         <ul>
-          <li>Monthly or annual subscription</li>
-          <li>Purchased and managed through Apple</li>
-          <li>Check included features and limits before subscribing</li>
-          <li>Buying Pro today does not unlock planned v2.0 online features</li>
+          <li>Unlimited projects and snags</li>
+          <li>Unlimited Contractor links</li>
+          <li>Unlimited photos per snag</li>
+          <li>Floor-plan pins</li>
+          <li>Custom report branding</li>
+          <li>Monthly or annual, bought and managed through Apple</li>
         </ul>
         <StoreLink placement="pro-plan" label="Get Snaglist" />
       </article>
@@ -217,13 +221,14 @@ function Home({ page }: { page: PageSpec }) {
               </span>
             </p>
             <p className="intro-copy">
-              Keep the photo, description and location together. Take a clear
-              offline snag record from the site walk to the handover discussion.
+              Send each trade a Contractor link to their snags. They open it in
+              a browser, with no account and no app, and send the completion
+              photo. The handover record includes the fix.
             </p>
             <div className="actions">
               <StoreLink placement="hero" />
               <a className="text-link" href="/contractor-link">
-                Planned v2.0 Contractor links <span aria-hidden="true">→</span>
+                How the Contractor link works <span aria-hidden="true">→</span>
               </a>
             </div>
             <p className="caption">
@@ -242,13 +247,16 @@ function Home({ page }: { page: PageSpec }) {
               </p>
             </details>
           </div>
-          <ExampleRecord />
+          <div className="hero-shot">
+            <ScreenshotSlot id="home-hero" />
+            <p className="shot-line">Trades open a link. No account.</p>
+          </div>
         </div>
       </section>
       <section className="section dark-section">
         <div className="wrap split">
           <div>
-            <p className="eyebrow">Planned for v2.0</p>
+            <p className="eyebrow">The Contractor link</p>
             <h2>
               A clear list.
               <br />A clear handoff.
@@ -256,16 +264,16 @@ function Home({ page }: { page: PageSpec }) {
           </div>
           <div>
             <p className="large-copy">
-              Contractor links will bring the work details and the response
-              together in the planned v2.0 workflow, without another app for the
-              recipient.
+              Send the trade a link to the snags that are theirs. They open it
+              in a browser, with no account and no app, and send the completion
+              photo back to the same record.
             </p>
             <p>
-              Contractor links, account sync and the manager portal are planned
-              for v2.0. The current app works offline.
+              You choose the snags, add a PIN if you want one and set when the
+              link expires. You can revoke it at any time.
             </p>
             <a className="text-link" href="/contractor-link">
-              Preview the planned handoff <span aria-hidden="true">→</span>
+              See how it works <span aria-hidden="true">→</span>
             </a>
           </div>
         </div>
@@ -275,8 +283,8 @@ function Home({ page }: { page: PageSpec }) {
           <p className="eyebrow">The working record</p>
           <h2>One snag. A clear next step.</h2>
           <p>
-            Capture and report offline today. Online handoff and review are
-            planned for v2.0.
+            The photo, the location, the trade’s response and your decision
+            stay together, from the site walk to the handover record.
           </p>
         </div>
         <Process />
@@ -334,9 +342,8 @@ function Home({ page }: { page: PageSpec }) {
         </h2>
         <p>
           Daniel built Snaglist after ten years in site management and quantity
-          surveying. The current app keeps a practical snag record on your
-          device. Connecting that record with contractors and managers online is
-          the next step, planned for v2.0.
+          surveying, to get the snag list to the person doing the work and the
+          evidence back to the person reviewing it.
         </p>
         <a className="text-link" href="/about">
           Why Snaglist exists →
@@ -381,9 +388,8 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
           <div className="prose billing">
             <h2>Choose how you pay for Pro</h2>
             <p>
-              The current app works offline. Contractor links, account sync and
-              the manager portal are planned for v2.0. Buying Pro does not
-              unlock these online features today.
+              Snaglist Free covers {FREE_LIMITS}. Snaglist Pro removes those
+              limits.
             </p>
             <p>
               Monthly: <strong>{OFFER.monthly} each month</strong>. Annual:{" "}
@@ -400,11 +406,11 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
               .
             </p>
             <p>
-              Choose a subscription for the features available in your installed
-              app today. The planned v2.0 Contractor links will not require the
-              recipient to buy a subscription. No v2.0 release date has been
-              announced.
+              The trades who open your Contractor links never need an account or
+              a subscription.
             </p>
+            <h2>Companies</h2>
+            <p>{COMPANY_PLANS}</p>
           </div>
           <FAQ items={commonFAQ} />
         </section>
@@ -416,56 +422,85 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
       <>
         <Intro page={page}>
           <p>
-            Planned for v2.0: share assigned snags in a browser without a
-            recipient account. The current app works offline and does not offer
-            Contractor links. The fictional example below previews the planned
-            handoff; it is not a live link.
+            A Contractor link sends the trade the snags that are theirs. They
+            open it in a browser, with no account and no app, check the
+            location, description and photos, and send a completion photo when
+            the work is done. You review it before anything closes.
           </p>
           <div className="actions">
             <StoreLink placement="contractor-intro" />
-            <a href="#handoff">Preview the v2.0 handoff ↓</a>
+            <a href="#handoff">How it works ↓</a>
           </div>
         </Intro>
         <section id="handoff" className="section wrap split">
           <div>
-            <p className="eyebrow">Planned for v2.0</p>
-            <h2>A preview of the online handoff.</h2>
+            <p className="eyebrow">How it works</p>
+            <h2>From your list to their phone, and back.</h2>
             <ol className="plain-steps">
               <li>
-                The site manager will capture the snag and share a Contractor
-                link for the selected work.
+                Sign in and share the project from the app. Choose the snags and
+                the contractor, then send the link however you usually message
+                them.
               </li>
               <li>
-                The contractor will open the link. If the sender requires a PIN,
-                they will supply it separately.
+                The contractor opens the link in a browser. If you set a PIN,
+                they enter it; give it to them separately from the link.
               </li>
               <li>
-                The contractor will check the assigned items and submit
-                completion evidence when ready. The work will then await review.
+                They check each snag, then add a completion photo and a note.
+                The work is now submitted and awaiting your review.
               </li>
               <li>
-                The site manager will review the evidence and accept the work or
-                request changes. Accepted closure will follow that decision.
+                You review the photo and accept the work or send it back with a
+                reason. The snag closes only when a manager accepts it.
               </li>
             </ol>
             <p>
-              This is a planned v2.0 workflow. A completion submission will be a
-              request for review, not accepted closure.
+              A submission is a request for review, not a closure. The trade’s
+              submission, the time it spends awaiting review and a manager’s
+              acceptance stay separate in your record.
             </p>
           </div>
-          <ExampleRecord interactive />
+          <ScreenshotSlot id="link-browser" />
         </section>
         <section className="section soft-section">
-          <div className="wrap prose">
-            <h2>Access controls planned for v2.0</h2>
-            <p>
-              The planned Contractor link controls include selected work,
-              expiry, revocation and optional PIN protection. These online
-              controls are not available in the current app. No release date has
-              been announced for v2.0.
-            </p>
-            <a href="/support#service-help">Current app and v2.0 questions →</a>
+          <div className="wrap split">
+            <div className="prose">
+              <h2>You control the link</h2>
+              <p>
+                A link shows the project’s name and address and the snags you
+                chose for that contractor, up to 100 at a time, with their
+                photos and any earlier submissions and feedback.
+              </p>
+              <p>
+                Add a PIN of four to eight digits if you want one. A link
+                expires after the period you choose, up to 90 days, and you can
+                revoke it at any time. Anyone with the link, and the PIN if you
+                set one, can open it, so send it only to the people doing the
+                work.
+              </p>
+              <p>
+                The trades who open your links never need an account, an app or
+                a subscription.
+              </p>
+              <p>
+                <a href="/support#contractor-links">Contractor link questions →</a>
+              </p>
+            </div>
+            <ScreenshotSlot id="link-create" />
           </div>
+        </section>
+        <section className="section wrap split">
+          <div>
+            <h2>Review before anything closes</h2>
+            <p>
+              Submitted work appears under Awaiting review. Open it to see the
+              trade’s photo and note beside the original snag, then accept the
+              work or send it back. Accepted work is closed in your record with
+              its completion photo, ready for the handover report.
+            </p>
+          </div>
+          <ScreenshotSlot id="link-review" />
         </section>
         <section className="section wrap">
           <FAQ items={commonFAQ.slice(0, 3)} />
@@ -478,16 +513,15 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
       <>
         <Intro page={page}>
           <p>
-            Log each snag while you are there. Keep its photo, location,
-            assigned contractor and follow-up in an offline record you can use.
-            Contractor links, account sync and the manager portal are planned
-            for v2.0.
+            Log each snag while you are there, with its photo, location and
+            assigned contractor. Send the trade a Contractor link, review the
+            completion photo they send back and export the handover record.
           </p>
         </Intro>
         <section className="section wrap compact-top">
           <Process />
           <div className="actions">
-            <a href="/contractor-link">Preview v2.0 Contractor links →</a>
+            <a href="/contractor-link">See the Contractor link →</a>
             <a href="/floor-plans">Explore floor-plan pins →</a>
           </div>
         </section>
@@ -501,14 +535,13 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
                 take to the discussion.
               </h2>
               <p>
-                Export a PDF report from Snaglist to share the job record. Keep
-                the snag reference, description, location, status and photo
-                evidence understandable to the reader.
+                Export a PDF report from Snaglist to share the job record: each
+                snag’s reference, description, location, status and photos,
+                with completion photos beside the original.
               </p>
               <p>
-                Check outstanding items and the evidence you have recorded
-                before issuing a report. Online contractor submissions and
-                manager review are planned for v2.0.
+                Check outstanding items before issuing a report. Work awaiting
+                review is not closed until a manager accepts it.
               </p>
             </div>
             <div className="feature-note">
@@ -522,6 +555,9 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
               </ul>
               <a href="/snag-list-template">Start with the free template →</a>
             </div>
+          </div>
+          <div className="wrap slot-row">
+            <ScreenshotSlot id="report-with-fix" />
           </div>
         </section>
         <FinalCTA />
@@ -549,19 +585,20 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
                 Add a close photograph and a written description of the issue.
               </li>
               <li>
-                Use the exported record to discuss the relevant work with the
-                contractor.
+                Send the contractor a Contractor link for the snag, with its
+                location, description and photos.
               </li>
             </ol>
             <p>
               Use a readable plan and a separate snag for each issue. Avoid
               placing several unrelated observations under one pin.
             </p>
+            <p>Floor-plan pins are included with Snaglist Pro.</p>
             <a className="text-link" href="/contractor-link">
-              Preview the v2.0 Contractor link handoff →
+              See how the Contractor link works →
             </a>
           </div>
-          <ExampleRecord />
+          <ScreenshotSlot id="floor-plan-pin" />
         </section>
         <section className="section soft-section">
           <div className="wrap prose">
@@ -570,6 +607,10 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
               Check the drawing’s revision before pinning the work. A floor-plan
               pin records a location; it does not confirm dimensions or replace
               the project’s drawing control process.
+            </p>
+            <p>
+              In a project shared with your company, the current plans can be
+              viewed in the app; adding and editing plans there is coming soon.
             </p>
             <p>
               Check the options available in your installed app before preparing
@@ -676,11 +717,10 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
             </p>
             <h2>When the spreadsheet gets harder to keep up</h2>
             <p>
-              Keep photos and plan pins together in the current offline app.{" "}
-              <a href="/features">See how Snaglist works</a>. Online contractor
-              updates are planned for v2.0; preview the{" "}
-              <a href="/contractor-link">forthcoming Contractor link handoff</a>
-              .
+              Keep photos and plan pins together in the app, and send each trade
+              a Contractor link instead of a spreadsheet.{" "}
+              <a href="/features">See how Snaglist works</a> or{" "}
+              <a href="/contractor-link">see the Contractor link</a>.
             </p>
           </div>
         </section>
@@ -704,18 +744,16 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
             it.
           </p>
           <p>
-            That is the problem behind Snaglist. The current app captures the
-            snag on the walk and keeps its location and photos together offline.
-            Sending the contractor a browser link is part of the planned v2.0
-            online workflow.
+            That is the problem behind Snaglist. The app captures the snag on
+            the walk and keeps its location and photos together. A Contractor
+            link sends it to the trade, who opens it in a browser without an
+            account and sends the completion photo back for review.
           </p>
           <h2>A site record you can follow</h2>
           <p>
             Snaglist is built around a practical record: a clear observation,
-            its location and the evidence needed for a handover discussion.
-            Contractor links, account sync and the manager portal will extend
-            that record online with v2.0. These services are planned and are not
-            available in the current app.
+            its location, the trade’s response and the manager’s decision. That
+            record is what goes into the handover.
           </p>
           <h2>Tell Daniel what happens on your job</h2>
           <p>
@@ -739,38 +777,103 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
           </p>
         </Intro>
         <section className="wrap section compact-top">
-          <div id="service-help" className="prose">
-            <h2>The current app and what is planned for v2.0</h2>
+          <div id="contractor-links" className="prose">
+            <h2>Contractor links and reviews</h2>
             <p>
-              The current live Snaglist app works offline. Project records and
-              photos stay on your device; it has no online services. Contractor
-              links, account sync and the manager portal are planned for v2.0.
-              No release date has been announced.
-            </p>
-            <p>
-              Buying Pro does not enable these upcoming online features today.
-              For help with saved records or the current app, email{" "}
-              <a href={`mailto:${SUPPORT}`}>{SUPPORT}</a>. Keep copies of
-              important exported reports and photos. Reinstalling the app can
-              remove records stored only on your device.
+              Send a Contractor link from a project you have shared from the
+              app. The trade opens it in a browser, with no account and no app,
+              and sends a completion photo for your review.
             </p>
           </div>
           <FAQ
             items={[
               [
-                "Can I send a Contractor link from the current app?",
-                "No. The current live app works offline and does not provide online Contractor links. Browser sharing without a recipient account is planned for v2.0. You can use your exported report to discuss the work with your contractor today.",
+                "How do I send a Contractor link?",
+                "Sign in, open the project and share it from the project screen. Then choose the snags and the contractor, set how long the link lasts and, if you want one, a PIN. Send the link in the way you usually message the trade.",
               ],
+              commonFAQ[0],
               [
-                "Will Contractor links have PIN protection?",
-                "Optional PIN protection is planned for v2.0 Contractor links. The sender will be able to share a PIN separately from the link. This is forthcoming functionality, not a feature available in the current offline app.",
+                "How does the PIN work?",
+                "A PIN is optional. It is four to eight digits, and the trade enters it when they open the link. Send it separately from the link. There is no account or password for the trade to reset; if the PIN does not match, they ask you for it.",
               ],
+              commonFAQ[2],
               [
-                "Can contractors submit completion photos online today?",
-                "No. Online evidence submission and manager review are planned for v2.0. The current app does not receive contractor uploads. Keep follow-up photos and work notes with your project record and agree the work directly with the people involved.",
+                "How do I stop a link working?",
+                "Revoke it in the app. A link also stops working when it expires, after the period you chose, up to 90 days.",
               ],
-              ...commonFAQ.slice(1, 3),
+            ]}
+          />
+          <div id="older-work" className="prose section">
+            <h2>Older work from an earlier version</h2>
+            <p>
+              If you used Snaglist before version 2.0, your earlier projects
+              stay on your device and are kept separately. Open{" "}
+              <strong>Older device work</strong> at the top of Projects to use
+              them. They work without an account or a connection, and you can
+              save a copy to Files.
+            </p>
+            <p>
+              Uploading older projects to your account is coming soon. Until
+              then, they stay on the device they were made on.
+            </p>
+            <p>
+              Snags closed in an earlier version show{" "}
+              <strong>Legacy closure — unverified</strong>. Those closures were
+              made before Snaglist recorded a manager’s review, so they are kept
+              apart from work a manager has accepted.
+            </p>
+            <p>
+              Keep copies of important exported reports and photos. Deleting the
+              app can remove records stored only on your device.
+            </p>
+          </div>
+          <div id="delete-account" className="prose section">
+            <h2>Delete your account</h2>
+            <p>
+              In the app, open Settings and choose Delete account, under
+              Account. You need to be signed in, and the app asks you to confirm
+              before anything is deleted.
+            </p>
+            <ul>
+              <li>
+                Your account stops working as soon as the request is accepted.
+              </li>
+              <li>
+                Your name, email address and sign-in details are erased. Your
+                own projects, snags, drawings and photos are then removed in the
+                background; the <a href="/privacy">privacy policy</a> explains
+                how long that takes.
+              </li>
+              <li>
+                You get a reference to check progress. Keep it private. The app
+                shows when the deletion is complete.
+              </li>
+              <li>
+                Work you did in a company that stays open remains with that
+                company, shown as “Former member”.
+              </li>
+              <li>
+                If you own a company that other people belong to, transfer
+                ownership or close the company as part of the deletion. Closing
+                a company deletes its projects, snags and shared files.
+              </li>
+              <li>
+                Deleting your account does not cancel an Apple subscription.
+                Cancel it in your Apple account’s subscription settings.
+              </li>
+            </ul>
+            <p>
+              If you cannot sign in to delete your account, email{" "}
+              <a href={`mailto:${SUPPORT}`}>{SUPPORT}</a> and we will help.
+            </p>
+          </div>
+          <div className="prose section">
+            <h2>Other questions</h2>
+          </div>
+          <FAQ
+            items={[
               commonFAQ[4],
+              commonFAQ[1],
               [
                 "How do I report an app problem?",
                 "Email the app version, device model and the steps that caused the problem. Remove customer details, passwords, PINs and private link tokens from screenshots. We will ask for any additional information needed to investigate.",
@@ -808,8 +911,8 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
         <section className="wrap section compact-top">
           <h2>Questions to check in {page.role}</h2>
           <p>
-            Snaglist’s current offline features and planned v2.0 services are
-            distinguished below. Check the current edition and any add-ons in{" "}
+            The Snaglist column describes the app as it works now. Check the
+            current edition and any add-ons in{" "}
             {page.role} directly. We have not verified equivalent features or
             current pricing in that product, so this is a buying checklist
             rather than an absence-of-features claim.
@@ -833,32 +936,32 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
                   ],
                   [
                     "Location",
-                    "Floor-plan pins",
+                    "Floor-plan pins, with Snaglist Pro",
                     "Which edition supports the location or drawing workflow you need?",
                   ],
                   [
                     "Contractor access",
-                    "Planned for v2.0: no-account browser handoff. The current app works offline.",
+                    "Contractor link: the trade opens it in a browser with no account or app.",
                     "What does the recipient need to install, register for or pay for?",
                   ],
                   [
                     "Completion evidence",
-                    "Planned for v2.0: online submission, awaiting review and accepted closure as separate steps.",
+                    "The trade’s completion photo is submitted, awaits review and closes only when a manager accepts it.",
                     "How do photos and review decisions get back to the manager?",
                   ],
                   [
                     "Report",
-                    "PDF export from the app",
+                    "PDF export from the app, with completion photos",
                     "Check a real exported report and its included fields.",
                   ],
                   [
                     "Price",
-                    `${OFFER.monthly}/month or ${OFFER.annual}/year for Pro. Buying Pro does not unlock planned v2.0 online features today.`,
+                    `Free: ${FREE_LIMITS}. Pro: ${OFFER.monthly}/month or ${OFFER.annual}/year.`,
                     "Check app price, subscriptions, add-ons and recipient charges.",
                   ],
                   [
                     "Device",
-                    "Current offline iPhone and iPad app. Browser manager portal and Contractor links planned for v2.0.",
+                    "iPhone and iPad app. Trades need only a web browser.",
                     "Check your device and the contractor’s device.",
                   ],
                 ].map((row) => (
@@ -875,11 +978,18 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
             <h2>Choose against the job you actually do</h2>
             <p>
               If an existing reporting app already produces the record you need,
-              include that in your decision. If the difficult part is collecting
-              contractor responses, check which online services are available
-              today. Snaglist’s browser handoff and manager review are planned
-              for v2.0 and cannot be used in the current app.
+              include that in your decision. If the difficult part is getting the
+              list to the trade and the evidence back, check how each app handles
+              that step.
             </p>
+            {page.role === "Site Audit Pro" && (
+              <p>
+                Site Audit Pro is a reasonable choice if you want a branded PDF
+                and nobody has to action the list inside the tool. Snaglist is
+                the better fit if subcontractors must respond to the items and
+                you want their completion photos in the same record.
+              </p>
+            )}
             <p>
               Do not infer that an unlisted feature is unavailable. Ask the
               provider if the current edition or an add-on supports it.
@@ -906,7 +1016,7 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
               .
             </p>
             <div className="actions">
-              <a href="/contractor-link">Preview v2.0 Contractor links →</a>
+              <a href="/contractor-link">See the Contractor link →</a>
               <a href="/pricing">Snaglist pricing →</a>
             </div>
           </div>
@@ -990,14 +1100,23 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
           ))}
         </ol>
         <h2>Check the handoff</h2>
-        <p>
-          A list is useful when the person receiving it can identify the work
-          and respond. The current app keeps your snag record offline; use an
-          exported report to discuss the work. Contractor links, account sync
-          and online manager review are planned for v2.0.
-        </p>
+        {page.role === "subcontractors" ? (
+          <p>
+            When the work is done, add a completion photo and a note through
+            the link. Your submission waits for the site manager’s review, and
+            the item closes only when a manager accepts the work.
+          </p>
+        ) : (
+          <p>
+            A list is useful when the person receiving it can identify the work
+            and respond. Send the trade a Contractor link for their snags: they
+            open it in a browser with no account and send a completion photo.
+            The snag waits for review and closes only when a manager accepts
+            the work.
+          </p>
+        )}
         <div className="actions">
-          <a href="/contractor-link">Preview the v2.0 Contractor link →</a>
+          <a href="/contractor-link">See how the Contractor link works →</a>
           <a href="/snag-list-template">Use the free template →</a>
         </div>
         <p>
@@ -1018,7 +1137,6 @@ export default function PublicPage() {
         Skip to content
       </a>
       <Header path={path} />
-      <ServiceNotice />
       {path !== "/" && (
         <nav aria-label="Breadcrumb" className="wrap breadcrumbs">
           <a href="/">Snaglist</a>

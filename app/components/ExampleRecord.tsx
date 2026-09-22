@@ -10,15 +10,15 @@ const stages = [
   },
   {
     label: "Share",
-    title: "Planned for v2.0: give the contractor the record",
-    copy: "In this planned v2.0 example, the contractor would receive the snag’s location and description through a Contractor link. This online handoff is not available in the current app.",
+    title: "Give the contractor the record",
+    copy: "The contractor receives the snag’s location and description through a Contractor link and opens it in a browser, with no account.",
     status: "Open",
   },
   {
     label: "Review",
-    title: "Planned for v2.0: review the returned evidence",
-    copy: "In the planned v2.0 workflow, a contractor would submit a completion photo for review. A submission would await the manager’s decision; it would not close the snag automatically.",
-    status: "Submitted for review",
+    title: "Review the returned evidence",
+    copy: "The contractor’s completion photo is a submission. It waits for the manager’s review and does not close the snag by itself.",
+    status: "Awaiting review",
   },
 ];
 export function ExampleRecord({
@@ -85,8 +85,8 @@ export function ExampleRecord({
       )}
       <figcaption>
         {interactive
-          ? "Planned v2.0 workflow · fictional illustration, not a live Contractor link. Online sharing and review are not available in the current app."
-          : "Fictional snag record · not an app screenshot. The current app works offline; online sharing is planned for v2.0."}
+          ? "Fictional illustration · not an app screenshot or a live Contractor link."
+          : "Fictional snag record · not an app screenshot."}
       </figcaption>
     </figure>
   );

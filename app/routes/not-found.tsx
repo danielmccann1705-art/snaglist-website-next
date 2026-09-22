@@ -15,7 +15,7 @@ export default function NotFound() {
           <a className="button" href="/">
             Snaglist home
           </a>
-          <a href="/support">Get help with a contractor link</a>
+          <a href="/support#contractor-links">Get help with a Contractor link</a>
         </div>
       </main>
       <Footer />

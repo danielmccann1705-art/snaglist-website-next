@@ -17,7 +17,7 @@ export default function Contractor() {
       <Suspense
         fallback={
           <main className="loading-page">
-            <p>Opening your contractor link…</p>
+            <p>Opening your Contractor link…</p>
           </main>
         }
       >
