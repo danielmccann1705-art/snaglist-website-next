@@ -1,8 +1,9 @@
 import React from 'react';
 import { Wordmark } from '../app/components/Brand';
-import { Dan } from './LegalPlaceholder';
+import { Dan, LegalVersion, ProviderAddress, ProviderName } from './LegalPlaceholder';
 
 const h2 = 'text-lg font-bold text-[#1A1D23] mb-2';
+const h3 = 'text-[15px] font-bold text-[#1A1D23] mb-1.5 mt-5';
 const list = 'list-disc pl-5 space-y-1.5';
 const link = 'text-primary hover:underline';
 
@@ -19,15 +20,22 @@ export const Terms: React.FC = () => {
 
       <div className="max-w-2xl mx-auto px-5 sm:px-8 py-10 md:py-16">
         <h1 className="text-3xl md:text-4xl font-black tracking-[-0.033em] text-[#1A1D23] mb-1">Terms of service</h1>
-        <p className="text-gray-400 text-sm mb-10">Last updated: <Dan>date this version is published</Dan></p>
+        <p className="text-gray-400 text-sm mb-10" data-legal-version="">Last updated: <LegalVersion /></p>
 
         <div className="space-y-10 text-[#6B7280] text-[15px] md:text-base leading-[1.75]">
           <section>
             <h2 className={h2}>1. Agreement to these terms</h2>
             <p>
-              By accessing or using Snaglist (“the Service”), you agree to be bound by these Terms of Service (“Terms”).
-              If you do not agree to these Terms, do not use the Service. The Service is provided by{' '}
-              <Dan>legal name of the provider, exactly as in the privacy policy</Dan> (“Snaglist”, “we”, “us”, “our”).
+              These terms (“Terms”) apply when you use Snaglist (“the Service”): the app, the Snaglist portal and
+              Contractor links. The Service is provided by <ProviderName /> (“Snaglist”, “we”, “us”, “our”), whose
+              postal address is <ProviderAddress />. You can contact us at{' '}
+              <a href="mailto:support@usesnaglist.com" className={link}>support@usesnaglist.com</a>.
+            </p>
+            <p className="mt-2">
+              By creating an account or using the Service you agree to these Terms. If you use a Contractor link
+              without an account, the terms in <a href="#contractor-links" className={link}>section 5</a> are the
+              ones that apply to you. Some terms differ depending on whether you use Snaglist as a consumer, for
+              purposes outside your trade, business or profession, or for business; where that matters, we say so.
             </p>
           </section>
 
@@ -60,7 +68,7 @@ export const Terms: React.FC = () => {
               <li>You must provide accurate and complete information when creating an account</li>
               <li>You are responsible for maintaining the security of your account credentials</li>
               <li>You are responsible for all activity that occurs under your account</li>
-              <li>You must notify us immediately of any unauthorised use of your account</li>
+              <li>You must tell us promptly if you think someone has used your account without permission</li>
               <li>You must be at least 16 years old to create an account</li>
             </ul>
             <p className="mt-2">
@@ -74,43 +82,60 @@ export const Terms: React.FC = () => {
           <section>
             <h2 className={h2}>4. Your content</h2>
             <p>
-              You retain ownership of all content you upload to the Service, including photos, project data,
-              snag reports, and floor plans ("Your Content"). By using the Service, you grant us a licence to
-              store, process and display Your Content to provide the Service to you and to the people you share
-              it with, including members of a company whose projects you work in and the recipients of
-              Contractor links you send, and to keep content you added to a company’s projects in that
-              company’s records, as the privacy policy describes.
+              You or the relevant rights holder keep ownership of the photos, notes and other content you
+              provide. You must have permission to upload and share that content, including photos of sites and
+              of other people’s work. You give Snaglist permission to host, copy, process, display and include
+              it in reports only as needed to provide and secure the service, follow authorised sharing
+              instructions, and meet lawful retention requirements. This includes using our service providers
+              for those purposes. It does not give us permission to use your project content in advertising.
             </p>
             <p className="mt-2">
-              Content you add to a company’s projects stays in that company’s records if you leave the company
-              or delete your account, as the <a href="/privacy#delete-your-account" className={link}>privacy policy</a> describes.
+              Authorised sharing includes showing content to the members of a company whose projects you work in
+              and to the recipients of Contractor links you send. Content you add to a company’s projects stays in
+              that company’s records if you leave the company or delete your account, as the{' '}
+              <a href="/privacy#delete-your-account" className={link}>privacy policy</a> describes.
             </p>
             <p className="mt-2">
-              <Dan>L5: who owns the photographs and notes a contractor submits through a Contractor link, and what licence Snaglist and the sender have to use them</Dan>
-            </p>
-            <p className="mt-2">
-              You are responsible for ensuring you have the right to upload and share any content through the Service,
-              including photos of construction sites.
+              This permission concerns rights in the content itself. How we handle personal information in it is
+              explained in the <a href="/privacy" className={link}>privacy policy</a>.
             </p>
           </section>
 
-          <section>
-            <h2 className={h2}>5. Contractor links and sharing</h2>
+          <section id="contractor-links">
+            <h2 className={h2}>5. Contractor links</h2>
             <p>
               A Contractor link shares the snags you choose with a contractor, who opens them in a web browser
               without a Snaglist account. The{' '}
               <a href="/privacy#contractor-links" className={link}>privacy policy</a> sets out exactly what a
               Contractor link shows.
             </p>
+
+            <h3 className={h3}>If you send a Contractor link</h3>
             <ul className={`${list} mt-2`}>
               <li>You choose the snags and the contractor, and you are responsible for sending the link only to the intended recipient.</li>
               <li>Anyone who has a link can open it, and a link can be forwarded. You are responsible for who you send it to. If you add a PIN, send it separately from the link.</li>
               <li>You control the link’s PIN, its expiry (1 to 90 days) and its revocation. Revoking a link stops it working; copies a recipient has already saved may remain with them.</li>
               <li>A contractor’s submission does not close a snag. Submitted work waits for review, and only a decision by you or a colleague closes the snag. You can also send work back with a reason.</li>
             </ul>
-            <p className="mt-2">
-              <Dan>L5: the terms that apply to someone who uses a Contractor link without a Snaglist account</Dan>
+
+            <h3 className={h3}>If you use a Contractor link without an account</h3>
+            <p>
+              This part applies to you if someone has sent you a Contractor link. We, the provider named in
+              section 1, run the link for the person or business that sent it to you. You do not need an account,
+              and we do not charge you for using the link. By submitting work through the link, you agree to this
+              section and to the acceptable-use rules in section 6.
             </p>
+            <ul className={`${list} mt-2`}>
+              <li>You can view the snags the link includes, mark work as started, and submit notes and photos for that work. Use the link only for the work it was sent for.</li>
+              <li>Your photos and notes will be shared with the project team and may appear in project reports. Upload only information you have permission to share.</li>
+              <li>When you submit evidence through a Contractor link, you authorise it to be added to the project and used by the project’s authorised users and report recipients for managing, reviewing and recording the work. You or the relevant rights holder keep ownership of it; section 4 describes our own limited permission to handle it.</li>
+              <li>Submission does not itself mean the work has been accepted. The project team reviews it and may accept it or send it back with a reason; a submission never closes a snag.</li>
+              <li>You cannot change or delete a submission through the link. Ask the person who sent it, or contact us.</li>
+              <li>Revoking a link prevents future access through that link; it cannot recall copies already saved or reports already sent. A link also stops working when it expires.</li>
+              <li>Share the link, and any PIN, only with the people doing the work. After five wrong PIN attempts the link is locked for 15 minutes.</li>
+              <li>We do not ask for your name or email address. The <a href="/privacy#contractor-links" className={link}>privacy policy</a> explains what we collect when you use a link and whom to contact.</li>
+              <li>For help, email <a href="mailto:support@usesnaglist.com" className={link}>support@usesnaglist.com</a>. Nothing in this section removes rights the law gives you.</li>
+            </ul>
           </section>
 
           <section>
@@ -136,12 +161,12 @@ export const Terms: React.FC = () => {
               Company membership is free. Snaglist Pro remains a separate subscription.
             </p>
             <ul className={`${list} mt-2`}>
-              <li>Subscriptions offered in the iOS app are purchased and managed through the Apple App Store; this website has no subscription checkout</li>
-              <li>Payment is charged to your Apple account when you confirm the purchase</li>
-              <li>Subscriptions renew automatically unless cancelled at least 24 hours before the end of the current period</li>
-              <li>Refunds are subject to the applicable app store's refund policy</li>
-              <li>We may change pricing with 30 days' notice</li>
-              <li>Deleting your account does not cancel a subscription; cancel it in your Apple account’s subscription settings</li>
+              <li>Snaglist Pro is sold through the Apple App Store, and the App Store listing shows the seller. This website has no subscription checkout.</li>
+              <li>Payment is charged to your Apple account when you confirm the purchase.</li>
+              <li>Subscriptions renew automatically unless cancelled at least 24 hours before the end of the current period. You can cancel in your Apple account’s subscription settings.</li>
+              <li>Refunds for App Store purchases are requested from Apple under its refund process. This does not limit any rights you have under consumer law.</li>
+              <li>If we raise the price of Snaglist Pro, you will be told through Apple before the new price applies to your subscription, and you can cancel before it does.</li>
+              <li>Deleting your account does not cancel a subscription; cancel it in your Apple account’s subscription settings.</li>
             </ul>
             <p className="mt-2">
               If you downloaded Snaglist from the App Store, Apple’s standard{' '}
@@ -151,44 +176,35 @@ export const Terms: React.FC = () => {
           </section>
 
           <section>
-            <h2 className={h2}>8. Service availability</h2>
+            <h2 className={h2}>8. What Snaglist does, and your legal rights</h2>
             <p>
-              We aim to provide a reliable service but do not guarantee uninterrupted access. The Service may
-              be temporarily unavailable for maintenance, updates, or due to circumstances beyond our control.
-              We are not liable for any loss arising from service downtime.
-            </p>
-          </section>
-
-          <section>
-            <h2 className={h2}>9. Limitation of liability</h2>
-            <p>
-              To the maximum extent permitted by law, Snaglist shall not be liable for any indirect, incidental,
-              special, consequential, or punitive damages, including loss of data, profits, or business opportunities,
-              arising from your use of the Service.
+              Snaglist helps you record and coordinate work. A manager’s acceptance records their decision in the
+              project; it is not an independent inspection, building-control approval or warranty from Snaglist.
+              You remain responsible for construction quality, safety and compliance decisions.
             </p>
             <p className="mt-2">
-              Nothing in these Terms limits liability for death or personal injury caused by negligence, for
-              fraud, or for anything else that cannot be limited by law, and nothing affects your statutory
-              rights as a consumer.
+              We aim to provide a reliable service, but maintenance and faults can interrupt access. Keep copies
+              of the reports and records you need to rely on, such as exported PDF reports.
             </p>
             <p className="mt-2">
-              The Service is a tool for managing construction snag lists. It does not replace professional
-              inspections, building control processes, or regulatory compliance. You remain responsible for
-              all construction quality and safety decisions.
+              Nothing in these Terms removes rights or remedies that the law gives you. Nothing in these Terms
+              limits liability for death or personal injury caused by negligence, for fraud, or for anything else
+              that cannot be limited by law.
+            </p>
+            <p className="mt-2">
+              If you are a consumer, we are responsible for loss or damage you suffer that is a foreseeable result
+              of our breaking these Terms or failing to use reasonable care and skill. Loss or damage is
+              foreseeable if it is obvious that it will happen, or if both we and you knew it might happen when
+              you started using Snaglist. We are not responsible for loss or damage that is not foreseeable.
+            </p>
+            <p className="mt-2">
+              If you use Snaglist for business:{' '}
+              <Dan>business liability terms for business users, free and paid, including any cap and how loss of data is treated, to be settled with counsel (decision 5)</Dan>
             </p>
           </section>
 
           <section>
-            <h2 className={h2}>10. Disclaimer</h2>
-            <p>
-              The Service is provided "as is" and "as available" without warranties of any kind, whether express
-              or implied, including but not limited to warranties of merchantability, fitness for a particular
-              purpose, and non-infringement.
-            </p>
-          </section>
-
-          <section>
-            <h2 className={h2}>11. Deleting your account and termination</h2>
+            <h2 className={h2}>9. Deleting your account, and suspension</h2>
             <p>
               You can delete your account in the app’s settings or in the Snaglist portal. If you are the only
               owner of a company, you must first hand it to another member or close it. Work you did in a
@@ -198,29 +214,31 @@ export const Terms: React.FC = () => {
               already sent to others.
             </p>
             <p className="mt-2">
-              We may suspend or terminate your account if you violate these Terms. Upon termination, your right
-              to use the Service ceases immediately.
+              We may suspend or close an account, or disable a Contractor link, if it is used in serious or
+              repeated breach of these Terms, or where the law requires it. Unless there is a good reason not to,
+              we will tell you first and explain why.
             </p>
           </section>
 
           <section>
-            <h2 className={h2}>12. Changes to these terms</h2>
+            <h2 className={h2}>10. Changes to these terms</h2>
             <p>
-              We may update these Terms from time to time. We will notify you of material changes by email
-              or through the Service. Continued use of the Service after changes take effect constitutes
-              acceptance of the updated Terms.
+              We may update these Terms, for example to reflect changes to the Service or to the law. If a change
+              significantly affects you, we will tell you by email or in Snaglist before it takes effect. If you do
+              not agree to a change, you can stop using Snaglist and delete your account before it takes effect,
+              and cancel any subscription in your Apple account’s subscription settings.
             </p>
           </section>
 
           <section>
-            <h2 className={h2}>13. Governing law</h2>
+            <h2 className={h2}>11. Governing law</h2>
             <p>
               <Dan>L2: governing law and courts</Dan>
             </p>
           </section>
 
           <section>
-            <h2 className={h2}>14. Contact</h2>
+            <h2 className={h2}>12. Contact</h2>
             <p>
               If you have questions about these Terms, contact us at:
             </p>

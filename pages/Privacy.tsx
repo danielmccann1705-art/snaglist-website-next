@@ -1,13 +1,21 @@
 import React from 'react';
 import { Wordmark } from '../app/components/Brand';
-import { Dan } from './LegalPlaceholder';
+import { Dan, LegalVersion, ProviderAddress, ProviderName } from './LegalPlaceholder';
 
-// Option B of the deletion-timeframe derivation, word for word. It is true in the
-// worst case that the account-deletion worker's own schedule allows; it is not
-// derived from storage throughput. Do not reword it without re-deriving that bound.
-// tests/legal.test.mjs asserts it verbatim in the built page.
-export const DELETION_TIMEFRAME =
-  'When you delete your account it stops working straight away, and your name, email address and sign-in details are erased immediately. The photographs and files in your projects are then removed from storage in the background, and we complete every deletion within 30 days. The app shows a completion receipt once yours has finished.';
+// What happens when a deletion request is accepted (legal handoff §3.1, 23 September
+// 2026). The request itself stops sign-in and clears the active profile; an encrypted
+// Apple credential moves to the deletion job and is erased only once revocation
+// succeeds (AccountDeletionService, AccountDeletionAppleRevocationService). Do not
+// restore an "erased immediately" claim. tests/legal.test.mjs checks these sentences.
+export const DELETION_ON_REQUEST =
+  'When your deletion request is accepted, your Snaglist account stops accepting sign-ins and your active account profile is removed. Cleanup of your personal workspace and stored files continues in the background. If you used Sign in with Apple, we retain an encrypted credential only while it is needed to revoke Snaglist’s access, and erase that credential when revocation succeeds. Your deletion reference lets you check progress.';
+
+// A service target, not a guarantee (legal handoff §3.2). A blocked deletion job waits
+// for an operator, so this aim may be published only once the monitored overdue and
+// blocked-job check and its runbook are running and Dan has accepted the operating
+// duty. The placeholder printed after it on the page holds publication until then.
+export const DELETION_TARGET =
+  'We aim to complete background deletion within 30 days and act without undue delay. If an issue prevents completion, we investigate it and explain the position through your deletion reference or support. We retain information only where there is a valid reason, as described below.';
 
 const h2 = 'text-lg font-bold text-[#1A1D23] mb-2';
 const h3 = 'text-[15px] font-bold text-[#1A1D23] mb-1.5 mt-5';
@@ -30,7 +38,7 @@ export const Privacy: React.FC = () => {
 
       <div className="max-w-2xl mx-auto px-5 sm:px-8 py-10 md:py-16">
         <h1 className="text-3xl md:text-4xl font-black tracking-[-0.033em] text-[#1A1D23] mb-1">Privacy policy</h1>
-        <p className="text-gray-400 text-sm mb-10">Last updated: <Dan>date this version is published</Dan></p>
+        <p className="text-gray-400 text-sm mb-10" data-legal-version="">Last updated: <LegalVersion /></p>
 
         <div className="space-y-10 text-[#6B7280] text-[15px] md:text-base leading-[1.75]">
           <section>
@@ -46,11 +54,18 @@ export const Privacy: React.FC = () => {
           </section>
 
           <section>
-            <h2 className={h2}>1. Who we are</h2>
+            <h2 className={h2}>1. Who we are and our role</h2>
             <p>
-              Snaglist is provided by <Dan>legal name of the provider: a company name and registered number, or the full name of the sole trader</Dan> (“Snaglist”,
-              “we”, “us”, “our”), whose postal address is <Dan>postal address of the provider</Dan>.
-              For anything about this policy or your information, email <Support />.
+              Snaglist is provided by <ProviderName /> (“Snaglist”, “we”, “us”, “our”), whose postal address
+              is <ProviderAddress />. For anything about this policy or your information, email <Support />.
+            </p>
+            <p className="mt-3">
+              Snaglist is responsible for how we use your account information, subscription administration,
+              security records and support correspondence. For that information we act as a data controller.
+              When a business uses Snaglist to manage its projects, that business normally decides why project
+              records and people’s details are used; we process those records on its instructions to provide
+              the service. Your employer or the business running the project may therefore be responsible for
+              some information about you. Contact us if you are unsure who to approach.
             </p>
           </section>
 
@@ -59,6 +74,7 @@ export const Privacy: React.FC = () => {
             <ul className={list}>
               <li>You can use the Snaglist app on your device without an account. A project set to “On this device only” is not uploaded to Snaglist.</li>
               <li>When you sign in and save a project to a workspace, the project and its snags, photographs and drawings are stored on our service, so that you and the people you give access to can use them on other devices and in the Snaglist portal.</li>
+              <li>For project records a business keeps in Snaglist, that business normally decides how they are used, and we act on its instructions (section 1).</li>
               <li>A Contractor link shows the snags you choose to anyone who holds the link, without an account. Section 4 sets out exactly what it shows.</li>
               <li>The site location you pick on a map is stored and uploaded at full precision. Snaglist never reads your device’s location.</li>
               <li>We do not sell personal information, show advertising, or track you across other companies’ apps and websites. We use no analytics services to study how you use Snaglist. The app includes Google’s sign-in software, which this version does not use.</li>
@@ -107,11 +123,13 @@ export const Privacy: React.FC = () => {
             <h3 className={h3}>Photographs</h3>
             <p>
               Photographs you take or attach in the app are re-encoded on your device before they are saved,
-              so the location and other details recorded by the camera are not kept. Photographs uploaded in
-              a web browser, whether in the portal or by a contractor through a Contractor link, are stored as
-              they were received, including any details the file itself contains, such as when and where it
-              was taken. Only a new copy without those details is ever shown to anyone; the file as received
-              is kept privately with the project.
+              so the location and other details recorded by the camera are not kept. Photographs uploaded
+              through a web browser, whether in the portal or by a contractor through a Contractor link, can
+              contain information such as when they were taken, details of the device and the location. We
+              keep the original privately with the project. Normal photo views use a processed copy with that
+              embedded information removed; people with the required project access can also download the
+              original, which may still contain that information. A Contractor link shows only processed
+              copies, never an original.
             </p>
 
             <h3 className={h3}>Site location</h3>
@@ -122,7 +140,8 @@ export const Privacy: React.FC = () => {
               with access to the project, and they are not included in Contractor links. To show the map,
               search for addresses and turn the point into an address, the app uses Apple Maps, which receives
               your search text and the point you chose. Snaglist never reads your device’s location and does
-              not take locations from your photographs.
+              not take locations from your photographs. The site point is stored separately from any location
+              that a photograph’s own file may contain.
             </p>
 
             <h3 className={h3}>Dictation and Face ID</h3>
@@ -228,6 +247,13 @@ export const Privacy: React.FC = () => {
               appears in the preview when the link is pasted into a messaging app. After the correct PIN is
               entered, a cookie keeps the link unlocked for up to two hours (section 12).
             </p>
+
+            <h3 className={h3}>Terms for the person using a link</h3>
+            <p>
+              Someone who uses a Contractor link without an account can read the terms that apply to them,
+              without signing in, in the{' '}
+              <a href="/terms#contractor-links" className={link}>Contractor link section of our terms</a>.
+            </p>
           </section>
 
           <section>
@@ -249,7 +275,11 @@ export const Privacy: React.FC = () => {
               replaced by “Former member” (section 11).
             </p>
             <p className="mt-3">
-              <Dan>L4: who is responsible (the controller) for the records in a company’s workspace. A lawyer should settle this; it decides what this section promises members</Dan>
+              A company normally decides how its projects and records are used, and we process them on its
+              instructions to provide the service (section 1). If you want to see, correct or remove
+              information in a company’s records, ask the company first. If you contact us instead, we will
+              pass your request to the company promptly and help it respond, and we will deal directly with
+              anything we are responsible for, such as your account.
             </p>
           </section>
 
@@ -265,11 +295,11 @@ export const Privacy: React.FC = () => {
               the record belongs to is deleted.
             </p>
             <p className="mt-3">
-              If your details have been entered and you want them corrected or removed, ask the customer who
-              entered them, or email <Support />.
-            </p>
-            <p className="mt-3">
-              <Dan>L4: whether Snaglist or the customer is responsible for these details, and what we will do when such a request reaches us</Dan>
+              The customer who entered these details normally decides how they are used, and we process them
+              on its instructions (section 1). If your details have been entered and you want to see, correct
+              or remove them, ask the customer who entered them. You can also email <Support />; you do not
+              need a Snaglist account. We will pass your request to the customer promptly, help it respond, and
+              act on anything we are responsible for ourselves.
             </p>
           </section>
 
@@ -286,10 +316,12 @@ export const Privacy: React.FC = () => {
               <li><strong>Google Workspace</strong> holds our support mailbox.</li>
             </ul>
             <p className="mt-3">
-              Cloudflare, Neon, RevenueCat, Resend and Google Workspace process information only on our
-              instructions, under written terms that require them to protect it at least as well as this
-              policy does. Apple and Google provide sign-in, and Apple provides Apple Maps, speech recognition
-              and App Store payments, under their own terms and privacy policies.
+              When Cloudflare, Neon, RevenueCat, Resend and Google Workspace handle personal information to
+              provide their services to us, they act on our instructions, under written terms that require them
+              to protect it at least as well as this policy does. Each of them also handles some information
+              for its own purposes, such as billing, security and running its own service, as its own privacy
+              notice explains. Apple and Google provide sign-in, and Apple provides Apple Maps, speech
+              recognition and App Store payments, under their own terms and privacy policies.
             </p>
             <p className="mt-3">We also share information:</p>
             <ul className={`${list} mt-2`}>
@@ -301,37 +333,53 @@ export const Privacy: React.FC = () => {
           </section>
 
           <section>
-            <h2 className={h2}>8. Where information is held</h2>
+            <h2 className={h2}>8. Where information is held, and transfers</h2>
             <p>
-              <Dan>where the production database and file storage are held: read back the production database region and the storage location before stating either</Dan>
+              Our production database is hosted by Neon in{' '}
+              <Dan>production database region, read back from the production Neon project</Dan>. Photographs
+              and other files are held in Cloudflare R2 storage, and the service that handles requests runs on
+              Cloudflare, in{' '}
+              <Dan>production storage location and jurisdiction, and the region the service runs in, read back from the production resources</Dan>.
+              Requests reach Cloudflare’s network first, usually at a location near the person connecting.
             </p>
             <p className="mt-3">
-              Some of our providers are based in, or process information in, the United States.{' '}
-              <Dan>L3: the safeguard relied on for these international transfers, confirmed by a lawyer</Dan>
+              Our providers may also process information in other countries, including the United States, to
+              operate and support their services. For transfers that need safeguards under UK law, we use{' '}
+              <Dan>L3: the safeguard for each restricted transfer, provider by provider, from the applicable agreement (UK adequacy, the UK Extension to the Data Privacy Framework for a certified recipient, or the UK addendum or IDTA in the provider’s terms), confirmed by a lawyer</Dan>.
+              Contact <Support /> for information about those safeguards.
             </p>
           </section>
 
           <section>
             <h2 className={h2}>9. Our legal bases</h2>
-            <p>
-              We use personal information to provide the service you ask for (your account, projects,
-              sharing, Contractor links and the portal); to take and check subscriptions; to keep Snaglist
-              secure and prevent abuse; to answer support requests; and to meet legal obligations.
-            </p>
+            <p>For the information we are responsible for (section 1), we rely on these legal bases:</p>
+            <ul className={`${list} mt-2`}>
+              <li><strong>Providing your account and a service you have asked for or bought</strong>, such as Snaglist Pro: contract, where the processing is necessary for our contract with you or for steps you ask us to take before entering into one.</li>
+              <li><strong>Providing and administering accounts for people who use Snaglist for a business customer</strong>: our legitimate interests in providing and running the service that business uses. A business’s contract with us is not a contract with each of its people.</li>
+              <li><strong>Keeping accounts secure, investigating misuse and keeping the service reliable</strong>: our legitimate interests. We keep security records only as long as section 10 says.</li>
+              <li><strong>Administering subscriptions and answering support requests</strong>: contract, where you are our customer; otherwise our legitimate interests in dealing with the business or person who contacts us. Records the law requires us to keep, such as accounting records, are kept to meet that duty.</li>
+              <li><strong>Meeting a specific legal duty that applies to us</strong>, such as answering a valid legal demand or keeping required records: legal obligation.</li>
+            </ul>
             <p className="mt-3">
-              <Dan>L3: the lawful basis for each of these purposes, confirmed by a lawyer</Dan>
+              For project records we process on a business’s instructions, that business decides the legal
+              basis for using them. We do not rely on consent for anything this policy describes, and we do not
+              send marketing email. Where we rely on legitimate interests, you can object (section 14) and ask
+              us for more information.
             </p>
           </section>
 
           <section>
             <h2 className={h2}>10. How long we keep information</h2>
             <ul className={list}>
-              <li>Your account: until you delete it.</li>
+              <li>Your account: until you delete it (section 11).</li>
               <li>Project records, their photographs and files, and the change history that keeps devices in step: until they are deleted, by you, by your company, or when the account or company they belong to is deleted.</li>
+              <li>Earlier copies of records: correcting or removing a record takes it out of the live project, but earlier copies can remain. The change history that keeps devices in step keeps them until the workspace, account or company it belongs to is deleted. Short-lived copies made while a device downloads a project stop working after 30 minutes, but are cleared only when that person next downloads a project or when the project or their account is deleted. For links in the format used before Snaglist 2.0, the report copies made for a link stay until the link, or the account or company it belongs to, is deleted. Archiving a contractor or removing a snag does not by itself remove these copies.</li>
               <li>Sign-in: a sign-in link stops working after 15 minutes, and a portal session after 7 days. Records of your sign-ins are kept with your account and deleted when you delete it, if not before.</li>
               <li>Security records that include an IP address and browser details: 90 days.</li>
               <li>Records of visits to links in the format used before Snaglist 2.0, which include the visitor’s IP address and browser details: until the account or company the link belongs to is deleted.</li>
-              <li>Support emails: we do not delete them on a fixed schedule. Ask us if you want yours deleted.</li>
+              <li>Records of account deletions: the deletion reference and the progress of each step, linked to the former account’s identifier but not to its name or email address, kept so that we can show the deletion was carried out.</li>
+              <li>Support emails: kept for <Dan>support email retention period (decision 4)</Dan> after your request is closed, unless we need them for longer to deal with a complaint or legal claim. Ask us if you want yours deleted earlier.</li>
+              <li>Backups: <Dan>production backup copies of the database: the restore window and any other backup copies, and how long each is kept</Dan>. Information deleted from our live systems stays in a backup only until that backup expires.</li>
               <li>Purchases: Apple and RevenueCat keep their own purchase records, which deleting your Snaglist account does not remove.</li>
             </ul>
           </section>
@@ -342,14 +390,18 @@ export const Privacy: React.FC = () => {
               You can delete your account in the app’s settings (Delete account) or in the Snaglist portal.
               You confirm once; there is no waiting period, and the account cannot be restored.
             </p>
-            <p className="mt-3 text-[#1A1D23]">{DELETION_TIMEFRAME}</p>
+            <p className="mt-3 text-[#1A1D23]">{DELETION_ON_REQUEST}</p>
+            <p className="mt-3 text-[#1A1D23]">{DELETION_TARGET}</p>
+            <p className="mt-3">
+              <Dan>decision 3: publish the 30-day aim above only once the monitored overdue and blocked-deletion check and its runbook are running and you have accepted the operating duty; otherwise remove that paragraph</Dan>
+            </p>
             <p className="mt-3">In more detail:</p>
             <ul className={`${list} mt-2`}>
-              <li>In the same step, access is revoked on every device and any Contractor links you created stop working. A device without a connection loses access when it next connects. We also ask Apple to revoke Snaglist’s access to your Apple sign-in.</li>
+              <li>In the same step, access is revoked on every device and any Contractor links you created stop working. A device without a connection loses access when it next connects. Copies already downloaded to a device can remain on it until the app removes them or you delete the app.</li>
+              <li>As part of the background cleanup, we ask Apple to revoke Snaglist’s access to your Apple sign-in.</li>
               <li>Your own workspace is deleted with its projects, snags, photographs and drawings. Photographs are made permanently unreadable in storage, and drawings and other files are deleted.</li>
               <li>Work you did in a company that stays open stays in that company’s records: the snags you raised, the photographs and drawings you added, your comments and your review decisions. Your name is replaced with “Former member” and your contact details are removed. The decision, the date and a reference remain, so this is not anonymous: the company can still see what was done and when.</li>
               <li>If you are the only owner of a company, you are asked to hand it to another member or to close it before your account can be deleted. Closing a company deletes its projects and records.</li>
-              <li>You get a reference you can use to check progress.</li>
               <li>Deleting your account does not cancel an App Store subscription. Cancel it in your Apple account’s subscription settings.</li>
               <li>Copies already sent to other people, such as reports, photographs, or anything a Contractor link recipient saved, stay with them.</li>
             </ul>
@@ -382,23 +434,37 @@ export const Privacy: React.FC = () => {
 
           <section>
             <h2 className={h2}>14. Your rights</h2>
-            <p>Depending on your location, you may have the right to:</p>
+            <p>Under UK data protection law you have the right, in some circumstances, to:</p>
             <ul className={`${list} mt-2`}>
-              <li>Access the personal data we hold about you</li>
-              <li>Correct inaccurate data</li>
-              <li>Delete your data</li>
-              <li>Export your data in a portable format</li>
-              <li>Object to or restrict certain processing</li>
-              <li>Withdraw consent where processing is consent-based</li>
+              <li>see the personal information we hold about you and get a copy;</li>
+              <li>have inaccurate information corrected;</li>
+              <li>have information deleted;</li>
+              <li>receive information you gave us in a portable format;</li>
+              <li>object to processing based on our legitimate interests, or ask us to restrict processing.</li>
             </ul>
             <p className="mt-3">
-              You can delete your account yourself (section 11). You may also complain to the data-protection
-              authority in your country. In the UK, you can contact the{' '}
-              <a href="https://ico.org.uk/make-a-complaint/" className={link}>Information Commissioner’s Office</a>.
+              You can delete your account yourself (section 11). For anything else, contact us at{' '}
+              <a href="mailto:support@usesnaglist.com" className={`${link} font-medium inline-block py-1`}>support@usesnaglist.com</a>.
+              You do not need a Snaglist account to make a request, for example if a customer has entered your
+              details. We may ask for information to confirm your identity, in proportion to the request.
             </p>
             <p className="mt-3">
-              To exercise any of these rights, contact us at{' '}
-              <a href="mailto:support@usesnaglist.com" className={`${link} font-medium inline-block py-1`}>support@usesnaglist.com</a>.
+              We reply without undue delay and within one calendar month of receiving your request. If we need
+              information to confirm your identity, the month starts when we receive it. If a request is
+              complex, or you have made several, we may take up to two further months; if so, we will tell you
+              within the first month and explain why. Deleting your account in the app does not wait for this
+              period: it starts when you confirm it.
+            </p>
+            <p className="mt-3">
+              If a request concerns records that a business keeps in Snaglist (section 1), we will pass it to
+              that business promptly and help it respond, and we will deal directly with anything we are
+              responsible for.
+            </p>
+            <p className="mt-3">
+              If you are unhappy with how we have handled your information, please tell us so that we can try
+              to put it right. You can also complain to the{' '}
+              <a href="https://ico.org.uk/make-a-complaint/" className={link}>Information Commissioner’s Office</a>{' '}
+              (ICO), the UK’s data protection regulator, or to the data protection authority where you live.
             </p>
           </section>
 
@@ -413,9 +479,9 @@ export const Privacy: React.FC = () => {
           <section>
             <h2 className={h2}>16. Changes to this policy</h2>
             <p>
-              We may update this policy from time to time. We will notify you of material changes
-              by email or through Snaglist where appropriate. The date above identifies the
-              latest version; changes to this notice do not remove your data-protection rights.
+              We may update this policy. If we make a change that significantly affects you, we will tell you
+              by email or in Snaglist before it takes effect, where we can. The date at the top shows when this
+              version was published. Changes to this policy do not remove your data protection rights.
             </p>
           </section>
 
