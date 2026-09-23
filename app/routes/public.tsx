@@ -827,8 +827,8 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
               save a copy to Files.
             </p>
             <p>
-              Uploading older projects to your account is coming soon. Until
-              then, they stay on the device they were made on.
+              Projects from an earlier version stay on the device they were made
+              on and are not uploaded to your account.
             </p>
             <p>
               Snags closed in an earlier version show{" "}
@@ -850,7 +850,7 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
             </p>
             <ul>
               <li>
-                Your account stops working as soon as the request is accepted.
+                Your account stops working once the request is accepted.
               </li>
               <li>
                 Your name, email address and sign-in details are erased. Your

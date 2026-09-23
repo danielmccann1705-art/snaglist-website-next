@@ -45,7 +45,7 @@ export const Terms: React.FC = () => {
             <p className="mt-2">
               Projects from an earlier version of Snaglist stay on your device, and you can open and export them
               without an account. Snags closed in an earlier version are shown as “Legacy closure — unverified”.
-              Uploading older projects to your account is coming soon.
+              Projects from an earlier version are not uploaded to your account.
             </p>
           </section>
 
@@ -133,7 +133,7 @@ export const Terms: React.FC = () => {
               Snaglist Pro are shown in the app before you buy.
             </p>
             <p className="mt-2">
-              Company membership is free at launch. Paid company plans are coming soon. Snaglist Pro remains a separate subscription.
+              Company membership is free. Snaglist Pro remains a separate subscription.
             </p>
             <ul className={`${list} mt-2`}>
               <li>Subscriptions offered in the iOS app are purchased and managed through the Apple App Store; this website has no subscription checkout</li>

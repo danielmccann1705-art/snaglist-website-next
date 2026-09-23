@@ -10,10 +10,11 @@ export const OFFER = {
 // 2026). Show all four together wherever pricing is explained.
 export const FREE_LIMITS =
   "one project, 20 snags per project, five photos per snag and five Contractor links a month";
-// Dan's approved company statement (decision A5). The only company pricing statement
-// the site may carry: no company price appears anywhere.
+// Dan's approved company statement (decision A5), in the present tense with no promise
+// of a later release, as Dan ruled for the app and the store listing (23 September 2026).
+// The only company pricing statement the site may carry: no company price appears anywhere.
 export const COMPANY_PLANS =
-  "Company membership is free at launch. Paid company plans are coming soon. Snaglist Pro remains a separate subscription.";
+  "Company membership is free. Snaglist Pro remains a separate subscription.";
 export type PageSpec = {
   title: string;
   description: string;

@@ -61,7 +61,7 @@ export const Privacy: React.FC = () => {
               <li>When you sign in and save a project to a workspace, the project and its snags, photographs and drawings are stored on our service, so that you and the people you give access to can use them on other devices and in the Snaglist portal.</li>
               <li>A Contractor link shows the snags you choose to anyone who holds the link, without an account. Section 4 sets out exactly what it shows.</li>
               <li>The site location you pick on a map is stored and uploaded at full precision. Snaglist never reads your device’s location.</li>
-              <li>We do not sell personal information, show advertising, or track you across other companies’ apps and websites. We use no analytics services. The app includes Google’s sign-in software, which this version does not use.</li>
+              <li>We do not sell personal information, show advertising, or track you across other companies’ apps and websites. We use no analytics services to study how you use Snaglist. The app includes Google’s sign-in software, which this version does not use.</li>
               <li>You can delete your account in the app or the portal (section 11).</li>
             </ul>
           </section>
@@ -96,11 +96,11 @@ export const Privacy: React.FC = () => {
             </p>
             <ul className={`${list} mt-2`}>
               <li>the project’s name, reference, address, site location, type, dates, status and notes, and the client’s name, email address and phone number if you enter them;</li>
-              <li>its snags: reference, title, description, location, trade, priority, due date, status, assigned contractor and history;</li>
+              <li>its snags: reference, title, description, location, trade, priority, due date, cost estimate and actual cost, tags, status, assigned contractor and history;</li>
               <li>photographs, drawings and the pins placed on them;</li>
               <li>comments, review decisions and a record of who did what and when;</li>
               <li>the contractors in your directory: company name, contact name, email address, phone number, trade and notes;</li>
-              <li>a random identifier for the copy of the app on each of your devices, sent with every change so that our service can keep your devices in step and never apply the same change twice.</li>
+              <li>a random identifier for the copy of the app on each of your devices, sent with every change so that our service can keep your devices in step and never apply the same change twice. The app creates it; it is not read from your device. Snaglist does not collect your device’s advertising identifier, and this version of the app does not register your device for push notifications.</li>
             </ul>
             <p className="mt-2">A project’s cover photo, folders and tags stay on your device.</p>
 
@@ -135,10 +135,15 @@ export const Privacy: React.FC = () => {
             <h3 className={h3}>Subscriptions</h3>
             <p>
               Snaglist Pro is bought through the App Store. Apple takes the payment; we never see your card
-              details. RevenueCat manages subscriptions for us: it receives the purchase and renewal details
-              from Apple and an identifier for you (a random one until you sign in, and your Snaglist account
-              identifier after that) so that your subscription follows your account. Our service checks your
-              subscription with RevenueCat.
+              details. RevenueCat manages subscriptions for us. Its software in the app contacts RevenueCat
+              whenever the app checks whether you have Snaglist Pro, including when the app opens, whether or
+              not you have an account. RevenueCat receives the purchase and renewal details from Apple and an
+              identifier for you (a random one until you sign in, and your Snaglist account identifier after
+              that) so that your subscription follows your account. With each request the app also sends basic
+              details of the device and the app, such as the app and system versions, the device model, your
+              App Store country, your preferred languages and the identifier Apple gives Snaglist for your
+              device (not the advertising identifier). RevenueCat gives us reports of subscription numbers and
+              revenue. Our service checks your subscription with RevenueCat.
             </p>
 
             <h3 className={h3}>Emails</h3>
