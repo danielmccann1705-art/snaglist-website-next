@@ -1,6 +1,11 @@
 export const ORIGIN = "https://usesnaglist.com";
 export const APP_STORE = "https://apps.apple.com/gb/app/snaglist/id6758858102";
 export const SUPPORT = "support@usesnaglist.com";
+// The manager portal's production origin, exactly as the backend configures it
+// (SnagLinkBackend Infrastructure/cloudflare/wrangler.portal-production.jsonc,
+// PORTAL_ORIGIN). On 23 September 2026 the hostname did not resolve and the portal
+// Worker was switched off: `npm run release` refuses to publish until it answers.
+export const PORTAL = "https://app.usesnaglist.com";
 export const OFFER = {
   monthly: "£14.99",
   annual: "£119.99",
@@ -28,8 +33,8 @@ export const pages: Record<string, PageSpec> = {
   "/": {
     title: "Snagging app for site managers and builders | Snaglist",
     description:
-      "Walk the plot, mark the snags and send a Contractor link. The trade opens it in a browser with no account or app and sends the completion photo.",
-    heading: "Snagging app for site managers and builders",
+      "Send the work. Skip the sign-up. Send each trade a Contractor link: they open it in a browser with no account or app, and send the completion photo for your review.",
+    heading: "Send the work. Skip the sign-up.",
     kind: "home",
   },
   "/features": {
@@ -49,7 +54,7 @@ export const pages: Record<string, PageSpec> = {
   "/floor-plans": {
     title: "Snagging app with floor-plan pins | Snaglist",
     description:
-      "Put each snag in context with a floor-plan pin and a photo, so the right place is easy to find when you walk the job again.",
+      "With Snaglist Pro, projects kept on your device can put each snag on a floor-plan pin with a photo, so the right place is easy to find on the next walk.",
     heading: "Put the snag where the work is",
     kind: "plans",
   },

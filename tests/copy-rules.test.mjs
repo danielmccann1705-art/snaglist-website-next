@@ -1,8 +1,14 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
-import { pages, COMPANY_PLANS } from "../app/content/pages.ts";
-import { screenshotSlots } from "../app/content/screenshot-slots.ts";
+import { readFileSync, existsSync } from "node:fs";
+import { pages, COMPANY_PLANS, PORTAL } from "../app/content/pages.ts";
+import {
+  screenshotSlots,
+  productCaptures,
+  removedSlots,
+  CAPTURE_WIDTHS,
+} from "../app/content/screenshot-slots.ts";
+import { findUnresolved } from "../scripts/release-gates.mjs";
 
 // Copy rules for the public site. The site describes Snaglist 2.0 as a product that
 // exists, in the agreed voice, with the agreed prices and no placeholders. The tests
@@ -24,6 +30,7 @@ const MARKETING_SOURCES = [
   "app/components/Site.tsx",
   "app/components/Brand.tsx",
   "app/components/ScreenshotSlot.tsx",
+  "app/components/ProductShot.tsx",
   "app/components/ExampleRecord.tsx",
   "app/routes/public.tsx",
   "app/routes/not-found.tsx",
@@ -233,6 +240,66 @@ test("screenshot slots: every placeholder in the build has a brief, and every br
   }
   for (const id of Object.keys(screenshotSlots))
     assert.ok(placed.has(id), `slot ${id} is registered but not on any page`);
+  for (const id of Object.keys(removedSlots)) {
+    assert.ok(!screenshotSlots[id], `slot ${id} is recorded as removed but is still in the brief`);
+    assert.ok(!placed.has(id), `slot ${id} was removed on purpose but is back on ${placed.get(id)}`);
+  }
+});
+
+test("real captures: placed where listed, with declared size, alt text, lazy loading below the fold and every variant built", () => {
+  for (const [id, c] of Object.entries(productCaptures)) {
+    assert.ok(!screenshotSlots[id], `${id} is filled, so its slot entry should be deleted`);
+    assert.match(c.sha256, /^[0-9a-f]{64}$/, `${id} needs its source SHA-256`);
+    assert.ok(c.alt.length > 40 && c.shows.length > 40, `${id} needs a description and alt text`);
+    for (const w of CAPTURE_WIDTHS)
+      assert.ok(existsSync(`${root}/screenshots/${id}-${w}.webp`), `${id}: missing ${id}-${w}.webp`);
+    assert.ok(existsSync(`${root}/screenshots/${id}-720.png`), `${id}: missing ${id}-720.png`);
+    for (const path of c.pages) {
+      const html = built(path);
+      const figure = html.match(new RegExp(`<figure[^>]*data-product-capture="${id}"[\\s\\S]*?</figure>`));
+      assert.ok(figure, `${id} is listed for ${path} but not placed there`);
+      const img = figure[0].match(/<img\b[^>]*>/)[0];
+      const attr = (name) => img.match(new RegExp(`\\s${name}="([^"]*)"`))?.[1];
+      assert.equal(decode(attr("alt") || ""), c.alt, `${id} on ${path}: alt text`);
+      assert.equal(Number(attr("width")), CAPTURE_WIDTHS[0], `${id} on ${path}: declared width`);
+      assert.equal(Number(attr("height")), Math.round((c.height * CAPTURE_WIDTHS[0]) / c.width), `${id} on ${path}: declared height`);
+      assert.ok(["lazy", "eager"].includes(attr("loading")), `${id} on ${path}: loading attribute`);
+    }
+  }
+  // Only the first capture on a page loads eagerly; everything after it is lazy.
+  for (const path of MARKETING) {
+    const loads = [...built(path).matchAll(/data-product-capture="[^"]+"[\s\S]*?<img\b[^>]*\sloading="(\w+)"/g)].map((m) => m[1]);
+    loads.slice(1).forEach((l, i) => assert.equal(l, "lazy", `${path}: capture ${i + 2} should load lazily`));
+  }
+});
+
+test("the homepage leads with the Contractor link and keeps the brand line lower down", () => {
+  const html = built("/");
+  const h1 = visibleText(html.match(/<h1\b[\s\S]*?<\/h1>/)[0]).trim();
+  assert.equal(h1, "Send the work. Skip the sign-up.");
+  const text = visibleText(html);
+  assert.ok(text.includes("Contractors open it in a browser. No app or account needed."), "no-account line missing");
+  const brand = text.indexOf("Walk the job. Mark the snags. Hand over the record.");
+  assert.ok(brand > text.indexOf(h1), "the brand line should stay on the page, below the hero");
+  assert.ok(!/floor[\s-]plan/i.test(text.slice(0, brand)), "floor plans should not lead the homepage");
+});
+
+test("every marketing page gives the manager portal a Sign in entrance in the header and the footer", () => {
+  for (const path of MARKETING) {
+    const html = built(path);
+    const header = html.match(/<header[\s\S]*?<\/header>/)?.[0] || "";
+    const footer = html.match(/<footer[\s\S]*?<\/footer>/)?.[0] || "";
+    assert.ok(header.includes(`href="${PORTAL}"`) && />Sign in</.test(header), `${path}: header Sign in link`);
+    assert.ok(footer.includes(`href="${PORTAL}"`), `${path}: footer portal link`);
+  }
+  assert.ok(visibleText(built("/")).includes("The portal does not offer Sign in with Apple."), "home must state the portal sign-in limit");
+});
+
+test("the release gate finds unresolved content whether or not the page is noindex", () => {
+  const noindex = '<meta name="robots" content="noindex, nofollow"/>';
+  assert.deepEqual(findUnresolved(`${noindex}<figure data-screenshot-slot="link-create"></figure>`), ["open screenshot slot “link-create”"]);
+  assert.ok(findUnresolved(`${noindex}<mark data-legal-placeholder="">[DAN: company number]</mark>`).length === 2);
+  assert.deepEqual(findUnresolved('<figure data-product-capture="home-hero"><img alt="x"/></figure>'), []);
 });
 
 test("RELEASE GATE: every screenshot slot is filled with a real 2.0 capture", () => {

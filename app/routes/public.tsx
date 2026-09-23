@@ -7,6 +7,7 @@ import {
   APP_STORE,
   FREE_LIMITS,
   COMPANY_PLANS,
+  PORTAL,
   type PageSpec,
 } from "../content/pages";
 import {
@@ -17,7 +18,7 @@ import {
   FAQ,
 } from "../components/Site";
 import { ScreenshotSlot } from "../components/ScreenshotSlot";
-import { Pin } from "../components/Brand";
+import { ProductShot } from "../components/ProductShot";
 import { track } from "../lib/analytics";
 import { Privacy } from "../../pages/Privacy";
 import { Terms } from "../../pages/Terms";
@@ -71,7 +72,7 @@ const commonFAQ: [string, string][] = [
   ],
   [
     "Which devices can I use?",
-    "Snaglist is on the App Store for iPhone and iPad. Check the listing for device compatibility. The trades you send Contractor links to only need a web browser.",
+    "Snaglist is on the App Store for iPhone and iPad. Check the listing for device compatibility. Managers can also sign in to the manager portal in a web browser to work on projects saved to a workspace. The trades you send Contractor links to only need a web browser.",
   ],
   [
     "What is the difference between submitted and accepted?",
@@ -169,14 +170,15 @@ function Plans() {
 function Intro({
   page,
   children,
+  shot,
 }: {
   page: PageSpec;
   children?: React.ReactNode;
+  shot?: React.ReactNode;
 }) {
-  return (
-    <section className="wrap page-intro">
+  const text = (
+    <>
       <p className="eyebrow">
-        Snaglist /{" "}
         {page.kind === "plans"
           ? "Floor plans"
           : page.kind === "contractor"
@@ -187,6 +189,13 @@ function Intro({
       </p>
       <h1>{page.heading}</h1>
       {children}
+    </>
+  );
+  if (!shot) return <section className="wrap page-intro">{text}</section>;
+  return (
+    <section className="wrap page-intro intro-with-shot">
+      <div>{text}</div>
+      {shot}
     </section>
   );
 }
@@ -204,32 +213,128 @@ function Download({ filename, label }: { filename: string; label: string }) {
   );
 }
 
+const journey = [
+  [
+    "Send the work",
+    "Choose the snags and the contractor in the app and send one link, however you usually message them.",
+    "You, in the app",
+  ],
+  [
+    "They open it in a browser",
+    "The contractor opens the link on a phone or computer. No app to install, no account to create and nothing to pay. Add a PIN if you want one.",
+    "Contractor, any web browser",
+  ],
+  [
+    "The evidence comes back",
+    "They add a completion photo and a note. The work is submitted and waits under Awaiting review. It is not closed.",
+    "Contractor, the same link",
+  ],
+  [
+    "You review it",
+    "Check the photo and the note, then accept the work or send it back with a reason. Only a manager’s decision closes the snag.",
+    "You, in the app or the manager portal",
+  ],
+];
+function Journey() {
+  return (
+    <ol className="journey-steps">
+      {journey.map(([heading, copy, who], i) => (
+        <li key={heading}>
+          <span className="step-number">{String(i + 1).padStart(2, "0")}</span>
+          <div>
+            <h3>{heading}</h3>
+            <p>{copy}</p>
+            <p className="journey-who">{who}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  );
+}
+function AppAndPortal() {
+  return (
+    <section id="app-and-portal" className="section wrap">
+      <div className="section-heading">
+        <p className="eyebrow">The app and the manager portal</p>
+        <h2>On site in the app. At your desk in the browser.</h2>
+        <p>
+          Projects saved to a workspace are the same projects in both places.
+          Projects kept only on your device stay on that device.
+        </p>
+      </div>
+      <div className="surfaces">
+        <article>
+          <h3>On site: the app</h3>
+          <p>
+            Walk the job on iPhone or iPad. Capture each snag with its photo and
+            location, send Contractor links and review what comes back.
+          </p>
+          <p className="surface-signin">
+            Sign in with Apple or with an email link.
+          </p>
+        </article>
+        <article>
+          <h3>At your desk: the manager portal</h3>
+          <p>
+            Open your workspace projects in a web browser to check the register,
+            coordinate contractors, review completed fixes and manage your
+            company’s members and invitations.
+          </p>
+          <p className="surface-signin">
+            Sign in with Google or with an email link.
+          </p>
+          <a className="text-link" href={PORTAL}>
+            Sign in to the manager portal <span aria-hidden="true">→</span>
+          </a>
+        </article>
+        <article>
+          <h3>For the contractor: a link</h3>
+          <p>
+            The trade opens the Contractor link in any web browser. No app, no
+            account and nothing to pay.
+          </p>
+          <a className="text-link" href="/contractor-link">
+            How the Contractor link works <span aria-hidden="true">→</span>
+          </a>
+        </article>
+      </div>
+      <p className="signin-note">
+        The portal does not offer Sign in with Apple. An account you have only
+        used with Sign in with Apple can sign in to the portal only by an email
+        link to the address verified on that account. To reach the same
+        projects in both places, sign in with an email link to the same address
+        in the app and in the portal.
+      </p>
+    </section>
+  );
+}
 function Home({ page }: { page: PageSpec }) {
+  // "Send the work. Skip the sign-up." on two lines, the second in Marker red.
+  const [lead, ...rest] = page.heading.split(/(?<=\.)\s+/);
   return (
     <>
       <section className="hero">
         <div className="wrap hero-grid">
           <div className="hero-copy">
-            <h1>{page.heading}</h1>
-            <p className="brand-line">
-              Walk the job.
-              <br />
-              Mark the snags.
-              <br />
-              <span>
-                Hand over
-                <br className="desktop-break" /> the record.
-              </span>
+            <p className="eyebrow hero-eyebrow">
+              Snagging app for site managers and builders
             </p>
+            <h1 className="hero-title">
+              {lead}
+              <br />
+              <span>{rest.join(" ")}</span>
+            </h1>
             <p className="intro-copy">
-              Send each trade a Contractor link to their snags. They open it in
-              a browser, with no account and no app, and send the completion
-              photo. The handover record includes the fix.
+              Capture the snag on site. Send your contractor a Contractor link.
+              Review their photo before you sign it off.
+            </p>
+            <p className="hero-note">
+              Contractors open it in a browser. No app or account needed.
             </p>
             <div className="actions">
               <StoreLink placement="hero" />
               <a className="text-link" href="/contractor-link">
-                How the Contractor link works <span aria-hidden="true">→</span>
+                See the Contractor link <span aria-hidden="true">→</span>
               </a>
             </div>
             <p className="caption">
@@ -249,80 +354,57 @@ function Home({ page }: { page: PageSpec }) {
             </details>
           </div>
           <div className="hero-shot">
-            <ScreenshotSlot id="home-hero" />
-            <p className="shot-line">Trades open a link. No account.</p>
+            <ProductShot
+              id="home-hero"
+              priority
+              caption="The snag in the app, ready to send with Share with contractor."
+            />
           </div>
         </div>
       </section>
+      <section id="journey" className="section journey-section">
+        <div className="wrap journey">
+          <div>
+            <div className="section-heading">
+              <p className="eyebrow">The Contractor link</p>
+              <h2>No sign-up for the contractor. Your sign-off at the end.</h2>
+            </div>
+            <Journey />
+            <a className="text-link" href="/contractor-link">
+              More about the Contractor link <span aria-hidden="true">→</span>
+            </a>
+          </div>
+          <ProductShot
+            id="link-review"
+            caption="Proof of the fix. Your sign-off."
+          />
+        </div>
+      </section>
+      <AppAndPortal />
       <section className="section dark-section">
         <div className="wrap split">
           <div>
-            <p className="eyebrow">The Contractor link</p>
-            <h2>
-              A clear list.
-              <br />A clear handoff.
+            <p className="eyebrow">The working record</p>
+            <h2 className="brand-line">
+              Walk the job.
+              <br />
+              Mark the snags.
+              <br />
+              <span>Hand over the record.</span>
             </h2>
           </div>
           <div>
             <p className="large-copy">
-              Send the trade a link to the snags that are theirs. They open it
-              in a browser, with no account and no app, and send the completion
-              photo back to the same record.
+              The photo, the location, the trade’s response and your decision
+              stay together, from the site walk to the handover record.
             </p>
             <p>
-              You choose the snags, add a PIN if you want one and set when the
-              link expires. You can revoke it at any time.
+              Export a PDF report with each snag’s photos, location and status.
+              Work awaiting review is not closed until a manager accepts it.
             </p>
-            <a className="text-link" href="/contractor-link">
-              See how it works <span aria-hidden="true">→</span>
+            <a className="text-link" href="/features">
+              Explore the workflow <span aria-hidden="true">→</span>
             </a>
-          </div>
-        </div>
-      </section>
-      <section className="section wrap">
-        <div className="section-heading">
-          <p className="eyebrow">The working record</p>
-          <h2>One snag. A clear next step.</h2>
-          <p>
-            The photo, the location, the trade’s response and your decision
-            stay together, from the site walk to the handover record.
-          </p>
-        </div>
-        <Process />
-        <a className="text-link" href="/features">
-          Explore the workflow →
-        </a>
-      </section>
-      <section className="section soft-section">
-        <div className="wrap split">
-          <div>
-            <p className="eyebrow">Location and evidence</p>
-            <h2>
-              “Kitchen” is a room.
-              <br />A pin is a place.
-            </h2>
-            <p>
-              Show where the work is with the room and the exact spot, then use
-              the photo and description to explain what needs attention. With
-              Snaglist Pro, projects kept on your device can also carry
-              floor-plan pins.
-            </p>
-            <a className="text-link" href="/floor-plans">
-              See floor-plan pinning →
-            </a>
-          </div>
-          <div className="feature-note">
-            <Pin />
-            <h3>
-              Keep the location
-              <br />
-              with the snag.
-            </h3>
-            <p>
-              A reference you can follow. A place you can find. A record you can
-              hand over.
-            </p>
-            <a href="/features#reports">Explore PDF reports →</a>
           </div>
         </div>
       </section>
@@ -430,7 +512,16 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
   if (page.kind === "contractor")
     return (
       <>
-        <Intro page={page}>
+        <Intro
+          page={page}
+          shot={
+            <ProductShot
+              id="home-hero"
+              priority
+              caption="It starts from the snag: Share with contractor."
+            />
+          }
+        >
           <p>
             A Contractor link sends the trade the snags that are theirs. They
             open it in a browser, with no account and no app, check the
@@ -506,12 +597,20 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
             <h2>Review before anything closes</h2>
             <p>
               Submitted work appears under Awaiting review. Open it to see the
-              trade’s photo and note beside the original snag, then accept the
-              work or send it back. Accepted work is closed in your record with
-              its completion photo, ready for the handover report.
+              trade’s note, when they submitted it and their completion photos,
+              then accept the work or send it back with a reason. The snag keeps
+              its original photo, so you can compare before and after.
+            </p>
+            <p>
+              Accepted work is closed in your record with its completion photo,
+              ready for the handover report. Until then it is a submission, not
+              a closure.
             </p>
           </div>
-          <ScreenshotSlot id="link-review" />
+          <ProductShot
+            id="link-review"
+            caption="Proof of the fix. Your sign-off."
+          />
         </section>
         <section className="section wrap">
           <FAQ items={commonFAQ.slice(0, 3)} />
@@ -597,24 +696,28 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
               </li>
             </ol>
             <p>
-              Floor-plan pins work in projects kept on your device. In a project
-              saved to a workspace, yours or a company’s, you can view plans in
-              the app but not yet add or move them, so pins and Contractor links
-              cannot yet be used in the same project.
-            </p>
-            <p>
               Use a readable plan and a separate snag for each issue. Avoid
               placing several unrelated observations under one pin.
-            </p>
-            <p>
-              Floor-plan pins are included with Snaglist Pro, in projects kept on
-              your device.
             </p>
             <a className="text-link" href="/contractor-link">
               See how the Contractor link works →
             </a>
           </div>
-          <ScreenshotSlot id="floor-plan-pin" />
+          <div className="feature-note">
+            <h3>Where floor-plan pins work</h3>
+            <ul>
+              <li>With Snaglist Pro.</li>
+              <li>In projects kept on your device.</li>
+              <li>
+                In a project saved to a workspace, yours or a company’s, you can
+                view plans in the app but not add or move them.
+              </li>
+              <li>
+                Contractor links are sent from workspace projects, so pins and
+                Contractor links are not used in the same project.
+              </li>
+            </ul>
+          </div>
         </section>
         <section className="section soft-section">
           <div className="wrap prose">
@@ -853,10 +956,12 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
                 Your account stops working once the request is accepted.
               </li>
               <li>
-                Your name, email address and sign-in details are erased. Your
-                own projects, snags, drawings and photos are then removed in the
-                background; the <a href="/privacy">privacy policy</a> explains
-                how long that takes.
+                Your active account profile is removed and your account stops
+                accepting sign-ins. Your own projects, snags, drawings and photos
+                are then removed in the background. If you used Sign in with
+                Apple, an encrypted credential is kept only until Snaglist’s
+                access has been revoked. The <a href="/privacy">privacy policy</a>{" "}
+                explains how long deletion takes.
               </li>
               <li>
                 You get a reference to check progress. Keep it private. The app

@@ -161,6 +161,115 @@ textarea:focus-visible {
 .slot-row {
   margin-top: 48px;
 }
+/* A real 2.0 capture, untouched and resized only: square, with a fine rule. */
+.product-shot {
+  width: 100%;
+  max-width: 320px;
+  margin-inline: auto;
+}
+.product-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+  background: var(--raised);
+}
+.product-shot figcaption {
+  margin-top: 16px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: center;
+}
+.journey-section {
+  background: white;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.journey {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 96px;
+  align-items: center;
+}
+.journey .section-heading {
+  margin-bottom: 32px;
+}
+.journey-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+  border-top: 1px solid var(--rule);
+}
+.journey-steps li {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 20px;
+  border-bottom: 1px solid var(--rule);
+  padding: 22px 0;
+}
+.journey-steps h3 {
+  margin-bottom: 6px;
+}
+.journey-steps p {
+  color: var(--grey);
+  max-width: 620px;
+}
+.marketing .journey-steps p.journey-who {
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.surfaces {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--rule);
+  background: white;
+}
+.surfaces article {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.surfaces article + article {
+  border-left: 1px solid var(--rule);
+}
+.surfaces h3 {
+  margin-bottom: 12px;
+}
+.surfaces p {
+  color: var(--grey);
+}
+.marketing .surfaces p.surface-signin {
+  margin-top: 16px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.surfaces .text-link {
+  margin-top: auto;
+  padding-top: 16px;
+}
+.marketing .signin-note {
+  margin-top: 24px;
+  max-width: 800px;
+  font-size: 15px;
+  color: var(--grey);
+}
+.intro-with-shot {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 96px;
+  align-items: center;
+}
+.intro-with-shot > div > p:not(.eyebrow) {
+  max-width: 760px;
+  font-size: 23px;
+  line-height: 1.5;
+  margin-top: 28px;
+}
 .marketing p a,
 .prose a,
 .faq a {
@@ -204,6 +313,22 @@ textarea:focus-visible {
   align-items: center;
   text-decoration: none;
   font-weight: 500;
+  white-space: nowrap;
+}
+.header-inner nav > .button {
+  gap: 16px;
+}
+.header-inner nav > a.nav-signin {
+  position: relative;
+  padding-left: 28px;
+}
+.nav-signin::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 12px;
+  bottom: 12px;
+  border-left: 1px solid var(--rule);
 }
 .header-inner nav > a[aria-current="page"] {
   text-decoration: underline;
@@ -279,18 +404,29 @@ textarea:focus-visible {
   gap: 80px;
   align-items: center;
 }
-.hero h1 {
-  font-size: 17px;
-  line-height: 1.5;
-  font-weight: 500;
-  max-width: 440px;
-  margin-bottom: 32px;
+.hero-eyebrow {
+  color: var(--grey);
 }
-.brand-line {
-  font-size: clamp(40px, 4.3vw, 64px);
+/* The homepage h1: "Send the work. Skip the sign-up." */
+.marketing .hero-title {
+  font-size: clamp(44px, 4.6vw, 68px);
+  line-height: 1.04;
+  max-width: 640px;
+  margin-bottom: 28px;
+}
+.hero-title span {
+  color: var(--marker);
+}
+.marketing .hero-note {
+  margin-top: 16px;
+  max-width: 490px;
+  font-weight: 500;
+}
+/* The brand line, now a supporting heading in the dark band. */
+.marketing .brand-line {
+  font-size: clamp(36px, 3.6vw, 54px);
   font-weight: 700;
   line-height: 1.06;
-  margin-bottom: 32px !important;
 }
 .brand-line span {
   color: var(--marker);
@@ -848,11 +984,22 @@ tbody td {
   .footer-grid {
     gap: 24px;
   }
-  .brand-line {
-    font-size: 54px;
+  .marketing .brand-line {
+    font-size: 44px;
   }
   .hero {
     padding: 56px 0;
+  }
+  .journey,
+  .intro-with-shot {
+    gap: 48px;
+    grid-template-columns: 1fr 280px;
+  }
+  .header-inner nav > a.nav-signin {
+    padding-left: 16px;
+  }
+  .surfaces article {
+    padding: 24px;
   }
   .price-card {
     padding: 32px;
@@ -907,19 +1054,46 @@ tbody td {
   .hero {
     padding: 40px 0 48px;
   }
-  .hero h1 {
-    margin-bottom: 24px;
-    max-width: 290px;
+  .marketing .hero-title {
+    font-size: 42px;
+    margin-bottom: 20px;
   }
-  .brand-line {
-    font-size: 46px;
+  .marketing .brand-line {
+    font-size: 36px;
     line-height: 1.08;
+  }
+  .journey,
+  .intro-with-shot {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .intro-with-shot > div > p:not(.eyebrow) {
+    font-size: 20px;
+  }
+  .product-shot {
+    max-width: 280px;
+  }
+  .surfaces {
+    grid-template-columns: 1fr;
+  }
+  .surfaces article + article {
+    border-left: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .surfaces article {
+    padding: 24px;
+  }
+  .header-inner nav > a.nav-signin {
+    padding-left: 12px;
+  }
+  .nav-signin::before {
+    display: none;
   }
   .desktop-break {
     display: none;
   }
   .intro-copy {
-    font-size: 23px;
+    font-size: 20px;
   }
   .hero .actions {
     margin-top: 24px;
@@ -932,9 +1106,6 @@ tbody td {
   }
   .marketing h1 {
     font-size: 40px;
-  }
-  .hero h1 {
-    font-size: 17px;
   }
   .marketing h2 {
     font-size: 30px;
@@ -1028,7 +1199,7 @@ tbody td {
   .breadcrumbs {
     padding-top: 12px;
   }
-  .breadcrumbs > span:last-child {
+  .breadcrumbs {
     display: none;
   }
   .eyebrow {
@@ -1036,6 +1207,11 @@ tbody td {
   }
   .billing {
     padding: 32px 0;
+  }
+}
+@media (max-width: 380px) {
+  .marketing .hero-title {
+    font-size: 36px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

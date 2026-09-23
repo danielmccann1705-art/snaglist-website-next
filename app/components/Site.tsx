@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { APP_STORE, SUPPORT } from "../content/pages";
+import { APP_STORE, PORTAL, SUPPORT } from "../content/pages";
 import { track } from "../lib/analytics";
 import { Wordmark } from "./Brand";
 export function StoreLink({
@@ -30,7 +30,6 @@ export function Header({ path }: { path: string }) {
     ["/features", "How it works"],
     ["/contractor-link", "Contractor link"],
     ["/pricing", "Pricing"],
-    ["/snag-list-template", "Free template"],
   ];
   return (
     <header className="site-header">
@@ -67,6 +66,13 @@ export function Header({ path }: { path: string }) {
               {label}
             </a>
           ))}
+          <a
+            className="nav-signin"
+            href={PORTAL}
+            aria-label="Sign in to the manager portal"
+          >
+            Sign in
+          </a>
           <StoreLink placement="header" label="Get Snaglist" />
         </nav>
       </div>
@@ -92,8 +98,10 @@ export function Footer() {
           <h2>The app</h2>
           <a href="/features">How it works</a>
           <a href="/contractor-link">Contractor link</a>
-          <a href="/floor-plans">Floor plans</a>
           <a href="/pricing">Pricing</a>
+          <a href="/#app-and-portal">App and manager portal</a>
+          <a href={PORTAL}>Sign in to the manager portal</a>
+          <a href="/floor-plans">Floor plans</a>
         </nav>
         <nav aria-label="Resources">
           <h2>The record</h2>
