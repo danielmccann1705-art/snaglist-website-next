@@ -144,7 +144,7 @@ test("the copy rules catch what they exist for and pass the approved sentences",
   for (const good of [
     COMPANY_PLANS,
     "Trades open a link. No account.",
-    "Snaglist Free covers one project, 20 snags and five Contractor links a month.",
+    "Snaglist Free covers one project, 20 snags per project, five photos per snag and five Contractor links a month.",
     "Snaglist Pro is £14.99 a month or £119.99 a year in the UK.",
     "Uploading older projects to your account is coming soon.",
     "Snags closed in an earlier version show Legacy closure — unverified.",
@@ -181,15 +181,20 @@ test("legal pages (/privacy, /terms) carry no banned words, stale v2.0 phrases o
   assert.deepEqual(problems, [], report(problems));
 });
 
-test("the three Free limits appear together wherever one is stated, and pricing carries the approved company sentence", () => {
-  const limits = [/\bone project\b/i, /\b20 snags\b/i, /\bfive Contractor links a month\b/i];
+test("the four Free limits appear together wherever one is stated, and pricing carries the approved company sentence", () => {
+  const limits = [
+    /\bone project\b/i,
+    /\b20 snags per project\b/i,
+    /\bfive photos per snag\b/i,
+    /\bfive Contractor links a month\b/i,
+  ];
   for (const path of MARKETING) {
     const text = visibleText(built(path));
     const shown = limits.filter((re) => re.test(text)).length;
-    assert.ok(shown === 0 || shown === 3, `${path} states ${shown} of the 3 Free limits`);
+    assert.ok(shown === 0 || shown === limits.length, `${path} states ${shown} of the ${limits.length} Free limits`);
   }
   const pricing = visibleText(built("/pricing"));
-  assert.ok(limits.every((re) => re.test(pricing)), "/pricing must state all three Free limits");
+  assert.ok(limits.every((re) => re.test(pricing)), "/pricing must state all four Free limits");
   assert.ok(pricing.includes(COMPANY_PLANS), "/pricing must carry the approved company sentence verbatim");
   for (const price of ["£14.99", "£119.99"]) assert.ok(pricing.includes(price), `/pricing must show ${price}`);
 });

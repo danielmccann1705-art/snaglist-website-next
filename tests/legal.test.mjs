@@ -97,12 +97,14 @@ test("the privacy policy states the site-location facts and the Contractor link 
     assert.ok(source.includes(`id="${anchor}"`), `anchor missing: ${anchor}`);
 });
 
-test("governing law is unchanged until Dan decides it (L2)", () => {
-  assert.ok(
-    documentText("/terms").includes(
-      "These Terms are governed by and construed in accordance with the laws of Ireland.",
-    ),
-  );
+// Governing law is Dan's open decision L2 (review M8, 23 September 2026). Until he
+// settles it the section is a placeholder, so the production-build guard refuses to
+// publish it and the placeholder test below lists it. Replace this check with the
+// settled sentence when the placeholder is resolved.
+test("governing law stays a placeholder until Dan decides it (L2)", () => {
+  const text = documentText("/terms");
+  assert.ok(text.includes("[DAN: L2: governing law and courts]"), "governing-law placeholder missing");
+  assert.ok(!/Ireland/.test(text), "the hard-coded Ireland governing law has come back");
 });
 
 // Fails, by design, until every [DAN: …] placeholder has been replaced with

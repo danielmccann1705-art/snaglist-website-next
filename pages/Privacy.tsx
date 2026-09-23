@@ -61,7 +61,7 @@ export const Privacy: React.FC = () => {
               <li>When you sign in and save a project to a workspace, the project and its snags, photographs and drawings are stored on our service, so that you and the people you give access to can use them on other devices and in the Snaglist portal.</li>
               <li>A Contractor link shows the snags you choose to anyone who holds the link, without an account. Section 4 sets out exactly what it shows.</li>
               <li>The site location you pick on a map is stored and uploaded at full precision. Snaglist never reads your device’s location.</li>
-              <li>We do not sell personal information, show advertising, or track you across other companies’ apps and websites. The app contains no advertising or analytics software.</li>
+              <li>We do not sell personal information, show advertising, or track you across other companies’ apps and websites. We use no analytics services. The app includes Google’s sign-in software, which this version does not use.</li>
               <li>You can delete your account in the app or the portal (section 11).</li>
             </ul>
           </section>
@@ -80,7 +80,7 @@ export const Privacy: React.FC = () => {
             <p>When you create an account we collect:</p>
             <ul className={`${list} mt-2`}>
               <li>your name and email address;</li>
-              <li>the identifier from the way you sign in: Sign in with Apple, Sign in with Google, or a sign-in link sent to your email address. If you use Hide My Email with Apple, we receive Apple’s relay address rather than your own;</li>
+              <li>the identifier from the way you sign in: in the app, Sign in with Apple or a sign-in link sent to your email address; in the Snaglist portal, Sign in with Google or a sign-in link. If you use Hide My Email with Apple, we receive Apple’s relay address rather than your own;</li>
               <li>for Sign in with Apple, a token from Apple that we store encrypted, so that we can revoke Snaglist’s access to your Apple sign-in when you delete your account;</li>
               <li>the sessions that keep you signed in to the app and the portal;</li>
               <li>the companies you belong to and your role in each;</li>
@@ -195,8 +195,8 @@ export const Privacy: React.FC = () => {
 
             <h3 className={h3}>What the contractor can do</h3>
             <p>
-              Mark work as started, and submit it with notes and photographs. A submission does not close a
-              snag: it waits for you or a colleague to review it, and only an accepted submission closes the
+              Mark work as started, and submit it with notes and photographs. A submission never closes a
+              snag: it waits for you or a colleague to review it, and only a manager’s decision closes the
               snag.
             </p>
 
@@ -275,14 +275,16 @@ export const Privacy: React.FC = () => {
               <li><strong>Cloudflare</strong> hosts this website, our service and the portal, and holds photographs, drawings and other files in private storage.</li>
               <li><strong>Neon</strong> hosts the database that holds account and project records.</li>
               <li><strong>Apple</strong> provides Sign in with Apple, App Store payments, Apple Maps for the map and address search, and speech recognition for dictation.</li>
-              <li><strong>Google</strong> provides Sign in with Google. When you use it, Google’s sign-in software also collects information under Google’s own privacy policy. On the portal’s sign-in page your browser loads Google’s sign-in button from Google, and Apple’s from Apple.</li>
+              <li><strong>Google</strong> provides Sign in with Google in the Snaglist portal. The portal’s sign-in page loads Google’s sign-in button from Google, which then receives your browser’s details under Google’s own privacy policy.</li>
               <li><strong>RevenueCat</strong> manages subscriptions.</li>
               <li><strong>Resend</strong> delivers our emails.</li>
               <li><strong>Google Workspace</strong> holds our support mailbox.</li>
             </ul>
             <p className="mt-3">
-              Apple and Google provide sign-in, and Apple provides Apple Maps, speech recognition and App Store
-              payments, under their own terms and privacy policies.
+              Cloudflare, Neon, RevenueCat, Resend and Google Workspace process information only on our
+              instructions, under written terms that require them to protect it at least as well as this
+              policy does. Apple and Google provide sign-in, and Apple provides Apple Maps, speech recognition
+              and App Store payments, under their own terms and privacy policies.
             </p>
             <p className="mt-3">We also share information:</p>
             <ul className={`${list} mt-2`}>
@@ -353,7 +355,7 @@ export const Privacy: React.FC = () => {
             <p>This website sets no cookies. The portal and Contractor links use only the cookies they need to work:</p>
             <ul className={`${list} mt-2`}>
               <li><code>__Host-snaglist_session</code> keeps you signed in to the portal, for up to 7 days;</li>
-              <li><code>__Host-snaglist_login</code>, and cookies whose names begin <code>__Host-snaglist_apple_</code> or <code>__Host-snaglist_google_</code>, hold a sign-in while it is in progress, for 15 minutes and 10 minutes respectively;</li>
+              <li><code>__Host-snaglist_login</code>, and cookies whose names begin <code>__Host-snaglist_google_</code>, hold a sign-in while it is in progress, for 15 minutes and 10 minutes respectively;</li>
               <li>cookies whose names begin <code>__Host-snaglist_link_</code> keep a PIN-protected Contractor link unlocked after the correct PIN, for up to two hours and never beyond the link’s expiry. Links in the format used before Snaglist 2.0 use a cookie named <code>snaglist_pin</code> in the same way.</li>
             </ul>
             <p className="mt-3">

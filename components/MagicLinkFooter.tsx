@@ -12,7 +12,7 @@ export const MagicLinkFooter = ({ variant }: MagicLinkFooterProps) =>
         rel="noreferrer"
         className="inline-flex items-center min-h-12 text-sm underline"
       >
-        Help with your contractor link
+        Help with your Contractor link
       </a>
     </footer>
   );

@@ -124,8 +124,8 @@ export function FinalCTA() {
             on your next walk.
           </h2>
           <p>
-            Snag lists for iPhone, with Contractor links your trades open in a
-            browser. Free to download, with optional Pro subscriptions.
+            Snag lists for iPhone and iPad, with Contractor links your trades
+            open in a browser. Free to download, with optional Pro subscriptions.
           </p>
         </div>
         <StoreLink placement="final" />

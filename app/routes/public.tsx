@@ -75,7 +75,7 @@ const commonFAQ: [string, string][] = [
   ],
   [
     "What is the difference between submitted and accepted?",
-    "When the trade sends a completion photo, the work is submitted and waits for your review. You then accept the work or send it back. The snag closes only when a manager accepts it; a submission never closes it by itself.",
+    "When the trade sends a completion photo, the work is submitted and waits for your review. You then accept the work or send it back. The snag closes only on a manager’s decision; a submission never closes it by itself.",
   ],
   [
     "Can I start free?",
@@ -83,7 +83,7 @@ const commonFAQ: [string, string][] = [
   ],
   [
     "Do I need an account?",
-    "Not to record snags: you can walk the job and build the record on your iPhone without one. Sign in when you want to send Contractor links or work with colleagues in a company. Projects you share are kept in your Snaglist account and can be downloaded on another signed-in device.",
+    "Not to record snags: you can walk the job and build the record on your iPhone without one. To send Contractor links or work with colleagues, sign in and create the project in a workspace. Projects saved to a workspace are stored on our service and appear on your other signed-in devices.",
   ],
 ];
 const steps = [
@@ -92,8 +92,8 @@ const steps = [
     "Give the snag a clear description and add a photo. Keep the original observation with the record.",
   ],
   [
-    "Pin the location",
-    "Use a floor-plan pin to show where the issue is. A room name and precise location help the next person find it.",
+    "Record the location",
+    "Name the room and the exact spot so the next person can find it.",
   ],
   [
     "Send a Contractor link",
@@ -101,7 +101,7 @@ const steps = [
   ],
   [
     "Review the completion photo",
-    "The trade’s completion photo is a submission. It waits under Awaiting review until a manager accepts the work or sends it back. Only acceptance closes the snag.",
+    "The trade’s completion photo is a submission. It waits under Awaiting review until a manager accepts the work or sends it back. Only a manager’s decision closes the snag.",
   ],
   [
     "Hand over the record",
@@ -132,7 +132,8 @@ function Plans() {
         <p className="price">£0</p>
         <ul>
           <li>One project</li>
-          <li>20 snags</li>
+          <li>20 snags per project</li>
+          <li>Five photos per snag</li>
           <li>Five Contractor links a month</li>
           <li>Trades open your links free, with no account</li>
         </ul>
@@ -156,7 +157,7 @@ function Plans() {
           <li>Unlimited projects and snags</li>
           <li>Unlimited Contractor links</li>
           <li>Unlimited photos per snag</li>
-          <li>Floor-plan pins</li>
+          <li>Floor-plan pins (projects on your device)</li>
           <li>Custom report branding</li>
           <li>Monthly or annual, bought and managed through Apple</li>
         </ul>
@@ -301,8 +302,10 @@ function Home({ page }: { page: PageSpec }) {
               <br />A pin is a place.
             </h2>
             <p>
-              Show where the work is with a floor-plan pin, then use the photo
-              and description to explain what needs attention.
+              Show where the work is with the room and the exact spot, then use
+              the photo and description to explain what needs attention. With
+              Snaglist Pro, projects kept on your device can also carry
+              floor-plan pins.
             </p>
             <a className="text-link" href="/floor-plans">
               See floor-plan pinning →
@@ -379,8 +382,8 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
       <>
         <Intro page={page}>
           <p>
-            Choose Free or Pro in the iPhone app. There is no separate web
-            checkout.
+            Choose Free or Pro in the Snaglist app for iPhone and iPad. There is
+            no separate web checkout.
           </p>
         </Intro>
         <section className="wrap section compact-top">
@@ -392,13 +395,20 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
               limits.
             </p>
             <p>
+              If you already have more than the Free allowance, you keep it all;
+              the limits only stop new projects, snags, photos and links being
+              added. Company projects you are invited to don’t count toward it.
+            </p>
+            <p>
               Monthly: <strong>{OFFER.monthly} each month</strong>. Annual:{" "}
               <strong>{OFFER.annual} billed once a year</strong>. UK App Store
               prices. Your purchase screen shows the applicable price and
               subscription terms before you confirm.
             </p>
             <p>
-              Subscriptions renew automatically unless cancelled. Manage or
+              Payment is charged to your Apple account when you confirm the
+              purchase. Subscriptions renew automatically unless cancelled at
+              least 24 hours before the end of the current period. Manage or
               cancel in your Apple account’s subscription settings.{" "}
               <a href="https://support.apple.com/en-gb/118428" rel="noreferrer">
                 Apple’s subscription cancellation guide
@@ -438,9 +448,10 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
             <h2>From your list to their phone, and back.</h2>
             <ol className="plain-steps">
               <li>
-                Sign in and share the project from the app. Choose the snags and
-                the contractor, then send the link however you usually message
-                them.
+                Sign in and create the project in your workspace or your
+                company’s: choose it under Save project when you create the
+                project. Then choose the snags and the contractor, and send the
+                link however you usually message them.
               </li>
               <li>
                 The contractor opens the link in a browser. If you set a PIN,
@@ -452,7 +463,7 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
               </li>
               <li>
                 You review the photo and accept the work or send it back with a
-                reason. The snag closes only when a manager accepts it.
+                reason. The snag closes only on a manager’s decision.
               </li>
             </ol>
             <p>
@@ -584,16 +595,21 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
               <li>
                 Add a close photograph and a written description of the issue.
               </li>
-              <li>
-                Send the contractor a Contractor link for the snag, with its
-                location, description and photos.
-              </li>
             </ol>
+            <p>
+              Floor-plan pins work in projects kept on your device. In a project
+              saved to a workspace, yours or a company’s, you can view plans in
+              the app but not yet add or move them, so pins and Contractor links
+              cannot yet be used in the same project.
+            </p>
             <p>
               Use a readable plan and a separate snag for each issue. Avoid
               placing several unrelated observations under one pin.
             </p>
-            <p>Floor-plan pins are included with Snaglist Pro.</p>
+            <p>
+              Floor-plan pins are included with Snaglist Pro, in projects kept on
+              your device.
+            </p>
             <a className="text-link" href="/contractor-link">
               See how the Contractor link works →
             </a>
@@ -607,10 +623,6 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
               Check the drawing’s revision before pinning the work. A floor-plan
               pin records a location; it does not confirm dimensions or replace
               the project’s drawing control process.
-            </p>
-            <p>
-              In a project shared with your company, the current plans can be
-              viewed in the app; adding and editing plans there is coming soon.
             </p>
             <p>
               Check the options available in your installed app before preparing
@@ -717,8 +729,8 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
             </p>
             <h2>When the spreadsheet gets harder to keep up</h2>
             <p>
-              Keep photos and plan pins together in the app, and send each trade
-              a Contractor link instead of a spreadsheet.{" "}
+              Keep each snag's photo and location together in the app, and send
+              each trade a Contractor link instead of a spreadsheet.{" "}
               <a href="/features">See how Snaglist works</a> or{" "}
               <a href="/contractor-link">see the Contractor link</a>.
             </p>
@@ -780,16 +792,18 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
           <div id="contractor-links" className="prose">
             <h2>Contractor links and reviews</h2>
             <p>
-              Send a Contractor link from a project you have shared from the
-              app. The trade opens it in a browser, with no account and no app,
-              and sends a completion photo for your review.
+              Contractor links are sent from projects saved to a workspace. The
+              workspace is chosen when you create a project, and a project kept
+              on this device only cannot send one. The trade opens the link in a
+              browser, with no account and no app, and sends a completion photo
+              for your review.
             </p>
           </div>
           <FAQ
             items={[
               [
                 "How do I send a Contractor link?",
-                "Sign in, open the project and share it from the project screen. Then choose the snags and the contractor, set how long the link lasts and, if you want one, a PIN. Send the link in the way you usually message the trade.",
+                "Sign in and create the project in a workspace. Open it, choose Share with contractor, pick the snags and the contractor, set how long the link lasts and, if you want one, a PIN. Send the link the way you usually message the trade.",
               ],
               commonFAQ[0],
               [
@@ -936,7 +950,7 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
                   ],
                   [
                     "Location",
-                    "Floor-plan pins, with Snaglist Pro",
+                    "Floor-plan pins with Snaglist Pro, in projects kept on the device",
                     "Which edition supports the location or drawing workflow you need?",
                   ],
                   [
@@ -946,7 +960,7 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
                   ],
                   [
                     "Completion evidence",
-                    "The trade’s completion photo is submitted, awaits review and closes only when a manager accepts it.",
+                    "The trade’s completion photo is submitted and awaits review. The snag closes only on a manager’s decision.",
                     "How do photos and review decisions get back to the manager?",
                   ],
                   [
@@ -984,10 +998,10 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
             </p>
             {page.role === "Site Audit Pro" && (
               <p>
-                Site Audit Pro is a reasonable choice if you want a branded PDF
-                and nobody has to action the list inside the tool. Snaglist is
-                the better fit if subcontractors must respond to the items and
-                you want their completion photos in the same record.
+                Site Audit Pro may suit you if a branded PDF is the main output
+                you need. Snaglist is built for jobs where subcontractors
+                respond to the items and you want their completion photos in the
+                same record.
               </p>
             )}
             <p>
@@ -1104,15 +1118,14 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
           <p>
             When the work is done, add a completion photo and a note through
             the link. Your submission waits for the site manager’s review, and
-            the item closes only when a manager accepts the work.
+            the item closes only on a manager’s decision.
           </p>
         ) : (
           <p>
             A list is useful when the person receiving it can identify the work
             and respond. Send the trade a Contractor link for their snags: they
             open it in a browser with no account and send a completion photo.
-            The snag waits for review and closes only when a manager accepts
-            the work.
+            The snag waits for review and closes only on a manager’s decision.
           </p>
         )}
         <div className="actions">

@@ -5,9 +5,11 @@ export const OFFER = {
   monthly: "£14.99",
   annual: "£119.99",
 };
-// The Free allowance as Dan approved it for the public site (Drive offer). Show all
-// three together wherever pricing is explained.
-export const FREE_LIMITS = "one project, 20 snags and five Contractor links a month";
+// The Free allowance as Dan approved it for the public site (Drive offer), with the
+// five-photo cap the app enforces disclosed (Dan's decision on review M2, 23 September
+// 2026). Show all four together wherever pricing is explained.
+export const FREE_LIMITS =
+  "one project, 20 snags per project, five photos per snag and five Contractor links a month";
 // Dan's approved company statement (decision A5). The only company pricing statement
 // the site may carry: no company price appears anywhere.
 export const COMPANY_PLANS =
@@ -46,14 +48,13 @@ export const pages: Record<string, PageSpec> = {
   "/floor-plans": {
     title: "Snagging app with floor-plan pins | Snaglist",
     description:
-      "Put each snag in context with a floor-plan pin and photo. Help the person doing the work find the right place and understand what needs attention.",
+      "Put each snag in context with a floor-plan pin and a photo, so the right place is easy to find when you walk the job again.",
     heading: "Put the snag where the work is",
     kind: "plans",
   },
   "/pricing": {
-    title: "Snaglist pricing: Free and Pro for iPhone",
-    description:
-      "Snaglist Free covers one project, 20 snags and five Contractor links a month. Snaglist Pro is £14.99 a month or £119.99 a year in the UK.",
+    title: "Snaglist pricing: Free and Pro for iPhone and iPad",
+    description: `Snaglist Free covers ${FREE_LIMITS}. Snaglist Pro is ${OFFER.monthly} a month or ${OFFER.annual} a year in the UK.`,
     heading: "Start free. Check Pro when you need more.",
     kind: "pricing",
   },

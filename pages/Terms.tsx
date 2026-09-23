@@ -52,8 +52,9 @@ export const Terms: React.FC = () => {
           <section>
             <h2 className={h2}>3. Accounts and companies</h2>
             <p className="mb-2">
-              You can create an account by signing in with Apple, with Google, or with a sign-in link sent to your
-              email address. When you use an account:
+              You can create an account in the app by signing in with Apple or with a sign-in link sent to your
+              email address, and in the Snaglist portal by signing in with Google or with a sign-in link. When you
+              use an account:
             </p>
             <ul className={list}>
               <li>You must provide accurate and complete information when creating an account</li>
@@ -74,8 +75,11 @@ export const Terms: React.FC = () => {
             <h2 className={h2}>4. Your content</h2>
             <p>
               You retain ownership of all content you upload to the Service, including photos, project data,
-              snag reports, and floor plans ("Your Content"). By using the Service, you grant us a limited
-              licence to store, process, and display Your Content solely for the purpose of providing the Service to you.
+              snag reports, and floor plans ("Your Content"). By using the Service, you grant us a licence to
+              store, process and display Your Content to provide the Service to you and to the people you share
+              it with, including members of a company whose projects you work in and the recipients of
+              Contractor links you send, and to keep content you added to a company’s projects in that
+              company’s records, as the privacy policy describes.
             </p>
             <p className="mt-2">
               Content you add to a company’s projects stays in that company’s records if you leave the company
@@ -102,7 +106,7 @@ export const Terms: React.FC = () => {
               <li>You choose the snags and the contractor, and you are responsible for sending the link only to the intended recipient.</li>
               <li>Anyone who has a link can open it, and a link can be forwarded. You are responsible for who you send it to. If you add a PIN, send it separately from the link.</li>
               <li>You control the link’s PIN, its expiry (1 to 90 days) and its revocation. Revoking a link stops it working; copies a recipient has already saved may remain with them.</li>
-              <li>A contractor’s submission does not close a snag. Submitted work waits for review, and only your acceptance or a colleague’s closes the snag. You can also send work back with a reason.</li>
+              <li>A contractor’s submission does not close a snag. Submitted work waits for review, and only a decision by you or a colleague closes the snag. You can also send work back with a reason.</li>
             </ul>
             <p className="mt-2">
               <Dan>L5: the terms that apply to someone who uses a Contractor link without a Snaglist account</Dan>
@@ -133,11 +137,17 @@ export const Terms: React.FC = () => {
             </p>
             <ul className={`${list} mt-2`}>
               <li>Subscriptions offered in the iOS app are purchased and managed through the Apple App Store; this website has no subscription checkout</li>
-              <li>Subscriptions renew automatically unless cancelled before the renewal date</li>
+              <li>Payment is charged to your Apple account when you confirm the purchase</li>
+              <li>Subscriptions renew automatically unless cancelled at least 24 hours before the end of the current period</li>
               <li>Refunds are subject to the applicable app store's refund policy</li>
               <li>We may change pricing with 30 days' notice</li>
               <li>Deleting your account does not cancel a subscription; cancel it in your Apple account’s subscription settings</li>
             </ul>
+            <p className="mt-2">
+              If you downloaded Snaglist from the App Store, Apple’s standard{' '}
+              <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" className={link}>Licensed Application End User License Agreement</a>{' '}
+              also applies.
+            </p>
           </section>
 
           <section>
@@ -155,6 +165,11 @@ export const Terms: React.FC = () => {
               To the maximum extent permitted by law, Snaglist shall not be liable for any indirect, incidental,
               special, consequential, or punitive damages, including loss of data, profits, or business opportunities,
               arising from your use of the Service.
+            </p>
+            <p className="mt-2">
+              Nothing in these Terms limits liability for death or personal injury caused by negligence, for
+              fraud, or for anything else that cannot be limited by law, and nothing affects your statutory
+              rights as a consumer.
             </p>
             <p className="mt-2">
               The Service is a tool for managing construction snag lists. It does not replace professional
@@ -200,9 +215,7 @@ export const Terms: React.FC = () => {
           <section>
             <h2 className={h2}>13. Governing law</h2>
             <p>
-              These Terms are governed by and construed in accordance with the laws of Ireland.
-              Any disputes arising from these Terms or the Service shall be subject to the exclusive
-              jurisdiction of the courts of Ireland.
+              <Dan>L2: governing law and courts</Dan>
             </p>
           </section>
 

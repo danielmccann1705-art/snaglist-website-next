@@ -51,7 +51,7 @@ export const screenshotSlots: Record<string, ScreenshotSlotSpec> = {
     page: "/floor-plans",
     device: "iPhone, Snaglist 2.0 with Pro",
     shows:
-      "A demo snag pinned on a readable demo floor plan, with the selected pin, its reference and the room around it.",
+      "A demo snag pinned on a readable demo floor plan, with the selected pin, its reference and the room around it. Capture it in a demo project kept on the device only: pins cannot be added in a project saved to a workspace.",
     alt: "A snag pinned on a floor plan in Snaglist",
   },
   "report-with-fix": {
