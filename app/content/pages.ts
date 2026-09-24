@@ -3,9 +3,14 @@ export const APP_STORE = "https://apps.apple.com/gb/app/snaglist/id6758858102";
 export const SUPPORT = "support@usesnaglist.com";
 // The manager portal's production origin, exactly as the backend configures it
 // (SnagLinkBackend Infrastructure/cloudflare/wrangler.portal-production.jsonc,
-// PORTAL_ORIGIN). On 23 September 2026 the hostname did not resolve and the portal
-// Worker was switched off: `npm run release` refuses to publish until it answers.
+// PORTAL_ORIGIN). Enable the entrance only when the iOS update and production
+// portal are live; the release check then requires the destination to answer.
 export const PORTAL = "https://app.usesnaglist.com";
+// Dan authorised this pre-launch state on 23 September 2026.
+export const PORTAL_SIGN_IN_AVAILABLE = false;
+export const PORTAL_PENDING_LABEL = "Sign in — coming soon";
+export const ONLINE_LAUNCH_NOTE =
+  "Contractor links and portal sign-in open when the iOS app update is live. You can use the app on your device now.";
 export const OFFER = {
   monthly: "£14.99",
   annual: "£119.99",
@@ -111,14 +116,14 @@ export const pages: Record<string, PageSpec> = {
   "/privacy": {
     title: "Snaglist privacy policy",
     description:
-      "How Snaglist handles personal data in the app, in Contractor links and on this website, and how to contact us about your data.",
+      "How the released Snaglist app, this website, subscriptions and support handle your information. Online services open with the iOS update.",
     heading: "Privacy policy",
     kind: "privacy",
   },
   "/terms": {
     title: "Snaglist terms of service",
     description:
-      "The terms for using Snaglist, including Contractor links, company membership and Snaglist Pro subscriptions bought through Apple.",
+      "Terms for the released Snaglist app, website and Apple subscriptions, with the online service launch clearly explained.",
     heading: "Terms of service",
     kind: "terms",
   },

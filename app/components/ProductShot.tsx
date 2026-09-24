@@ -16,24 +16,42 @@ export function ProductShot({
   const base = `/screenshots/${id}`;
   const width = CAPTURE_WIDTHS[0];
   const height = Math.round((capture.height * width) / capture.width);
+  const tablet = capture.device === "ipad";
   return (
-    <figure className="product-shot" data-product-capture={id}>
-      <picture>
-        <source
-          type="image/webp"
-          srcSet={CAPTURE_WIDTHS.map((w) => `${base}-${w}.webp ${w}w`).join(", ")}
-          sizes="(max-width: 760px) 280px, 320px"
-        />
-        <img
-          src={`${base}-720.png`}
-          width={width}
-          height={height}
-          alt={capture.alt}
-          loading={priority ? "eager" : "lazy"}
-          decoding={priority ? "auto" : "async"}
-          fetchPriority={priority ? "high" : undefined}
-        />
-      </picture>
+    <figure
+      className={`product-shot${tablet ? " product-shot-tablet" : ""}`}
+      data-product-capture={id}
+    >
+      <div className={tablet ? "ipad-frame" : "iphone-frame"}>
+        {!tablet && (
+          <>
+            <span className="iphone-volume" aria-hidden="true" />
+            <span className="iphone-power" aria-hidden="true" />
+          </>
+        )}
+        <picture className={tablet ? "ipad-screen" : "iphone-screen"}>
+          <source
+            type="image/webp"
+            srcSet={CAPTURE_WIDTHS.map((w) => `${base}-${w}.webp ${w}w`).join(
+              ", ",
+            )}
+            sizes={
+              tablet
+                ? "(max-width: 760px) calc(100vw - 64px), 500px"
+                : "(max-width: 760px) 260px, 300px"
+            }
+          />
+          <img
+            src={`${base}-720.png`}
+            width={width}
+            height={height}
+            alt={capture.alt}
+            loading={priority ? "eager" : "lazy"}
+            decoding={priority ? "auto" : "async"}
+            fetchPriority={priority ? "high" : undefined}
+          />
+        </picture>
+      </div>
       {caption && <figcaption>{caption}</figcaption>}
     </figure>
   );

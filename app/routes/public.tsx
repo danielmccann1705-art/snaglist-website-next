@@ -7,7 +7,7 @@ import {
   APP_STORE,
   FREE_LIMITS,
   COMPANY_PLANS,
-  PORTAL,
+  PORTAL_SIGN_IN_AVAILABLE,
   type PageSpec,
 } from "../content/pages";
 import {
@@ -16,8 +16,8 @@ import {
   StoreLink,
   FinalCTA,
   FAQ,
+  PortalSignIn,
 } from "../components/Site";
-import { ScreenshotSlot } from "../components/ScreenshotSlot";
 import { ProductShot } from "../components/ProductShot";
 import { track } from "../lib/analytics";
 import { Privacy } from "../../pages/Privacy";
@@ -143,6 +143,11 @@ function Plans() {
           label="Start with Snaglist Free"
           secondary
         />
+        {!PORTAL_SIGN_IN_AVAILABLE && (
+          <p className="launch-purchase-note">
+            Contractor links open with the iOS app update.
+          </p>
+        )}
       </article>
       <article className="price-card pro">
         <p className="eyebrow">Pro</p>
@@ -163,6 +168,12 @@ function Plans() {
           <li>Monthly or annual, bought and managed through Apple</li>
         </ul>
         <StoreLink placement="pro-plan" label="Get Snaglist" />
+        {!PORTAL_SIGN_IN_AVAILABLE && (
+          <p className="launch-purchase-note">
+            Online features open with the iOS app update. Buying Pro does not
+            activate them today.
+          </p>
+        )}
       </article>
     </div>
   );
@@ -216,23 +227,18 @@ function Download({ filename, label }: { filename: string; label: string }) {
 const journey = [
   [
     "Send the work",
-    "Choose the snags and the contractor in the app and send one link, however you usually message them.",
+    "Choose the snags and the contractor. Send one link, however you usually message them.",
     "You, in the app",
   ],
   [
-    "They open it in a browser",
-    "The contractor opens the link on a phone or computer. No app to install, no account to create and nothing to pay. Add a PIN if you want one.",
-    "Contractor, any web browser",
+    "Get the evidence back",
+    "The contractor opens the link in a browser and sends a completion photo and a note. No app or account needed.",
+    "Submitted · awaiting your review",
   ],
   [
-    "The evidence comes back",
-    "They add a completion photo and a note. The work is submitted and waits under Awaiting review. It is not closed.",
-    "Contractor, the same link",
-  ],
-  [
-    "You review it",
-    "Check the photo and the note, then accept the work or send it back with a reason. Only a manager’s decision closes the snag.",
-    "You, in the app or the manager portal",
+    "Review and sign off",
+    "Check the evidence in the app or manager portal. Accept the work, or send it back with a reason. Only your acceptance closes the snag.",
+    "Accepted by a manager · closed",
   ],
 ];
 function Journey() {
@@ -283,9 +289,7 @@ function AppAndPortal() {
           <p className="surface-signin">
             Sign in with Google or with an email link.
           </p>
-          <a className="text-link" href={PORTAL}>
-            Sign in to the manager portal <span aria-hidden="true">→</span>
-          </a>
+          <PortalSignIn />
         </article>
         <article>
           <h3>For the contractor: a link</h3>
@@ -301,9 +305,9 @@ function AppAndPortal() {
       <p className="signin-note">
         The portal does not offer Sign in with Apple. An account you have only
         used with Sign in with Apple can sign in to the portal only by an email
-        link to the address verified on that account. To reach the same
-        projects in both places, sign in with an email link to the same address
-        in the app and in the portal.
+        link to the address verified on that account. To reach the same projects
+        in both places, sign in with an email link to the same address in the
+        app and in the portal.
       </p>
     </section>
   );
@@ -325,8 +329,8 @@ function Home({ page }: { page: PageSpec }) {
               <span>{rest.join(" ")}</span>
             </h1>
             <p className="intro-copy">
-              Capture the snag on site. Send your contractor a Contractor link.
-              Review their photo before you sign it off.
+              Capture the snag. Send your contractor a link. Review their photo
+              before you sign it off.
             </p>
             <p className="hero-note">
               Contractors open it in a browser. No app or account needed.
@@ -357,7 +361,7 @@ function Home({ page }: { page: PageSpec }) {
             <ProductShot
               id="home-hero"
               priority
-              caption="The snag in the app, ready to send with Share with contractor."
+              caption="Photo. Location. Contractor. One clear handoff."
             />
           </div>
         </div>
@@ -376,7 +380,7 @@ function Home({ page }: { page: PageSpec }) {
           </div>
           <ProductShot
             id="link-review"
-            caption="Proof of the fix. Your sign-off."
+            caption="Evidence submitted. Ready for your review."
           />
         </div>
       </section>
@@ -523,10 +527,9 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
           }
         >
           <p>
-            A Contractor link sends the trade the snags that are theirs. They
-            open it in a browser, with no account and no app, check the
-            location, description and photos, and send a completion photo when
-            the work is done. You review it before anything closes.
+            Send the trade their snags. They open the link in a browser and send
+            back a completion photo. No app or account needed. You review the
+            evidence before anything closes.
           </p>
           <div className="actions">
             <StoreLink placement="contractor-intro" />
@@ -563,7 +566,18 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
               acceptance stay separate in your record.
             </p>
           </div>
-          <ScreenshotSlot id="link-browser" />
+          <div className="feature-note">
+            <p className="eyebrow">The contractor’s side</p>
+            <h3>The job, the place and the photo.</h3>
+            <p>
+              Open the link. See the assigned snags. Add a completion photo and
+              a note when the work is ready for review.
+            </p>
+            <p>
+              No account. No app to install. The manager makes the final
+              decision.
+            </p>
+          </div>
         </section>
         <section className="section soft-section">
           <div className="wrap split">
@@ -586,10 +600,31 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
                 a subscription.
               </p>
               <p>
-                <a href="/support#contractor-links">Contractor link questions →</a>
+                <a href="/support#contractor-links">
+                  Contractor link questions →
+                </a>
               </p>
             </div>
-            <ScreenshotSlot id="link-create" />
+            <div
+              className="link-controls"
+              aria-label="Contractor link controls"
+            >
+              <div>
+                <span className="eyebrow">Scope</span>
+                <h3>The snags you choose</h3>
+                <p>Send the work that belongs to that trade.</p>
+              </div>
+              <div>
+                <span className="eyebrow">Access</span>
+                <h3>A PIN if you need one</h3>
+                <p>Share the PIN separately from the link.</p>
+              </div>
+              <div>
+                <span className="eyebrow">Duration</span>
+                <h3>Set an expiry. Revoke access.</h3>
+                <p>Keep control after the link has been sent.</p>
+              </div>
+            </div>
           </div>
         </section>
         <section className="section wrap split">
@@ -609,7 +644,7 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
           </div>
           <ProductShot
             id="link-review"
-            caption="Proof of the fix. Your sign-off."
+            caption="Evidence submitted. Ready for your review."
           />
         </section>
         <section className="section wrap">
@@ -646,28 +681,18 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
               </h2>
               <p>
                 Export a PDF report from Snaglist to share the job record: each
-                snag’s reference, description, location, status and photos,
-                with completion photos beside the original.
+                snag’s reference, description, location, status and photos, with
+                completion photos beside the original.
               </p>
               <p>
                 Check outstanding items before issuing a report. Work awaiting
                 review is not closed until a manager accepts it.
               </p>
             </div>
-            <div className="feature-note">
-              <h3>What makes a useful record?</h3>
-              <ul>
-                <li>One reference per snag</li>
-                <li>A clear location and description</li>
-                <li>The contractor responsible</li>
-                <li>Dates and the current status</li>
-                <li>Original and completion evidence</li>
-              </ul>
-              <a href="/snag-list-template">Start with the free template →</a>
-            </div>
-          </div>
-          <div className="wrap slot-row">
-            <ScreenshotSlot id="report-with-fix" />
+            <ProductShot
+              id="report-preview"
+              caption="An exported report from the app. This snag is still awaiting review."
+            />
           </div>
         </section>
         <FinalCTA />
@@ -952,16 +977,15 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
               before anything is deleted.
             </p>
             <ul>
-              <li>
-                Your account stops working once the request is accepted.
-              </li>
+              <li>Your account stops working once the request is accepted.</li>
               <li>
                 Your active account profile is removed and your account stops
-                accepting sign-ins. Your own projects, snags, drawings and photos
-                are then removed in the background. If you used Sign in with
-                Apple, an encrypted credential is kept only until Snaglist’s
-                access has been revoked. The <a href="/privacy">privacy policy</a>{" "}
-                explains how long deletion takes.
+                accepting sign-ins. Your own projects, snags, drawings and
+                photos are then removed in the background. If you used Sign in
+                with Apple, an encrypted credential is kept only until
+                Snaglist’s access has been revoked. The{" "}
+                <a href="/privacy">privacy policy</a> explains how long deletion
+                takes.
               </li>
               <li>
                 You get a reference to check progress. Keep it private. The app
@@ -1031,10 +1055,9 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
           <h2>Questions to check in {page.role}</h2>
           <p>
             The Snaglist column describes the app as it works now. Check the
-            current edition and any add-ons in{" "}
-            {page.role} directly. We have not verified equivalent features or
-            current pricing in that product, so this is a buying checklist
-            rather than an absence-of-features claim.
+            current edition and any add-ons in {page.role} directly. We have not
+            verified equivalent features or current pricing in that product, so
+            this is a buying checklist rather than an absence-of-features claim.
           </p>
           <div className="table-scroll">
             <table>
@@ -1097,9 +1120,9 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
             <h2>Choose against the job you actually do</h2>
             <p>
               If an existing reporting app already produces the record you need,
-              include that in your decision. If the difficult part is getting the
-              list to the trade and the evidence back, check how each app handles
-              that step.
+              include that in your decision. If the difficult part is getting
+              the list to the trade and the evidence back, check how each app
+              handles that step.
             </p>
             {page.role === "Site Audit Pro" && (
               <p>
@@ -1221,9 +1244,9 @@ function Content({ page, path }: { page: PageSpec; path: string }) {
         <h2>Check the handoff</h2>
         {page.role === "subcontractors" ? (
           <p>
-            When the work is done, add a completion photo and a note through
-            the link. Your submission waits for the site manager’s review, and
-            the item closes only on a manager’s decision.
+            When the work is done, add a completion photo and a note through the
+            link. Your submission waits for the site manager’s review, and the
+            item closes only on a manager’s decision.
           </p>
         ) : (
           <p>

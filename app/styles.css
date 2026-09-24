@@ -161,17 +161,54 @@ textarea:focus-visible {
 .slot-row {
   margin-top: 48px;
 }
-/* A real 2.0 capture, untouched and resized only: square, with a fine rule. */
+/* Upright iPhone surround. The capture supplies the status bar and Dynamic Island;
+   never draw another over it. Only the display's safe corners are rounded. */
 .product-shot {
   width: 100%;
   max-width: 320px;
+}
+.marketing .product-shot {
   margin-inline: auto;
+}
+.iphone-frame {
+  position: relative;
+  padding: 8px;
+  border: 2px solid #74777d;
+  border-radius: 44px;
+  background: #17191d;
+  box-shadow:
+    0 0 0 1px #24272c,
+    inset 0 0 0 1px #b6b8bd;
+}
+.iphone-screen {
+  display: block;
+  overflow: hidden;
+  border-radius: 34px;
+  background: var(--stone);
+}
+.iphone-volume,
+.iphone-power {
+  position: absolute;
+  width: 3px;
+  background: #565960;
+  border-radius: 2px;
+  pointer-events: none;
+}
+.iphone-volume {
+  left: -4px;
+  top: 21%;
+  height: 7%;
+  box-shadow: 0 56px 0 #565960;
+}
+.iphone-power {
+  right: -4px;
+  top: 29%;
+  height: 11%;
 }
 .product-shot img {
   display: block;
   width: 100%;
   height: auto;
-  border: 1px solid var(--rule);
   background: var(--raised);
 }
 .product-shot figcaption {
@@ -180,6 +217,101 @@ textarea:focus-visible {
   font-weight: 500;
   line-height: 1.4;
   text-align: center;
+}
+.marketing .product-shot-tablet {
+  max-width: 520px;
+}
+.ipad-frame {
+  padding: 10px;
+  border: 2px solid #74777d;
+  border-radius: 22px;
+  background: #17191d;
+}
+.ipad-screen {
+  display: block;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.link-controls {
+  display: grid;
+  gap: 24px;
+  padding: 32px;
+  border: 1px solid var(--rule);
+  border-radius: 16px;
+  background: white;
+}
+.link-controls > div + div {
+  border-top: 1px solid var(--rule);
+  padding-top: 24px;
+}
+.link-controls h3 {
+  margin-block: 6px;
+}
+.link-controls p {
+  margin-bottom: 0;
+}
+.current-legal {
+  background: white;
+  color: var(--ink);
+}
+.current-legal .policy-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 20px max(24px, calc((100vw - 1200px) / 2));
+  background: var(--stone);
+  border-bottom: 1px solid #e1e3e6;
+}
+.current-legal-body {
+  max-width: 760px;
+  margin: auto;
+  padding: 56px 24px;
+  line-height: 1.75;
+}
+.current-legal h1 {
+  font-size: clamp(32px, 6vw, 44px);
+  line-height: 1.15;
+}
+.current-legal h2 {
+  font-size: 23px;
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+.current-legal section {
+  margin-block: 40px;
+}
+.current-legal p + p,
+.current-legal ul + p {
+  margin-top: 16px;
+}
+.current-legal ul {
+  padding-left: 24px;
+  list-style: disc;
+}
+.current-legal li {
+  margin-block: 10px;
+}
+.current-legal a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+.current-legal .legal-date {
+  color: #59616e;
+  font-size: 14px;
+  margin-block: 16px 32px;
+}
+.legal-scope {
+  border-left: 3px solid var(--marker);
+  padding: 20px 24px;
+  background: var(--stone);
+}
+.legal-scope p {
+  margin-top: 8px;
+}
+.launch-purchase-note {
+  font-size: 14px;
+  line-height: 1.5;
 }
 .journey-section {
   background: white;
@@ -307,7 +439,8 @@ textarea:focus-visible {
   align-items: center;
   gap: 28px;
 }
-.header-inner nav > a {
+.header-inner nav > a,
+.header-inner nav > .nav-signin {
   min-height: 48px;
   display: flex;
   align-items: center;
@@ -318,7 +451,7 @@ textarea:focus-visible {
 .header-inner nav > .button {
   gap: 16px;
 }
-.header-inner nav > a.nav-signin {
+.header-inner nav > .nav-signin {
   position: relative;
   padding-left: 28px;
 }
@@ -329,6 +462,25 @@ textarea:focus-visible {
   top: 12px;
   bottom: 12px;
   border-left: 1px solid var(--rule);
+}
+.portal-pending {
+  color: var(--grey);
+  font-size: 15px;
+  font-weight: 500;
+}
+.surfaces .portal-signin {
+  margin-top: auto;
+  padding-top: 16px;
+}
+.launch-notice {
+  padding-block: 12px;
+  border-top: 1px solid var(--rule);
+  background: var(--raised);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.launch-notice .wrap {
+  margin-inline: auto;
 }
 .header-inner nav > a[aria-current="page"] {
   text-decoration: underline;
@@ -396,7 +548,7 @@ textarea:focus-visible {
   margin-bottom: 24px !important;
 }
 .hero {
-  padding: 72px 0 80px;
+  padding: 56px 0 64px;
 }
 .hero-grid {
   display: grid;
@@ -768,10 +920,12 @@ textarea:focus-visible {
 .site-footer p {
   margin-top: 24px;
 }
-.site-footer .caption {
+.site-footer .caption,
+.site-footer .portal-pending {
   color: #9ca3af;
 }
-.site-footer nav a {
+.site-footer nav a,
+.site-footer nav .portal-pending {
   display: flex;
   align-items: center;
   min-height: 48px;
@@ -967,7 +1121,8 @@ tbody td {
   .header-inner nav {
     gap: 16px;
   }
-  .header-inner nav > a {
+  .header-inner nav > a,
+  .header-inner nav > .nav-signin {
     font-size: 13px;
   }
   .hero-grid {
@@ -995,7 +1150,7 @@ tbody td {
     gap: 48px;
     grid-template-columns: 1fr 280px;
   }
-  .header-inner nav > a.nav-signin {
+  .header-inner nav > .nav-signin {
     padding-left: 16px;
   }
   .surfaces article {
@@ -1042,7 +1197,8 @@ tbody td {
     flex-direction: column;
     gap: 4px;
   }
-  .header-inner nav > a {
+  .header-inner nav > a,
+  .header-inner nav > .nav-signin {
     font-size: 17px;
     padding: 12px;
   }
@@ -1083,7 +1239,7 @@ tbody td {
   .surfaces article {
     padding: 24px;
   }
-  .header-inner nav > a.nav-signin {
+  .header-inner nav > .nav-signin {
     padding-left: 12px;
   }
   .nav-signin::before {

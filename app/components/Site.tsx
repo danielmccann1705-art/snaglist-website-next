@@ -1,5 +1,12 @@
 import { useRef, useState } from "react";
-import { APP_STORE, PORTAL, SUPPORT } from "../content/pages";
+import {
+  APP_STORE,
+  PORTAL,
+  SUPPORT,
+  PORTAL_SIGN_IN_AVAILABLE,
+  PORTAL_PENDING_LABEL,
+  ONLINE_LAUNCH_NOTE,
+} from "../content/pages";
 import { track } from "../lib/analytics";
 import { Wordmark } from "./Brand";
 export function StoreLink({
@@ -20,6 +27,25 @@ export function StoreLink({
     >
       {label}
       <span aria-hidden="true">↗</span>
+    </a>
+  );
+}
+export function PortalSignIn({ navigation = false }: { navigation?: boolean }) {
+  const className = navigation ? "nav-signin" : "portal-signin";
+  if (!PORTAL_SIGN_IN_AVAILABLE) {
+    return (
+      <span className={`${className} portal-pending`} data-portal-pending="">
+        {PORTAL_PENDING_LABEL}
+      </span>
+    );
+  }
+  return (
+    <a
+      className={className}
+      href={PORTAL}
+      aria-label="Sign in to the manager portal"
+    >
+      {navigation ? "Sign in" : "Sign in to the manager portal"}
     </a>
   );
 }
@@ -66,16 +92,15 @@ export function Header({ path }: { path: string }) {
               {label}
             </a>
           ))}
-          <a
-            className="nav-signin"
-            href={PORTAL}
-            aria-label="Sign in to the manager portal"
-          >
-            Sign in
-          </a>
+          <PortalSignIn navigation />
           <StoreLink placement="header" label="Get Snaglist" />
         </nav>
       </div>
+      {!PORTAL_SIGN_IN_AVAILABLE && (
+        <div className="launch-notice">
+          <p className="wrap">{ONLINE_LAUNCH_NOTE}</p>
+        </div>
+      )}
     </header>
   );
 }
@@ -100,7 +125,7 @@ export function Footer() {
           <a href="/contractor-link">Contractor link</a>
           <a href="/pricing">Pricing</a>
           <a href="/#app-and-portal">App and manager portal</a>
-          <a href={PORTAL}>Sign in to the manager portal</a>
+          <PortalSignIn />
           <a href="/floor-plans">Floor plans</a>
         </nav>
         <nav aria-label="Resources">
@@ -133,8 +158,15 @@ export function FinalCTA() {
           </h2>
           <p>
             Snag lists for iPhone and iPad, with Contractor links your trades
-            open in a browser. Free to download, with optional Pro subscriptions.
+            open in a browser. Free to download, with optional Pro
+            subscriptions.
           </p>
+          {!PORTAL_SIGN_IN_AVAILABLE && (
+            <p className="launch-purchase-note">
+              Use the app on your device now. Contractor links and portal
+              sign-in open with the iOS update.
+            </p>
+          )}
         </div>
         <StoreLink placement="final" />
       </div>

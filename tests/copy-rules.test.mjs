@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, existsSync } from "node:fs";
-import { pages, COMPANY_PLANS, PORTAL } from "../app/content/pages.ts";
+import { pages, COMPANY_PLANS, PORTAL, PORTAL_SIGN_IN_AVAILABLE, PORTAL_PENDING_LABEL, ONLINE_LAUNCH_NOTE } from "../app/content/pages.ts";
 import {
   screenshotSlots,
   productCaptures,
@@ -74,8 +74,8 @@ const ALWAYS = [
   ["stale “coming with v2.0”", /\bcoming\s+(?:with|in)\s+(?:snaglist\s+)?v?2\.0\b/i],
   ["stale “not yet available”", /\bnot\s+yet\s+available\b/i],
   ["stale “not available today”", /\bnot\s+available\s+(?:today|in\s+the\s+current\s+app)\b/i],
-  // Dan's ruling (23 September 2026): no "coming soon", "coming later" or "soon", matching
-  // the app and the store listing.
+  // General future promises remain prohibited. Dan's later, explicit exception
+  // for the unavailable sign-in entrance is removed by exact text below.
   ["later-release promise “coming soon”", /\bcoming\s+(?:soon|later)\b|\bsoon\b/i],
   ["unfinished “[DAN:” placeholder", /\[\s*DAN\s*:/i],
   ["unfinished placeholder", /\b(?:TODO|TBC|TBD|FIXME)\b|lorem ipsum/],
@@ -107,10 +107,11 @@ const READER_ONLY = [
 const ALLOWED_PRICES = new Set(["£0", "£14.99", "£119.99"]);
 
 export function violations(text, scope, { source = false } = {}) {
+  const checkedText = text.replaceAll(PORTAL_PENDING_LABEL, "Sign in unavailable");
   const rules = [...ALWAYS, ...(scope === "legal" ? [] : MARKETING_ONLY), ...(source ? [] : READER_ONLY)];
   const found = [];
   for (const [label, re] of rules) {
-    const m = text.match(re);
+    const m = checkedText.match(re);
     if (m) found.push(`${label}: “${m[0]}”`);
   }
   for (const m of text.matchAll(/£\s?\d[\d,]*(?:\.\d+)?/g)) {
@@ -158,6 +159,8 @@ test("the copy rules catch what they exist for and pass the approved sentences",
     assert.ok(violations(bad, "marketing").length > 0, `not caught: ${bad}`);
   for (const good of [
     COMPANY_PLANS,
+    PORTAL_PENDING_LABEL,
+    ONLINE_LAUNCH_NOTE,
     "Trades open a link. No account.",
     "Snaglist Free covers one project, 20 snags per project, five photos per snag and five Contractor links a month.",
     "Snaglist Pro is £14.99 a month or £119.99 a year in the UK.",
@@ -284,13 +287,23 @@ test("the homepage leads with the Contractor link and keeps the brand line lower
   assert.ok(!/floor[\s-]plan/i.test(text.slice(0, brand)), "floor plans should not lead the homepage");
 });
 
-test("every marketing page gives the manager portal a Sign in entrance in the header and the footer", () => {
-  for (const path of MARKETING) {
+test("portal entrances match launch availability and never link visitors to the unavailable portal", () => {
+  for (const path of [...MARKETING, ...LEGAL]) {
     const html = built(path);
     const header = html.match(/<header[\s\S]*?<\/header>/)?.[0] || "";
     const footer = html.match(/<footer[\s\S]*?<\/footer>/)?.[0] || "";
-    assert.ok(header.includes(`href="${PORTAL}"`) && />Sign in</.test(header), `${path}: header Sign in link`);
-    assert.ok(footer.includes(`href="${PORTAL}"`), `${path}: footer portal link`);
+    if (PORTAL_SIGN_IN_AVAILABLE) {
+      assert.ok(header.includes(`href="${PORTAL}"`) && />Sign in</.test(header), `${path}: header Sign in link`);
+      assert.ok(footer.includes(`href="${PORTAL}"`), `${path}: footer portal link`);
+      assert.ok(!html.includes('data-portal-pending'), `${path}: outdated pending label`);
+    } else {
+      assert.ok(!html.includes(`href="${PORTAL}`), `${path}: an unavailable portal link remains`);
+      for (const [name, fragment] of [["header", header], ["footer", footer]]) {
+        assert.match(fragment, /<span[^>]*data-portal-pending/, `${path}: ${name} should show a non-interactive status`);
+        assert.ok(visibleText(fragment).includes(PORTAL_PENDING_LABEL), `${path}: ${name} missing approved label`);
+      }
+      assert.ok(visibleText(header).includes(ONLINE_LAUNCH_NOTE), `${path}: iOS launch dependency must be visible`);
+    }
   }
   assert.ok(visibleText(built("/")).includes("The portal does not offer Sign in with Apple."), "home must state the portal sign-in limit");
 });

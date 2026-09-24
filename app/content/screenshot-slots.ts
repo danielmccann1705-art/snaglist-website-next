@@ -19,32 +19,7 @@ export type ScreenshotSlotSpec = {
   /** Alt text for the finished image. */
   alt: string;
 };
-export const screenshotSlots: Record<string, ScreenshotSlotSpec> = {
-  // Not 03-contractor-link-creation-light.png: that is the legacy share chooser.
-  "link-create": {
-    page: "/contractor-link",
-    device: "iPhone, Snaglist 2.0",
-    shows:
-      "Creating a Contractor link: the chosen snags, the contractor, the expiry setting and the optional PIN, before the link is shared. No working link and no real PIN on screen.",
-    alt: "Creating a Contractor link in Snaglist on iPhone",
-  },
-  "link-browser": {
-    page: "/contractor-link",
-    device: "Phone browser, with the browser’s own address bar and controls visible",
-    shows:
-      "What the trade sees after opening a Contractor link: an assigned demo snag with its location, description and photo, and the control for adding a completion photo. No sign-in or account prompt. The address bar must not show a working link.",
-    alt: "A Contractor link open in a phone browser, showing an assigned snag",
-  },
-  // Not 06-current-report-photo-page.png: its snag reads Awaiting approval, so it
-  // cannot stand for an accepted fix.
-  "report-with-fix": {
-    page: "/features#reports",
-    device: "PDF page exported from Snaglist 2.0",
-    shows:
-      "One page of a real exported PDF report: a snag’s reference, location and status, its original photo and the completion photo a manager accepted. Check the status on the page reads as accepted, and that any snag still awaiting review is labelled as such. Demo project only.",
-    alt: "A Snaglist PDF report page showing a snag and its accepted completion photo",
-  },
-};
+export const screenshotSlots: Record<string, ScreenshotSlotSpec> = {};
 
 // Real Snaglist 2.0 captures now on the site. Each is an untouched native capture from
 // the 23 September 2026 App Store capture set (outputs/app-store-2026-09-23/captures/
@@ -55,6 +30,7 @@ export const screenshotSlots: Record<string, ScreenshotSlotSpec> = {
 export type ProductCapture = {
   /** The pages that show the capture. */
   pages: string[];
+  device?: "iphone" | "ipad";
   /** The raw capture it was resized from, and that file's SHA-256. */
   source: string;
   sha256: string;
@@ -67,6 +43,18 @@ export type ProductCapture = {
 };
 export const CAPTURE_WIDTHS = [360, 720, 1080] as const;
 export const productCaptures: Record<string, ProductCapture> = {
+  "report-preview": {
+    pages: ["/features"],
+    device: "ipad",
+    source: "ipad/06-current-report-photo-page.png",
+    sha256: "a181074455dbd7bb06c83bec6f0a2793d36434ff2b0da93a626de76f33c62fa7",
+    width: 2064,
+    height: 2752,
+    shows:
+      "An exported PDF in the iPad report viewer. WM3-01 is Awaiting Appr., with its original door photo, location, contractor and dates. It is not an accepted closure or a before-and-after report.",
+    alt: "Snaglist PDF report on iPad: snag WM3-01 awaiting approval, with its original photograph, description, location and contractor",
+  },
+
   "home-hero": {
     pages: ["/", "/contractor-link"],
     source: "iphone/01-current-contractor-context.png",
@@ -94,6 +82,12 @@ export const productCaptures: Record<string, ProductCapture> = {
 // Slots removed on purpose, not filled. Kept here so the decision is visible and a
 // page cannot quietly bring the placeholder back (tests/copy-rules.test.mjs).
 export const removedSlots: Record<string, string> = {
+  "link-create":
+    "24 September pre-launch layout: replaced with concise scope, PIN and expiry explanations. The available creation capture is a legacy chooser, so it is not used to represent the new flow.",
+  "link-browser":
+    "24 September pre-launch layout: explained in text. No suitable current browser capture is saved; existing native snag and review captures remain. No browser mock-up substituted.",
+  "report-with-fix":
+    "24 September: brief narrowed to report-preview. Genuine iPad export shows an item awaiting approval, and its caption says so. No claim that this image proves an accepted fix.",
   "floor-plan-pin":
     "Optional in the website handoff (§9). Floor-plan pins work only in projects kept on the device, with Pro, and new shared-drawing work is deferred, so floor plans moved out of the central 2.0 story (visual review §6). /floor-plans states the scope in words instead of a capture.",
 };

@@ -34,16 +34,16 @@ export const LegalVersion: React.FC = () => (
 );
 
 /**
- * Who provides Snaglist, exactly as both pages must state it. Unverified: Dan's company
- * details have not been supplied, and the App Store seller is Dan's individual developer
- * account, so the provider named here must match the settled operating arrangement
- * (outputs/app-store-2026-09-23/legal/LEGAL-DECISIONS-FOR-DAN.md, items 1 and 2).
+ * Dan supplied the company record for his chosen operator on 23 September 2026:
+ * https://find-and-update.company-information.service.gov.uk/company/17150847
+ * Checked against the public register. This does not change the individual App Store
+ * seller or establish which legal person holds each service-provider agreement.
  */
 export const ProviderName: React.FC = () => (
-  <Dan>provider’s legal name, used on both pages: a company’s registered name and company number, or an individual’s full name, once the operating arrangement and its relation to the individual App Store seller are settled (decisions 1 and 2)</Dan>
+  <>Reeve Technologies Ltd (company number 17150847)</>
 );
 
-/** A publishable geographic business address that is authorised for customer contact. */
+/** Registered office from the same record; not a claim about staffed premises or mail forwarding. */
 export const ProviderAddress: React.FC = () => (
-  <Dan>provider’s postal address: a geographic business address confirmed as usable for customer correspondence (decision 1)</Dan>
+  <>66 Paul Street, London, EC2A 4NA, United Kingdom</>
 );

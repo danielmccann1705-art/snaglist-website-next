@@ -17,7 +17,7 @@ import { rm, writeFile, readFile } from "node:fs/promises";
 import path from "node:path";
 import { CLIENT, STAMP, unresolvedContent, hashTree, headCommit, workingTreeChanges, portalAnswers } from "./release-gates.mjs";
 import { screenshotSlots } from "../app/content/screenshot-slots.ts";
-import { PORTAL } from "../app/content/pages.ts";
+import { PORTAL, PORTAL_SIGN_IN_AVAILABLE } from "../app/content/pages.ts";
 
 const output = process.argv[2];
 if (!output) throw new Error("Pass the upload proof path outside build/, e.g. npm run release -- ../release-proof.json");
@@ -50,8 +50,14 @@ record(
   "no open slots in the screenshot brief",
   Object.entries(screenshotSlots).map(([id, s]) => `${id} (${s.page}) still needs its capture`),
 );
-const portal = await portalAnswers(PORTAL);
-record(`manager portal ${PORTAL} answers`, portal ? [portal] : []);
+if (PORTAL_SIGN_IN_AVAILABLE) {
+  const portal = await portalAnswers(PORTAL);
+  record(`manager portal ${PORTAL} answers`, portal ? [portal] : []);
+} else {
+  // The tests above verify the pre-launch notice and absence of portal links
+  // in every public page. Do not advertise a destination that is not enabled.
+  record("portal entrance intentionally unavailable until the iOS update", []);
+}
 const changes = workingTreeChanges();
 record("working tree matches a commit", changes ? changes.split("\n").map((l) => `uncommitted: ${l.trim()}`) : []);
 
