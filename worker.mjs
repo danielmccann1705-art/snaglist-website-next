@@ -100,6 +100,9 @@ function publicPath(path, pages) {
 
 function staticPath(path, pages) {
   if (["/robots.txt", "/sitemap.xml", "/favicon.png", "/apple-touch-icon.png"].includes(path)) return true;
+  // Product captures are public artwork. Admit only flat PNG/WebP files here,
+  // without broadening access to internal build files or private link routes.
+  if (/^\/screenshots\/[a-z0-9-]+\.(?:png|webp)$/.test(path)) return true;
   if (/^\/(?:assets|brand|fonts|downloads)\/.+\.(?:js|css|svg|png|jpe?g|webp|avif|ico|woff2?|pdf|xlsx|txt)$/.test(path)) return true;
   // React Router's public prerender data is explicit too; never admit /m data.
   return path === "/_root.data" || (path.endsWith(".data") && pages.includes(path.slice(0, -5)));

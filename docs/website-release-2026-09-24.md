@@ -33,6 +33,10 @@ Freeze this branch’s exact source commit, run `INDEX_PUBLIC_SITE=true npm run 
 
 Rollback is a website-only deployment assigning 100% to prior version `9d781a76-40f0-42cc-8724-53a1bb834e81`. Do not change DNS, backend data or contractor tokens.
 
+### Delivery correction during publication
+
+The first live readback found all 12 screenshot variants returning 404: the older Worker allowed brand/fonts/downloads/assets but did not allow the new `/screenshots/` directory. The preview server served those files, so the defect escaped preview and the earlier unit fixtures. Traffic was restored to the preceding version while fixing it. The Worker now allows only flat PNG/WebP capture files in that directory. Two added tests exercise every registered capture's GET/HEAD response, exact bytes and media type, and reject scripts/documents/nested files. The corrected suite has 62 tests. The receipt records both the first activation/rollback and the corrected deployment; the first activation is not reported as successful acceptance.
+
 ## At the online app/portal launch
 
 1. Complete production acceptance and obtain Dan’s approval of that distinct candidate.

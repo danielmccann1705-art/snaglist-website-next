@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import worker from "../worker.mjs";
+import { productCaptures, CAPTURE_WIDTHS } from "../app/content/screenshot-slots.ts";
 
 const publicPages = ["/", "/pricing", "/contractor-link", "/privacy", "/snagging-app/site-managers"];
 const association = await readFile(new URL("../public/.well-known/apple-app-site-association", import.meta.url));
@@ -57,6 +58,34 @@ function privateResponse(response) {
   assert.equal(response.headers.get("Last-Modified"), null);
   assert.equal(response.headers.get("Set-Cookie"), null);
 }
+
+test("every published capture variant is delivered by the production Worker with correct bytes and MIME type", async () => {
+  const f = fixture();
+  for (const id of Object.keys(productCaptures)) {
+    for (const variant of [...CAPTURE_WIDTHS.map(w => `${w}.webp`), "720.png"]) {
+      const path = `/screenshots/${id}-${variant}`;
+      const bytes = await readFile(new URL(`../public${path}`, import.meta.url));
+      f.files.set(path, bytes);
+      for (const method of ["GET", "HEAD"]) {
+        const response = await f.fetch(path, { method });
+        assert.equal(response.status, 200, `${method} ${path}`);
+        assert.equal(response.headers.get("Content-Type"), path.endsWith(".png") ? "image/png" : "image/webp");
+        assert.equal(response.headers.get("Set-Cookie"), null);
+        assert.deepEqual(Buffer.from(await response.arrayBuffer()), method === "HEAD" ? Buffer.alloc(0) : bytes);
+      }
+    }
+  }
+});
+
+test("screenshot access does not expose scripts, documents or nested private files", async () => {
+  const f = fixture();
+  for (const path of ["/screenshots/internal.html", "/screenshots/internal.js", "/screenshots/.env", "/screenshots/private/customer.png"]) {
+    f.files.set(path, "not public artwork");
+    const response = await f.fetch(path);
+    assert.equal(response.status, 404, path);
+    assert.ok(!(await response.text()).includes("not public artwork"));
+  }
+});
 
 test("explicit public routes fetch their own prerendered document, with no global SPA", async () => {
   const f = fixture();
